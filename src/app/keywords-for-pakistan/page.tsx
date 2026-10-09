@@ -137,7 +137,7 @@ export default function PakistanKeywordHubPage() {
                     {link.label}
                   </span>
                   <span className="mt-1.5 block text-[0.8125rem] leading-relaxed text-ink-muted">{link.note}</span>
-                  <span className="mt-3 block font-mono text-[0.6875rem] text-ink-muted">{link.href}</span>
+                  <span className="mt-3 block font-mono text-[0.75rem] text-ink-muted">{link.href}</span>
                 </span>
                 <IconArrowRight className="mt-1 h-4 w-4 shrink-0 text-forest-600 transition-transform group-hover:translate-x-1" />
               </Link>

@@ -118,7 +118,7 @@ function RecentPropertyCard({ property }: { property: Property }) {
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
-        <span className={`absolute left-3 top-3 rounded-md px-2.5 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-white shadow-sm ${isRent ? "bg-navy-900" : "bg-[#13aa40]"}`}>
+        <span className={`absolute left-3 top-3 rounded-md px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.08em] text-white shadow-sm ${isRent ? "bg-navy-900" : "bg-[#13aa40]"}`}>
           {isRent ? "For Rent" : "For Sale"}
         </span>
       </Link>
@@ -126,7 +126,7 @@ function RecentPropertyCard({ property }: { property: Property }) {
         <h3 className="line-clamp-1 min-h-[1.35em] font-sans text-sm font-semibold leading-snug text-navy-900 sm:text-[0.9375rem]">
           <Link href={`/property/${property.slug}`} className="transition-colors hover:text-forest-700">{compactPropertyTitle(property.title)}</Link>
         </h3>
-        <p className="mt-1 flex min-w-0 items-center gap-1.5 text-[0.6875rem] text-slate-600 sm:text-[0.75rem]">
+        <p className="mt-1 flex min-w-0 items-center gap-1.5 text-[0.75rem] text-slate-600 sm:text-[0.75rem]">
           <IconPin className="h-3.5 w-3.5 shrink-0 text-[#13aa40]" />
           <span className="truncate">{property.locationArea}, {property.cityName}</span>
         </p>
@@ -135,7 +135,7 @@ function RecentPropertyCard({ property }: { property: Property }) {
         </p>
         <div className="mt-auto pt-2.5">
           <div className="h-px bg-slate-100" />
-          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.6875rem] text-slate-600 sm:text-[0.75rem]">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.75rem] text-slate-600 sm:text-[0.75rem]">
             {property.bedrooms > 0 && (
               <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><IconBed className="h-4 w-4 text-[#13aa40]" /> {property.bedrooms} Beds</span>
             )}
@@ -144,7 +144,7 @@ function RecentPropertyCard({ property }: { property: Property }) {
             )}
             <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><IconArea className="h-4 w-4 text-[#13aa40]" /> {area}</span>
           </div>
-          <div className="mt-2 flex items-center justify-between gap-3 text-[0.6875rem] text-slate-500 sm:text-[0.75rem]">
+          <div className="mt-2 flex items-center justify-between gap-3 text-[0.75rem] text-slate-500 sm:text-[0.75rem]">
             <span>{listedTime(property.createdAt)}</span>
             <TypeIcon className="h-4 w-4 shrink-0 text-[#13aa40]" />
           </div>
@@ -214,7 +214,7 @@ export function CityDiscovery({ cities, counts }: { cities: City[]; counts: Map<
                   />
                   <span className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/40 to-transparent" />
                   <span className="relative">
-                    <span className="flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-forest-400">
+                    <span className="flex items-center gap-2 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-forest-400">
                       <IconPin className="h-3.5 w-3.5" />
                       {city.province}
                     </span>
@@ -390,7 +390,7 @@ export function NewProjectsSection({ projects }: { projects: Project[] }) {
                     decoding="async"
                     className="h-full w-full object-cover"
                   />
-                  <span className="absolute left-4 top-4 rounded-md bg-navy-950/85 px-2.5 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+                  <span className="absolute left-4 top-4 rounded-md bg-navy-950/85 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
                     {project.status}
                   </span>
                 </Link>
@@ -517,7 +517,7 @@ export function InsightsPreview({ posts }: { posts: Post[] }) {
                     decoding="async"
                     className="h-full w-full object-cover"
                   />
-                  <span className="absolute left-4 top-4 rounded-md bg-white/95 px-2.5 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.14em] text-navy-900">
+                  <span className="absolute left-4 top-4 rounded-md bg-white/95 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.14em] text-navy-900">
                     {post.category}
                   </span>
                 </Link>

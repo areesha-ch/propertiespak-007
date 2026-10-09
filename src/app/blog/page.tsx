@@ -104,7 +104,7 @@ export default async function BlogPage() {
                       decoding="async"
                       className="h-full w-full object-cover"
                     />
-                    <span className="absolute left-4 top-4 rounded-md bg-white/95 px-2.5 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.14em] text-navy-900">
+                    <span className="absolute left-4 top-4 rounded-md bg-white/95 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.14em] text-navy-900">
                       {post.category}
                     </span>
                   </Link>

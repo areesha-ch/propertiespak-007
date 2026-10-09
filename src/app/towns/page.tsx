@@ -94,7 +94,7 @@ export default async function TownsDirectoryPage() {
                         <IconPin className="h-3.5 w-3.5 text-forest-600" /> {city.province}
                       </p>
                     </div>
-                    <span className="rounded-md bg-mist px-2 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-ink-muted">
+                    <span className="rounded-md bg-mist px-2 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.08em] text-ink-muted">
                       {towns.length} towns
                     </span>
                   </div>

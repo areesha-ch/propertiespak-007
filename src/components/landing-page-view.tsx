@@ -77,7 +77,7 @@ export async function LandingPageView({ content }: { content: LandingContent }) 
               <dl className="mt-4 space-y-3.5">
                 {content.priceBands.map((band) => (
                   <div key={band.label} className="border-b border-white/10 pb-3.5 last:border-b-0 last:pb-0">
-                    <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-white/50">{band.label}</dt>
+                    <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-white/50">{band.label}</dt>
                     <dd className="mt-1 text-[0.875rem] font-medium text-white">{band.range}</dd>
                     <dd className="mt-0.5 text-[0.75rem] text-white/50">{band.note}</dd>
                   </div>

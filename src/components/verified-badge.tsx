@@ -29,7 +29,7 @@ export function BlueTick({ className = "h-4 w-4", title = "Verified account" }: 
 export function VerifiedChip({ className = "", label = "Verified" }: { className?: string; label?: string }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border border-[#1D9BF0]/35 bg-[#1D9BF0]/10 px-2 py-0.5 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-[#0b6fb8] ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-[#1D9BF0]/35 bg-[#1D9BF0]/10 px-2 py-0.5 font-sans text-[0.75rem] font-bold uppercase tracking-[0.08em] text-[#0b6fb8] ${className}`}
     >
       <span aria-hidden="true"><BlueTick className="h-3.5 w-3.5" /></span>
       {label}
@@ -41,7 +41,7 @@ export function VerifiedChip({ className = "", label = "Verified" }: { className
 export function UnverifiedChip({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border border-soft bg-mist px-2 py-0.5 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-ink-muted ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-soft bg-mist px-2 py-0.5 font-sans text-[0.75rem] font-bold uppercase tracking-[0.08em] text-ink-muted ${className}`}
     >
       Not verified yet
     </span>

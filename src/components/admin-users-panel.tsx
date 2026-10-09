@@ -174,25 +174,25 @@ export function AdminUsersPanel() {
     <div className="min-w-0">
       <div className="grid gap-3 sm:grid-cols-3">
         <div className="rounded-panel border border-soft bg-white px-5 py-4">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Registered accounts</p>
+          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Registered accounts</p>
           <p className="mt-1 font-sans text-[1.5rem] font-bold text-navy-900">{counts.total}</p>
         </div>
         <div className="rounded-panel border border-soft bg-white px-5 py-4">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Accounts with listings</p>
+          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Accounts with listings</p>
           <p className="mt-1 font-sans text-[1.5rem] font-bold text-navy-900">{counts.dealers}</p>
         </div>
         <div className="rounded-panel border border-soft bg-white px-5 py-4">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Verified (blue tick)</p>
+          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Verified (blue tick)</p>
           <p className="mt-1 flex items-center gap-2 font-sans text-[1.5rem] font-bold text-navy-900">
             {counts.verified} <BlueTick className="h-5 w-5" />
           </p>
         </div>
         <div className="rounded-panel border border-soft bg-white px-5 py-4">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Profiles completed</p>
+          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Profiles completed</p>
           <p className="mt-1 font-sans text-[1.5rem] font-bold text-navy-900">{counts.profiles}</p>
         </div>
         <div className={`rounded-panel border px-5 py-4 ${counts.requested > 0 ? "border-amber-300 bg-amber-50" : "border-soft bg-white"}`}>
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Verification requests</p>
+          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">Verification requests</p>
           <p className="mt-1 font-sans text-[1.5rem] font-bold text-navy-900">{counts.requested}</p>
         </div>
       </div>
@@ -259,7 +259,7 @@ export function AdminUsersPanel() {
                     <h3 className="flex flex-wrap items-center gap-2 font-sans text-[1rem] font-semibold text-navy-900">
                       {user.name}
                       {user.isVerified ? <BlueTick className="h-4 w-4" /> : <UnverifiedChip />}
-                      <span className="rounded-md bg-mist px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-[0.1em] text-ink-muted">
+                      <span className="rounded-md bg-mist px-2 py-0.5 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-ink-muted">
                         {user.role}
                       </span>
                     </h3>
@@ -285,13 +285,13 @@ export function AdminUsersPanel() {
                 <div className="flex flex-wrap items-center gap-3">
                   <div className="text-right">
                     <p className="font-sans text-[1.25rem] font-bold leading-none text-navy-900">{user.listings}</p>
-                    <p className="mt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">
+                    <p className="mt-1 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">
                       {user.listings === 1 ? "listing" : "listings"}
                     </p>
                   </div>
                   <div className="text-right">
                     <p className="font-sans text-[1.25rem] font-bold leading-none text-navy-900">{user.verifiedListings}</p>
-                    <p className="mt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">checked</p>
+                    <p className="mt-1 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">checked</p>
                   </div>
                   <button
                     type="button"

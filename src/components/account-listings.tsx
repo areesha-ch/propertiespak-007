@@ -57,7 +57,7 @@ function Badge({ tone, children }: { tone: "live" | "hidden" | "pending" | "reje
           : "border-red-200 bg-red-50 text-red-700";
   return (
     <span
-      className={`shrink-0 rounded-md border px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] ${styles}`}
+      className={`shrink-0 rounded-md border px-2.5 py-1 text-[0.75rem] font-bold uppercase tracking-[0.08em] ${styles}`}
     >
       {children}
     </span>
@@ -344,7 +344,7 @@ export function AccountListings({
                     className="h-[74px] w-[104px] shrink-0 rounded-lg object-cover"
                   />
                 ) : (
-                  <div className="grid h-[74px] w-[104px] shrink-0 place-items-center rounded-lg bg-mist text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+                  <div className="grid h-[74px] w-[104px] shrink-0 place-items-center rounded-lg bg-mist text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
                     No photo
                   </div>
                 )}

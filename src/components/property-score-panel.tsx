@@ -11,7 +11,7 @@ export function PropertyScorePanel({ property, variant = "full" }: { property: P
       <span className="inline-flex items-center gap-2 rounded-lg border border-soft bg-white px-3 py-2">
         <IconChart className="h-4 w-4 text-forest-600" />
         <span className="font-sans text-[0.8125rem] font-semibold text-navy-900">Score {score.overall}/10</span>
-        <span className="text-[0.6875rem] text-ink-muted">indicator</span>
+        <span className="text-[0.75rem] text-ink-muted">indicator</span>
       </span>
     );
   }
@@ -31,7 +31,7 @@ export function PropertyScorePanel({ property, variant = "full" }: { property: P
             <span className="pb-1 text-[0.875rem] text-ink-muted">/ 10</span>
           </div>
         </div>
-        <span className="inline-flex items-center gap-2 rounded-lg bg-mist px-3 py-2 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">
+        <span className="inline-flex items-center gap-2 rounded-lg bg-mist px-3 py-2 text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">
           <IconShield className="h-3.5 w-3.5 text-forest-600" />
           {score.label}
         </span>
@@ -47,7 +47,7 @@ export function PropertyScorePanel({ property, variant = "full" }: { property: P
             <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-soft">
               <span className="block h-full rounded-full bg-navy-800" style={{ width: `${(dimension.score / 10) * 100}%` }} />
             </div>
-            <p className="mt-1.5 text-[0.6875rem] text-ink-muted">{dimension.note}</p>
+            <p className="mt-1.5 text-[0.75rem] text-ink-muted">{dimension.note}</p>
           </div>
         ))}
       </dl>
@@ -61,7 +61,7 @@ export function PropertyScorePanel({ property, variant = "full" }: { property: P
         </span>
       </div>
 
-      <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink-muted">{score.disclaimer}</p>
+      <p className="mt-4 text-[0.75rem] leading-relaxed text-ink-muted">{score.disclaimer}</p>
     </div>
   );
 }

@@ -258,7 +258,7 @@ export default async function AboutPage() {
               <div className="flex items-start gap-2.5">
                 <IconShield className="mt-0.5 h-4 w-4 shrink-0 text-forest-600" />
                 <div>
-                  <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">Company</dt>
+                  <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">Company</dt>
                   <dd className="mt-1">
                     <a
                       href={SITE.companyUrl}
@@ -275,7 +275,7 @@ export default async function AboutPage() {
               <div className="flex items-start gap-2.5">
                 <IconPhone className="mt-0.5 h-4 w-4 shrink-0 text-forest-600" />
                 <div>
-                  <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+                  <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
                     Pakistan · Sales &amp; support
                   </dt>
                   <dd className="mt-1">
@@ -288,7 +288,7 @@ export default async function AboutPage() {
               <div className="flex items-start gap-2.5">
                 <IconPhone className="mt-0.5 h-4 w-4 shrink-0 text-forest-600" />
                 <div>
-                  <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+                  <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
                     New York, USA · International enquiries
                   </dt>
                   <dd className="mt-1">
@@ -305,7 +305,7 @@ export default async function AboutPage() {
               <div className="flex items-start gap-2.5">
                 <IconMail className="mt-0.5 h-4 w-4 shrink-0 text-forest-600" />
                 <div>
-                  <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">Email</dt>
+                  <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">Email</dt>
                   <dd className="mt-1">
                     <a href={`mailto:${SITE.companyEmail}`} className="text-navy-900 hover:text-forest-700">
                       {SITE.companyEmail}
@@ -316,7 +316,7 @@ export default async function AboutPage() {
               <div className="flex items-start gap-2.5">
                 <IconShield className="mt-0.5 h-4 w-4 shrink-0 text-forest-600" />
                 <div>
-                  <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">Location</dt>
+                  <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">Location</dt>
                   <dd className="mt-1 text-navy-900">
                     {SITE.companyAddress.city}, {SITE.companyAddress.country}
                   </dd>
@@ -345,11 +345,11 @@ export default async function AboutPage() {
                   className="group flex h-full flex-col rounded-panel border border-soft bg-white p-5 transition-shadow duration-300 hover:shadow-card"
                 >
                   <span className="flex items-center justify-between gap-3">
-                    <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-forest-700">{portal.sector}</span>
+                    <span className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-forest-700">{portal.sector}</span>
                     {portal.current ? (
-                      <span className="rounded-full bg-forest-50 px-2.5 py-0.5 text-[0.6875rem] font-semibold text-forest-700">You are here</span>
+                      <span className="rounded-full bg-forest-50 px-2.5 py-0.5 text-[0.75rem] font-semibold text-forest-700">You are here</span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-[0.6875rem] font-semibold text-ink-muted">
+                      <span className="inline-flex items-center gap-1 text-[0.75rem] font-semibold text-ink-muted">
                         <span className="h-1.5 w-1.5 rounded-full bg-forest-500" /> Live
                       </span>
                     )}

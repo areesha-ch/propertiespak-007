@@ -13,7 +13,7 @@ function subscribe(listener: () => void) {
   return () => media.removeEventListener("change", listener);
 }
 
-/** Show four rows of desktop discovery cards and a paginated, single-row swipe rail on phones. */
+/** Show two rows (8 cards) of desktop discovery cards with a "View all" link, and a paginated swipe rail on phones. */
 export function HomeExploreProperties({ properties, total }: { properties: PropertyWithDealer[]; total: number }) {
   const mobile = useSyncExternalStore(subscribe, () => window.matchMedia(PHONE).matches, () => false);
   // On phones this becomes a swipe rail that drifts the opposite way to Featured
@@ -31,6 +31,6 @@ export function HomeExploreProperties({ properties, total }: { properties: Prope
     />
   ) :
     <div className="home-explore-grid mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {properties.map((property, index) => <Reveal key={property.id} delay={index * 50}><PropertyCard property={property} priority={index < 4} compact /></Reveal>)}
+      {properties.slice(0, 8).map((property, index) => <Reveal key={property.id} delay={index * 50}><PropertyCard property={property} priority={index < 4} compact /></Reveal>)}
     </div>;
 }

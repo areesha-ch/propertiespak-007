@@ -254,7 +254,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
             <Reveal key={item.name} delay={index * 60}>
               <article className="flex h-full flex-col rounded-panel border border-soft bg-white p-6 shadow-soft">
                 <p>
-                  <span className="inline-flex items-center gap-1.5 rounded-md bg-forest-50 px-2.5 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.12em] text-forest-700">
+                  <span className="inline-flex items-center gap-1.5 rounded-md bg-forest-50 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] text-forest-700">
                     <IconCompass className="h-3.5 w-3.5" /> Buyer scenario
                   </span>
                 </p>

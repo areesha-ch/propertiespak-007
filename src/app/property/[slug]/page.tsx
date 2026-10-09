@@ -174,24 +174,24 @@ export default async function PropertyDetailPage({ params }: PageProps) {
             ]}
           />
           <div className="mt-7 flex flex-wrap items-center gap-2.5">
-            <span className={`rounded-md px-2.5 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.12em] ${badge.className}`}>
+            <span className={`rounded-md px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] ${badge.className}`}>
               {badge.label}
             </span>
             {dealerVerified && dealer?.slug ? (
               <Link
                 href={`/dealers/${dealer.slug}`}
-                className="inline-flex items-center gap-1.5 rounded-md bg-white/95 px-2.5 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.12em] text-[#0b6fb8]"
+                className="inline-flex items-center gap-1.5 rounded-md bg-white/95 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] text-[#0b6fb8]"
               >
                 <BlueTick className="h-3.5 w-3.5" /> Verified dealer
               </Link>
             ) : (
               property.verified && (
-                <span className="inline-flex items-center gap-1.5 rounded-md bg-forest-600/15 px-2.5 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.12em] text-forest-400">
+                <span className="inline-flex items-center gap-1.5 rounded-md bg-forest-600/15 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] text-forest-400">
                   <IconShield className="h-3.5 w-3.5" /> Details checked
                 </span>
               )
             )}
-            <span className="rounded-md border border-white/15 px-2.5 py-1 font-sans text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-white/70">
+            <span className="rounded-md border border-white/15 px-2.5 py-1 font-sans text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-white/70">
               {property.cityName}
             </span>
           </div>
@@ -222,7 +222,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
       <section className="bg-white pb-4">
         <div className="ui-container relative z-10 -mt-32 lg:-mt-40">
           <div className="mb-6 flex flex-wrap items-start gap-3 rounded-panel border border-soft bg-mist px-5 py-4">
-            <span className="mt-0.5 shrink-0 rounded-md bg-navy-800 px-2 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.14em] text-white">
+            <span className="mt-0.5 shrink-0 rounded-md bg-navy-800 px-2 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.14em] text-white">
               {dealerVerified ? "Verified dealer listing" : "Listing reference"}
             </span>
             <p className="text-[0.8125rem] leading-relaxed text-ink-muted">
@@ -263,7 +263,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                     <div key={fact.label} className="rounded-xl border border-soft bg-mist/60 p-4">
                       <Icon className="h-[1.15rem] w-[1.15rem] text-forest-600" />
                       <p className="mt-3 font-sans text-[0.9375rem] font-semibold text-navy-900">{fact.value}</p>
-                      <p className="mt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">
+                      <p className="mt-1 text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-ink-muted">
                         {fact.label}
                       </p>
                     </div>

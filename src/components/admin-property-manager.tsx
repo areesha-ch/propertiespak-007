@@ -487,9 +487,9 @@ export function AdminPropertyManager() {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="font-sans text-[0.75rem] font-bold text-ink-muted">#{property.id}</span>
-                  <span className="rounded-md bg-mist px-2 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">{property.purpose === "rent" ? "Rent" : "Sale"} · {property.propertyType}</span>
-                  {property.featured && <span className="rounded-md bg-forest-50 px-2 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-forest-700">Featured</span>}
-                  {property.listedByName && <span className="rounded-md bg-navy-800 px-2 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-white">Owner listed</span>}
+                  <span className="rounded-md bg-mist px-2 py-0.5 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">{property.purpose === "rent" ? "Rent" : "Sale"} · {property.propertyType}</span>
+                  {property.featured && <span className="rounded-md bg-forest-50 px-2 py-0.5 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-forest-700">Featured</span>}
+                  {property.listedByName && <span className="rounded-md bg-navy-800 px-2 py-0.5 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-white">Owner listed</span>}
                 </div>
                 <p className="mt-1.5 truncate font-sans text-[1rem] font-semibold text-navy-900">{property.title}</p>
                 <p className="mt-0.5 flex items-center gap-1.5 truncate text-[0.8125rem] text-ink-muted">

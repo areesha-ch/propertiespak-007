@@ -128,11 +128,11 @@ export default async function CityTownsPage({ params }: PageProps) {
                 <p className="mt-3 line-clamp-3 text-[0.8125rem] leading-relaxed text-ink-muted">{town.character}</p>
                 <dl className="mt-4 grid grid-cols-2 gap-2 text-[0.75rem]">
                   <div className="rounded-lg border border-soft bg-mist px-2.5 py-2">
-                    <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">Sale band</dt>
+                    <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">Sale band</dt>
                     <dd className="mt-1 font-semibold text-navy-900">{town.priceBand}</dd>
                   </div>
                   <div className="rounded-lg border border-soft bg-mist px-2.5 py-2">
-                    <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">Rent band</dt>
+                    <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">Rent band</dt>
                     <dd className="mt-1 font-semibold text-navy-900">{town.rentBand}</dd>
                   </div>
                 </dl>

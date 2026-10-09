@@ -104,7 +104,7 @@ export function FiltersBar({
           update("q", keyword.trim());
         }}
       >
-        <label htmlFor="filter-keyword" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-keyword" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           Keyword
         </label>
         <div className="relative mt-2">
@@ -121,7 +121,7 @@ export function FiltersBar({
 
       {purposeKind === "mixed" && (
         <div>
-          <label htmlFor="filter-purpose" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+          <label htmlFor="filter-purpose" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
             Purpose
           </label>
           <select
@@ -138,7 +138,7 @@ export function FiltersBar({
       )}
 
       <div>
-        <label htmlFor="filter-city" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-city" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           City
         </label>
         <select id="filter-city" className="field mt-2" value={selectedCity} onChange={(event) => onCityChange(event.target.value)}>
@@ -152,7 +152,7 @@ export function FiltersBar({
       </div>
 
       <div>
-        <label htmlFor="filter-town" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-town" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           Town / Society
         </label>
         <select
@@ -183,7 +183,7 @@ export function FiltersBar({
       </div>
 
       <div>
-        <label htmlFor="filter-type" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-type" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           Property type
         </label>
         <select
@@ -202,7 +202,7 @@ export function FiltersBar({
       </div>
 
       <div>
-        <label htmlFor="filter-budget" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-budget" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           Budget
         </label>
         <select
@@ -232,7 +232,7 @@ export function FiltersBar({
       </div>
 
       <div>
-        <label htmlFor="filter-beds" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-beds" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           Bedrooms
         </label>
         <select
@@ -252,7 +252,7 @@ export function FiltersBar({
       </div>
 
       <div>
-        <label htmlFor="filter-baths" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-baths" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           Bathrooms
         </label>
         <select
@@ -271,7 +271,7 @@ export function FiltersBar({
       </div>
 
       <div>
-        <label htmlFor="filter-area" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-area" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           Size
         </label>
         <select
@@ -290,7 +290,7 @@ export function FiltersBar({
       </div>
 
       <div>
-        <label htmlFor="filter-sort" className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        <label htmlFor="filter-sort" className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
           Sort by
         </label>
         <select
