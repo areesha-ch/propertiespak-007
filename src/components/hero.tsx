@@ -26,16 +26,15 @@ export function Hero() {
   const headline = locale === "en" ? englishHeadline : t("Find Your Dream Property in Pakistan");
   return (
     <section id="home-hero" className="home-hero" aria-labelledby="hero-heading" data-testid="home-hero">
-      <link rel="preconnect" href={heroImage.origin} crossOrigin="anonymous" />
       <ResilientImage
         pictureClassName="hero-photograph"
         pictureSources={HERO_IMAGE_SOURCES}
         srcSet={heroImage.desktopSrcSet}
-        fallbackSrc="/images/residence-1600.webp"
+        fallbackSrc="/images/hero-premium.jpg"
         src={heroImage.desktop}
         sizes="100vw"
-        width={7688}
-        height={5128}
+        width={1376}
+        height={768}
         alt={heroImage.alt}
         loading="eager"
         fetchPriority="high"

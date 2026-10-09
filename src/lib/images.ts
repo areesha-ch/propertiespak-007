@@ -49,10 +49,6 @@ export const submissionFallbackPhotos: Record<string, readonly number[]> = {
 };
 
 export const HERO_PHOTO_ID = 31817157;
-const heroSrc = (width: number, height?: number) =>
-  `https://images.pexels.com/photos/${HERO_PHOTO_ID}/pexels-photo-${HERO_PHOTO_ID}.jpeg?auto=compress&cs=tinysrgb` +
-  (height ? `&fit=crop&w=${width}&h=${height}` : `&w=${width}`);
-
 /**
  * Hero: contemporary luxury villa with an infinity pool at sunset by Ahmet
  * Çötür (Pexels photo 31817157), shot at 7688 × 5128. It is served straight
@@ -64,16 +60,11 @@ const heroSrc = (width: number, height?: number) =>
  * the pool behind the headline.
  */
 export const heroImage = {
-  origin: "https://images.pexels.com",
-  desktop: heroSrc(2400),
-  desktopSrcSet: [1280, 1600, 2000, 2400, 3200, 3840].map((w) => `${heroSrc(w)} ${w}w`).join(", "),
-  mobileSrcSet: [
-    [640, 854],
-    [960, 1280],
-    [1280, 1707],
-  ]
-    .map(([w, h]) => `${heroSrc(w, h)} ${w}w`)
-    .join(", "),
+  origin: "",
+  /** Premium villa at dusk, shipped locally so the hero no longer depends on a remote photo CDN. */
+  desktop: "/images/hero-premium.jpg",
+  desktopSrcSet: "/images/hero-premium.jpg 1376w",
+  mobileSrcSet: "/images/hero-premium.jpg 1376w",
   /** Local, real-JPEG social card (WhatsApp / Facebook / X previews). */
   og: "/images/residence-social.jpg",
   alt: "Contemporary luxury villa with floor-to-ceiling glass and an infinity pool at sunset",
