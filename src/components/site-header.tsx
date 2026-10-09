@@ -9,7 +9,7 @@ import { NavigationDialog } from "@/components/navigation-dialog";
 import { PropertySearchFilters } from "@/components/property-search-filters";
 import { HeaderPropertyMap } from "@/components/header-property-map";
 import { defaultPropertySearch, propertySearchFromParams, propertySearchHref, type PropertySearchState } from "@/lib/property-search";
-import { IconArrowRight, IconChevronDown, IconClose, IconHeart, IconMenu, IconSearch, IconUser, IconMap } from "@/components/icons";
+import { IconArrowRight, IconChevronDown, IconClose, IconHeart, IconMenu, IconSearch, IconUser, IconMap, IconCompass } from "@/components/icons";
 import { useFavorites } from "@/components/favorites-provider";
 import { useLanguage } from "@/components/language-provider";
 import { NAV_LINKS, SITE } from "@/lib/constants";
@@ -187,7 +187,7 @@ export function SiteHeader({ isAuthenticated = false }: { isAuthenticated?: bool
               className="header-action header-map-external-link"
               aria-label={t("Open Lahore Real Estate map in a new tab")}
               title={t("Open Lahore Real Estate map in a new tab")}
-            ><IconMap className="h-5 w-5" aria-hidden="true" /></a>
+            ><IconCompass className="h-5 w-5" aria-hidden="true" /></a>
             <button type="button" onClick={(event) => openPanel("search", event.currentTarget)} aria-label={t("Search properties")} aria-haspopup="dialog" className="header-action header-search-action"><IconSearch className="h-5 w-5" /></button>
             <Link href="/favorites" data-testid="header-saved" aria-label={`${t("Saved properties")}${count ? `, ${count} ${t("saved")}` : ""}`} className="header-action header-saved-action">
               <IconHeart className="h-5 w-5" />
