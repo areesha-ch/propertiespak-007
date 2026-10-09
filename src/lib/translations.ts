@@ -158,6 +158,7 @@ const URDU: Record<string, string> = {
   "City, society or area": "شہر، سوسائٹی یا علاقہ",
   "in Pakistan": "پاکستان میں",
   "Buy, rent or invest in residential, commercial and plots across Pakistan — all in one place.": "پاکستان بھر میں رہائشی، کمرشل اور پلاٹوں کی خرید، کرایہ یا سرمایہ کاری — سب ایک جگہ۔",
+  "Buy, rent or invest across Pakistan.": "پورے پاکستان میں خریدیں، کرایہ پر لیں یا سرمایہ کاری کریں۔",
   "For property owners": "پراپرٹی مالکان کے لیے",
   "Have a property to sell or rent?": "کیا آپ کی پراپرٹی فروخت یا کرائے کے لیے ہے؟",
   "List it on Properties Pak and reach thousands of buyers and tenants across Pakistan.": "اسے Properties Pak پر لسٹ کریں اور پاکستان بھر میں ہزاروں خریداروں اور کرایہ داروں تک پہنچیں۔",

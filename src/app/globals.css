@@ -2446,3 +2446,30 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .dealer-showcase-card:hover .dealer-showcase-arrow,
   .home-page .dealer-showcase-card:focus-visible .dealer-showcase-arrow { transform: none; }
 }
+
+/* Homepage hero compact pass (desktop): smaller copy, search card kept inside the hero. */
+@media (min-width: 1024px) {
+  .home-page .home-hero { min-height: 0; padding-top: calc(var(--site-header-height) + 44px); padding-bottom: 36px; }
+  .home-page .hero-content { gap: 18px; }
+  .home-page .hero-main { gap: 40px; }
+  .home-page .hero-eyebrow { font-size: .625rem; }
+  .home-page .hero-headline { margin-top: 14px; max-width: 640px; font-size: clamp(2.25rem, 3.5vw, 3.1rem); line-height: 1.08; }
+  .home-page .hero-description-desktop { max-width: 560px; margin-top: 12px; font-size: .9375rem; }
+  .home-page .hero-actions { margin-top: 18px; }
+  .home-page .hero-actions .btn { min-height: 44px; padding-inline: 18px; font-size: .8125rem; }
+  .home-page .hero-credit { min-height: 24px; }
+  .home-page .home-search-wrap { margin: 0; padding: 0; width: 100%; min-width: 0; max-width: 100%; }
+  .home-page .property-search-panel { width: 100%; min-width: 0; max-width: 100%; border-radius: 14px; }
+  .home-page .property-search-form { grid-template-columns: minmax(0,1.35fr) minmax(0,1.1fr) minmax(0,1.2fr) minmax(0,.7fr) auto; }
+  .home-page .property-search-modes { min-height: 48px; }
+  .home-page .property-search-tabs button { min-height: 46px; }
+  .home-page .property-search-sell { min-height: 46px; font-size: .8125rem; }
+  .home-page .property-search-form { padding: 14px 18px 16px; gap: 12px; }
+  .home-page .property-search-field select { min-height: 40px; }
+  .hero-owner-card { gap: 0; padding: 22px 24px; border-radius: 16px; }
+  .hero-owner-card h2 { font-size: 1.375rem; }
+  .hero-owner-benefits { margin-top: 12px; }
+  .hero-owner-actions { margin-top: 14px; }
+  .hero-owner-card .btn { min-height: 44px; }
+  .home-page .hero-main > * { min-width: 0; }
+}
