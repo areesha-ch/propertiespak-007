@@ -29,8 +29,10 @@ export default function robots(): MetadataRoute.Robots {
       // allowed because they send discovery traffic.
       { userAgent: ["AhrefsBot", "SemrushBot", "MJ12bot", "DotBot", "PetalBot"], disallow: "/" },
     ],
+    // The sitemap index is the single Search Console entry point; it points to
+    // the complete deduplicated master sitemap below.
     sitemap: getSitemapRegistry()
-      .filter((entry) => entry.group === "primary")
+      .filter((entry) => entry.path === "/sitemap-index.xml")
       .map((entry) => `${SITE.url}${entry.path}`),
     host: SITE.url,
   };

@@ -23,6 +23,7 @@ const CATEGORIES = [
   { value: "house", label: "House", types: ["House", "Villa"] },
   { value: "apartment", label: "Apartment / Flat", types: ["Apartment", "Penthouse", "Upper Portion", "Lower Portion", "Room"] },
   { value: "plot", label: "Plot / File", types: ["Plot"] },
+  { value: "land", label: "Land", types: ["Agricultural Land", "Industrial Land"] },
   { value: "office", label: "Office", types: ["Office"] },
   { value: "shop", label: "Shop / Retail", types: ["Shop"] },
   { value: "building", label: "Commercial Building", types: ["Commercial Building"] },
@@ -124,7 +125,7 @@ export function ListingForm({ signedIn: initiallySignedIn = false }: { signedIn?
           email,
           phone,
           title:
-            category === "plot"
+            category === "plot" || category === "land"
               ? `${areaValue} ${areaUnit === "kanal" ? "Kanal" : "Marla"} ${propertyType} for ${purpose === "rent" ? "Rent" : "Sale"} in ${locationArea || cityName}`
               : `${bedrooms}-Bed ${propertyType} for ${purpose === "rent" ? "Rent" : "Sale"} in ${locationArea || cityName}`,
           purpose,
@@ -380,9 +381,15 @@ export function ListingForm({ signedIn: initiallySignedIn = false }: { signedIn?
               id="listing-category"
               value={category}
               onChange={(e) => {
-                setCategory(e.target.value);
-                const first = CATEGORIES.find((c) => c.value === e.target.value)?.types[0] ?? "House";
+                const nextCategory = e.target.value;
+                setCategory(nextCategory);
+                const first = CATEGORIES.find((c) => c.value === nextCategory)?.types[0] ?? "House";
                 setPropertyType(first);
+                if (nextCategory === "land") {
+                  setBedrooms("0");
+                  setBathrooms("0");
+                  setParking("0");
+                }
               }}
               className="field mt-2"
             >
@@ -459,7 +466,7 @@ export function ListingForm({ signedIn: initiallySignedIn = false }: { signedIn?
             locationQuery={[locationArea, address].filter(Boolean).join(", ")}
             plotLabel={address.trim() || locationArea.trim() || "Property location"}
             plotSubtitle={
-              category === "plot"
+              category === "plot" || category === "land"
                 ? `${areaValue} ${areaUnit === "kanal" ? "Kanal" : areaUnit === "marla" ? "Marla" : "sq ft"} ${propertyType}`
                 : `${areaValue} ${areaUnit === "kanal" ? "Kanal" : areaUnit === "marla" ? "Marla" : "sq ft"} · ${bedrooms} bed ${propertyType}`
             }

@@ -100,14 +100,22 @@ const SPECS: LandingSpec[] = [
     slug: "property-for-rent-in-pakistan",
     h1: "Property for Rent in Pakistan",
     eyebrow: "Pakistan rental market",
-    metaTitle: "Property for Rent in Pakistan | Houses, Apartments & Commercial | Properties Pak",
+    metaTitle: "Property for Rent in Pakistan | Houses, Flats & Apartments",
     metaDescription:
-      "Explore property for rent in Pakistan including houses, apartments, portions, offices, shops and commercial rentals across major cities. Compare monthly rent, size, furnishing and location.",
-    keywords: ["property for rent in Pakistan", "houses for rent Pakistan", "apartments for rent Pakistan", "commercial property for rent Pakistan"],
+      "Find houses, flats and furnished apartments for rent across Pakistan. Compare 2- and 3-bedroom listings by city, monthly rent and furnishing where available.",
+    keywords: [
+      "property for rent in Pakistan",
+      "houses for rent Pakistan",
+      "apartments for rent Pakistan",
+      "flats on rent Pakistan",
+      "furnished apartments for rent Pakistan",
+      "2 bedroom flats for rent Pakistan",
+      "commercial property for rent Pakistan",
+    ],
     filters: { purpose: "rent" },
     intro: [
       "Rental property demand in Pakistan is concentrated around employment districts, universities, hospitals, schools and well-managed housing societies. Lahore has broad family and corporate demand, Islamabad attracts institutional tenants, and Karachi combines apartment leasing with the country’s deepest commercial rental market.",
-      "This page brings houses, apartments, upper portions, offices, shops, warehouses and furnished rentals together. Compare monthly rent, deposit expectations, furnishing, parking and maintenance responsibilities before building a shortlist.",
+      "This page brings houses, apartments, upper portions, offices, shops, warehouses and furnished rentals together. Filter by bedroom count to look for 2- or 3-bedroom flats where available, then compare monthly rent, furnishing, deposit, parking and maintenance before shortlisting.",
       "A clear tenancy agreement matters as much as the property itself. Record the rent escalation, security deposit, notice period, utility responsibility, maintenance scope and inventory of furnished items in writing.",
     ],
     facets: [
@@ -218,13 +226,21 @@ const SPECS: LandingSpec[] = [
     slug: "plots-for-sale-in-pakistan",
     h1: "Plots for Sale in Pakistan",
     eyebrow: "Pakistan plots",
-    metaTitle: "Plots for Sale in Pakistan | Residential & Commercial Land | Properties Pak",
-    metaDescription: "Explore residential and commercial plots across DHA, Bahria Town and developing property markets in Pakistan. Compare ize, possession and documentation status.",
-    keywords: ["plots for sale in Pakistan", "residential plots Pakistan", "commercial plots Pakistan"],
+    metaTitle: "Plots for Sale in Pakistan | 5, 10 Marla & 1 Kanal Options",
+    metaDescription: "Compare plots for sale in Pakistan, including 5 Marla, 10 Marla and 1 Kanal options where listed. Filter by city, budget, possession and documentation status.",
+    keywords: [
+      "plots for sale in Pakistan",
+      "residential plots Pakistan",
+      "commercial plots Pakistan",
+      "5 marla plot for sale Pakistan",
+      "10 marla plot for sale Pakistan",
+      "1 kanal plot for sale Pakistan",
+      "plots on installments Pakistan",
+    ],
     filters: { purpose: "buy", category: "plot" },
     intro: [
       "Plot investment remains a major part of Pakistan’s real-estate market because it offers lower maintenance than constructed property and flexibility over when to build. Outcomes depend heavily on approval, development delivery, possession and transfer documentation.",
-      "This directory brings possession plots and documented file-style inventory together across major cities. Use local society guides to understand infrastructure, road access and development stage.",
+      "This directory brings possession plots and documented file-style inventory together across major cities. Where listings are available, compare common 5 Marla, 10 Marla and 1 Kanal options using the stated area, city and budget filters. Check whether the unit is a possession plot or a file, and verify any remaining instalments before you proceed.",
       "Never treat a file, ballot or map location as proof of title. Verify the allotment, payment history, transfer chain, authority approval and outstanding development charges independently.",
     ],
     facets: [
@@ -290,13 +306,19 @@ const SPECS: LandingSpec[] = [
     h1: "New Property Projects in Pakistan",
     eyebrow: "New developments",
     metaTitle: "New Property Projects in Pakistan | Developments & Payment Plans | Properties Pak",
-    metaDescription: "Explore new property projects in Pakistan with locations, unit types, development status, starting prices and investment considerations.",
-    keywords: ["new property projects Pakistan", "new housing projects Pakistan", "off plan property Pakistan"],
+    metaDescription: "Compare new property projects in Pakistan by location, unit type, development status, launch price and instalment plan. Verify approvals, total cost and handover terms before booking.",
+    keywords: [
+      "new property projects Pakistan",
+      "new housing projects Pakistan",
+      "off plan property Pakistan",
+      "property on installments Pakistan",
+      "housing projects with payment plans Pakistan",
+    ],
     filters: { isNewProject: true },
     alternatives: { purpose: "buy" },
     intro: [
       "New property projects can offer phased payments and modern amenities, but they introduce development, approval and handover risk that completed property does not carry.",
-      "Properties Pak publishes project pages with location, developer, project type, status, starting price, unit mix and delivery timeline so buyers can compare developments before booking.",
+      "Properties Pak publishes project pages with location, developer, project type, status, starting price, unit mix and delivery timeline so buyers can compare developments before booking. For property on instalments, compare the total payable amount, due dates, escalation clauses and handover conditions—not only the monthly payment.",
       "Before booking, independently confirm the authority approval, land title, developer track record, payment schedule, escalation clauses, transfer policy and realistic completion plan.",
     ],
     facets: [
@@ -333,6 +355,8 @@ function cityIntentSpec(
 ): LandingSpec {
   const isInvestment = intent === "investment";
   const isRent = intent.includes("rent");
+  const isApartmentRental = intent === "apartment-rent";
+  const isPlotSale = intent === "plot-sale";
   const typeLabel = intent.startsWith("house") ? "houses" : intent.startsWith("apartment") ? "apartments" : intent === "plot-sale" ? "plots" : "properties";
   const purposeWord = isRent ? "rent" : "sale";
   return {
@@ -344,20 +368,51 @@ function cityIntentSpec(
       : `${h1} | Properties Pak`,
     metaDescription: isInvestment
       ? `Explore property investment in ${cityName}, including residential, rental, plots, commercial opportunities, location factors, risk considerations and calculators.`
-      : `Explore ${typeLabel} for ${purposeWord} in ${cityName}. Compare locations, prices, sizes and property details with market guides and Properties Pak tools.`,
+      : isApartmentRental
+        ? `Find apartments for rent in ${cityName}, including furnished options where listed. Compare bedroom count, monthly rent, service charges and location.`
+        : isPlotSale
+          ? `Plots for sale in ${cityName}. Compare 5 Marla, 10 Marla and 1 Kanal options where listed; verify area, possession, approval and outstanding dues.`
+          : `Explore ${typeLabel} for ${purposeWord} in ${cityName}. Compare locations, prices, sizes and property details with market guides and Properties Pak tools.`,
     keywords: isInvestment
       ? [`property investment in ${cityName}`, `real estate investment ${cityName}`, `best areas to invest ${cityName}`]
-      : [h1.toLowerCase(), `${cityName} property`, `${typeLabel} in ${cityName}`],
+      : isApartmentRental
+        ? [
+            h1.toLowerCase(),
+            `furnished apartments for rent in ${cityName}`,
+            `2 bedroom apartments for rent in ${cityName}`,
+            `apartments on rent in ${cityName}`,
+            `flats for rent in ${cityName}`,
+          ]
+        : isPlotSale
+          ? [
+              h1.toLowerCase(),
+              `5 marla plot for sale in ${cityName}`,
+              `10 marla plot for sale in ${cityName}`,
+              `1 kanal plot for sale in ${cityName}`,
+            ]
+          : [h1.toLowerCase(), `${cityName} property`, `${typeLabel} in ${cityName}`],
     filters,
-    alternatives: { city },
+    alternatives: {
+      city,
+      ...(filters.purpose ? { purpose: filters.purpose } : {}),
+      ...(filters.category ? { category: filters.category } : {}),
+      ...(filters.type ? { type: filters.type } : {}),
+      ...(filters.commercialOnly ? { commercialOnly: true } : {}),
+    },
     intro: [
       marketNote,
       isInvestment
         ? `A sound ${cityName} investment case starts with location utility, comparable pricing, realistic rent and exit liquidity. Residential, plot and commercial assets respond to different demand drivers, so compare them as separate strategies.`
-        : `This curated page presents ${typeLabel} in ${cityName}. Use the filters and comparison tools to evaluate asking price, area, furnishing, possession and location before moving into a society guide.`,
+        : isApartmentRental
+          ? `Compare furnished, semi-furnished and unfurnished apartments by bedroom count and monthly rent. Check service charges, parking and what is included; availability depends on current listings.`
+          : isPlotSale
+            ? `Use the filters to look for 5 Marla, 10 Marla and 1 Kanal plots where available. Confirm the society's area standard, exact plot size, approval, possession and outstanding dues.`
+            : `This curated page presents ${typeLabel} in ${cityName}. Use the filters and comparison tools to evaluate asking price, area, furnishing, possession and location before moving into a society guide.`,
       isInvestment
         ? "Model rental yield, total ownership cost and downside scenarios before committing. No appreciation, rent or return is guaranteed, and every real purchase requires independent legal and financial verification."
-        : "Price references are indicative. Independently verify title, dues, approvals, property condition and transfer requirements in any transaction.",
+        : isPlotSale
+          ? `Plot prices in ${cityName} vary by society, size, possession and payment status. Compare current listings in the same block rather than relying on a city-wide average.`
+          : "Price references are indicative. Independently verify title, dues, approvals, property condition and transfer requirements in any transaction.",
     ],
     facets: [
       { label: `Property for sale in ${cityName}`, href: `/property-for-sale-in-${city}`, note: "All sale inventory" },
@@ -371,11 +426,17 @@ function cityIntentSpec(
           { label: "Land strategy", range: "Plots and documented files", note: "Development and liquidity drive outcomes" },
           { label: "Commercial", range: "Offices, shops and buildings", note: "Lease quality and replacement demand matter" },
         ]
-      : [
-          { label: "Entry", range: `Compact ${typeLabel} and secondary locations`, note: "Condition and documentation remain critical" },
-          { label: "Family", range: `Established ${cityName} neighbourhoods`, note: "Broadest end-user demand" },
-          { label: "Premium", range: "Prime societies and newer inventory", note: "Higher entry price and stronger amenities" },
-        ],
+      : isPlotSale
+        ? [
+            { label: "Files", range: "Allocation or file", note: "Verify approval, payment history and transfer" },
+            { label: "Balloted", range: "Numbered plot", note: "Match the plot to the society's official map" },
+            { label: "Possession", range: "Site readiness", note: "Check dues, utilities and access in person" },
+          ]
+        : [
+            { label: "Entry", range: `Compact ${typeLabel} and secondary locations`, note: "Condition and documentation remain critical" },
+            { label: "Family", range: `Established ${cityName} neighbourhoods`, note: "Broadest end-user demand" },
+            { label: "Premium", range: "Prime societies and newer inventory", note: "Higher entry price and stronger amenities" },
+          ],
     notes: [
       { title: "Micro-location", copy: `Compare blocks and streets inside ${cityName}, not only city-wide averages.` },
       { title: isInvestment ? "Income assumptions" : "Property condition", copy: isInvestment ? "Use achievable net rent after vacancy, maintenance and management—not advertised gross rent." : "Inspect utilities, structure, ventilation, access and maintenance during a working hour." },

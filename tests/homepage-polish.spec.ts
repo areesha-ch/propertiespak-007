@@ -2,42 +2,54 @@ import { test, expect } from "@playwright/test";
 
 const visible = (selector: string) => `${selector}:visible`;
 
-test("hero copy sits just above search, search is higher and dealers retain a comfortable gap", async ({ page }) => {
+test("restored two-column hero, owner card and search remain responsive without overflow", async ({ page }) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
     const intro = await page.locator(visible(".hero-search-intro")).boundingBox();
-    const box = await page.locator(visible(".property-search-panel")).boundingBox();
-    const heading = await page.locator("#home-dealers:visible h2").boundingBox();
+    const owner = await page.locator(visible(".hero-owner-card")).boundingBox();
+    const search = await page.locator(visible(".property-search-panel")).boundingBox();
     const hero = await page.getByTestId("home-hero").boundingBox();
-    expect(box!.y - intro!.y - intro!.height).toBeGreaterThanOrEqual(12);
-    expect(box!.y - intro!.y - intro!.height).toBeLessThanOrEqual(24);
-    expect(box!.y + box!.height).toBeLessThan(hero!.height - 20);
-    expect(heading!.y - box!.y - box!.height).toBeGreaterThan(30);
-    expect(heading!.y - box!.y - box!.height).toBeLessThan(85);
-    expect(hero!.height).toBeGreaterThanOrEqual(width < 768 ? 540 : 640);
+    expect(intro).not.toBeNull();
+    expect(owner).not.toBeNull();
+    expect(search).not.toBeNull();
+    if (width < 768) {
+      expect(search!.y).toBeGreaterThan(intro!.y);
+      expect(owner!.y).toBeGreaterThan(search!.y + search!.height);
+    } else {
+      expect(owner!.x).toBeGreaterThan(intro!.x + intro!.width / 2);
+      expect(search!.y).toBeGreaterThan(Math.max(intro!.y + intro!.height, owner!.y + owner!.height) - 2);
+    }
+    expect(hero!.height).toBeGreaterThanOrEqual(width < 768 ? 540 : 690);
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth), `${width}px overflow`).toBeLessThanOrEqual(1);
   }
 });
 
-test("desktop and mobile hero copy adapts cleanly, with a larger mobile search headline", async ({ page }) => {
+test("requested hero copy, owner links and New Projects CTA appear on desktop and mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
   const hero = page.locator("#home-hero:visible");
   const mobileHeading = hero.locator(".hero-headline-mobile");
   await expect(mobileHeading).toBeVisible();
-  await expect(mobileHeading.locator("br")).toHaveCount(1);
-  await expect(hero.locator(".hero-description-mobile")).toHaveText("Buy, sell or rent property anywhere across Pakistan.");
+  await expect(mobileHeading).toContainText("Find Your Dream Property");
+  await expect(mobileHeading).toContainText("in Pakistan");
+  await expect(hero.locator(".hero-description-mobile")).toHaveText("Buy, rent or invest in residential, commercial and plots across Pakistan — all in one place.");
+  await expect(hero.getByRole("link", { name: "List Your Property for Free", exact: true })).toHaveAttribute("href", "/list-property");
+  await expect(hero.getByRole("link", { name: "Need help selling or renting? Contact us", exact: true })).toHaveAttribute("href", "/contact");
   expect(await mobileHeading.evaluate((element) => parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(28);
   await expect(hero.locator(".hero-headline-desktop")).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
   await page.setViewportSize({ width: 1440, height: 900 });
-  await expect(hero.locator(".hero-headline-desktop")).toBeVisible();
+  const desktopHeading = hero.locator(".hero-headline-desktop");
+  await expect(desktopHeading).toBeVisible();
+  await expect(desktopHeading).toContainText("Find Your Dream Property");
+  await expect(hero.getByRole("link", { name: "Explore Properties", exact: true })).toHaveAttribute("href", "#featured");
+  await expect(hero.getByRole("link", { name: "Browse New Projects", exact: true })).toHaveAttribute("href", "/projects");
   await expect(hero.locator(".hero-headline-mobile")).toBeHidden();
 });
 
-test("Featured Properties cards share one rhythm: stacked price, equal heights, no dead gap under the call to action", async ({ page }) => {
+test("Featured Properties cards keep compact inline details and an even card rhythm", async ({ page }) => {
   for (const width of [390, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/", { waitUntil: "domcontentloaded" });
@@ -45,37 +57,30 @@ test("Featured Properties cards share one rhythm: stacked price, equal heights, 
     await expect(cards.first()).toBeVisible();
     await expect(cards).toHaveCount(8);
 
-    // The price and the type chip are stacked on every card, so a long price
-    // such as "PKR 2.8 Lakh / month" cannot add a line the short ones lack.
-    await expect(cards.locator('[data-property-type-stack="true"]')).toHaveCount(8);
-
     const report = await cards.evaluateAll((articles) => articles.map((article) => {
       const block = article.querySelector<HTMLElement>(".property-card-price-block");
       const price = block?.querySelector("p")?.getBoundingClientRect();
       const type = block?.querySelector("span")?.getBoundingClientRect();
+      const title = article.querySelector<HTMLElement>("h3");
+      const photo = article.querySelector<HTMLElement>(".zoom-frame");
       const cta = Array.from(article.querySelectorAll("a")).find((link) => link.textContent?.trim().startsWith("View Details"))?.getBoundingClientRect();
+      const photoBox = photo?.getBoundingClientRect();
       return {
-        stacked: !!block && getComputedStyle(block).flexDirection === "column",
-        typeUnderPrice: !!price && !!type && type.top >= price.bottom - 1,
+        hasPriceAndType: !!block && !!price && !!type,
+        compactTitle: !!title && getComputedStyle(title).webkitLineClamp === "1",
+        photoRatio: photoBox ? photoBox.width / photoBox.height : 0,
         height: Math.round(article.getBoundingClientRect().height),
-        // Distance from the bottom of the call to action to the bottom of the
-        // card. It has to be the same on every card and near zero.
         gapUnderCta: Math.round(article.getBoundingClientRect().bottom - (cta?.bottom ?? 0)),
-        ctaHeight: Math.round(cta?.height ?? 0),
       };
     }));
 
-    expect(report.every((card) => card.stacked && card.typeUnderPrice), `${width}px stacking`).toBe(true);
-    // Every card in the rail is exactly as tall as its tallest sibling.
-    expect(new Set(report.map((card) => card.height)).size, `${width}px equal heights`).toBe(1);
-    // ...and the call to action lands on that shared bottom edge everywhere,
-    // leaving no empty band underneath it.
-    expect(new Set(report.map((card) => card.gapUnderCta)).size, `${width}px cta gap`).toBe(1);
-    expect(Math.max(...report.map((card) => card.gapUnderCta)), `${width}px cta gap value`).toBeLessThanOrEqual(20);
+    expect(report.every((card) => card.hasPriceAndType && card.compactTitle && card.photoRatio > 1.5 && card.photoRatio < 1.7), `${width}px compact details`).toBe(true);
+    expect(new Set(report.map((card) => card.height)).size, `${width}px equal card heights`).toBe(1);
+    expect(Math.max(...report.map((card) => card.gapUnderCta)), `${width}px gap below details`).toBeLessThanOrEqual(20);
   }
 });
 
-test("Explore Properties cards consistently stack type below price on desktop and mobile", async ({ page }) => {
+test("Explore Properties keeps its compact card layout on desktop and the swipe rail on mobile", async ({ page }) => {
   for (const width of [390, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/", { waitUntil: "domcontentloaded" });
@@ -84,13 +89,18 @@ test("Explore Properties cards consistently stack type below price on desktop an
       : page.locator("#explore:visible .home-explore-grid article");
     await expect(cards.first()).toBeVisible();
     await expect(cards).toHaveCount(16);
-    await expect(cards.locator('[data-property-type-stack="true"]')).toHaveCount(16);
     expect(await cards.evaluateAll((articles) => articles.every((article) => {
       const block = article.querySelector<HTMLElement>(".property-card-price-block");
-      const price = block?.querySelector("p")?.getBoundingClientRect();
-      const type = block?.querySelector("span")?.getBoundingClientRect();
-      return !!block && getComputedStyle(block).flexDirection === "column" && !!price && !!type && type.top >= price.bottom - 1;
+      const type = block?.querySelector("span");
+      const title = article.querySelector<HTMLElement>("h3");
+      const photo = article.querySelector<HTMLElement>(".zoom-frame")?.getBoundingClientRect();
+      return !!block && !!type && !!title && getComputedStyle(title).webkitLineClamp === "1" && !!photo && photo.width / photo.height > 1.5;
     }))).toBe(true);
+    if (width < 768) {
+      await expect(page.locator("#explore [data-testid=\"property-rail\"]")).toBeVisible();
+    } else {
+      await expect(page.locator("#explore .home-explore-grid")).toHaveClass(/xl:grid-cols-4/);
+    }
   }
 });
 
@@ -179,6 +189,10 @@ test("Explore more tools and guides follow Dealers in a manual horizontal rail",
   expect(await explore.evaluate((element) => element.previousElementSibling?.id)).toBe("home-dealers");
   const cards = explore.locator(".explore-more-card");
   await expect(cards).toHaveCount(8);
+  const firstCard = cards.first();
+  const restingShadow = await firstCard.evaluate((card) => getComputedStyle(card).boxShadow);
+  await firstCard.hover();
+  await expect.poll(() => firstCard.evaluate((card) => getComputedStyle(card).boxShadow)).not.toBe(restingShadow);
   // Every card stays on this website — nothing links out to another portal.
   const expected = [
     ["New Projects", "The best investment opportunities", "/properties/new-projects"],

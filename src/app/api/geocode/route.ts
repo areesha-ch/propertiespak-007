@@ -129,7 +129,7 @@ async function reverseLookup(lat: number, lng: number, citySlug: string, cityNam
     url.searchParams.set("addressdetails", "1");
     url.searchParams.set("accept-language", "en");
     const response = await fetch(url, {
-      headers: { "User-Agent": "PropertiesPak/1.0 (+https://propertiespak.com; info@propertiespak.com)", Accept: "application/json" },
+      headers: { "User-Agent": "Properties-Pak/1.0 (Properties Pak; +https://propertiespak.com; info@propertiespak.com)", Accept: "application/json" },
       signal: controller.signal,
     });
     clearTimeout(timeout);
@@ -204,7 +204,7 @@ export async function GET(request: Request) {
       const needsCity = cityName && !query.toLowerCase().includes(cityName.toLowerCase());
       url.searchParams.set("q", needsCity ? `${query}, ${cityName}, Pakistan` : `${query}, Pakistan`);
       const response = await fetch(url, {
-        headers: { "User-Agent": "PropertiesPak/1.0 (+https://propertiespak.com; info@propertiespak.com)", Accept: "application/json" },
+        headers: { "User-Agent": "Properties-Pak/1.0 (Properties Pak; +https://propertiespak.com; info@propertiespak.com)", Accept: "application/json" },
         signal: controller.signal,
       });
       clearTimeout(timeout);

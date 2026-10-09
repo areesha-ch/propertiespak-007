@@ -9,7 +9,6 @@ export async function GET() {
     renderUrlSet(
       properties.map((property) => ({
         path: `/property/${property.slug}`,
-        lastModified: property.updatedAt,
         changeFrequency: "weekly" as const,
         priority: 0.8,
       })),

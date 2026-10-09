@@ -15,6 +15,11 @@ export function formatPrice(price: number, unit: "total" | "month" | string = "t
   return `PKR ${price.toLocaleString("en-PK")}${suffix}`;
 }
 
+/** Keep compact listing titles focused on the property; its location is shown separately. */
+export function compactPropertyTitle(title: string): string {
+  return title.split(",", 1)[0].trim();
+}
+
 export function formatPriceShort(price: number, unit: "total" | "month" | string = "total"): string {
   const suffix = unit === "month" ? "/mo" : "";
   if (price >= CRORE) return `Rs ${trim(price / CRORE)} Cr${suffix}`;

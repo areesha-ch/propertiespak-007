@@ -67,7 +67,13 @@ export async function LandingPageView({ content }: { content: LandingContent }) 
               ))}
             </div>
             <div className="rounded-panel border border-white/12 bg-white/[0.05] p-5 backdrop-blur-sm">
-              <p className="eyebrow text-forest-400">Indicative price bands</p>
+              <p className="eyebrow text-forest-400">
+                {content.filters.commercialOnly && !content.filters.purpose
+                  ? "Commercial checks"
+                  : content.filters.category === "plot"
+                    ? "Plot purchase checks"
+                    : "Indicative price bands"}
+              </p>
               <dl className="mt-4 space-y-3.5">
                 {content.priceBands.map((band) => (
                   <div key={band.label} className="border-b border-white/10 pb-3.5 last:border-b-0 last:pb-0">
@@ -79,7 +85,9 @@ export async function LandingPageView({ content }: { content: LandingContent }) 
               </dl>
               <p className="mt-4 flex items-start gap-2 text-[0.75rem] leading-relaxed text-white/45">
                 <IconShield className="mt-0.5 h-3.5 w-3.5 shrink-0 text-forest-500" />
-                Indicative reference values based on current asking prices on Properties Pak.
+                {content.filters.category === "plot"
+                  ? "Plot asking prices vary by area and status; verify dimensions, possession and dues with the relevant society."
+                  : "Indicative reference values based on current asking prices on Properties Pak."}
               </p>
             </div>
           </div>
@@ -96,8 +104,10 @@ export async function LandingPageView({ content }: { content: LandingContent }) 
                 Live listings
               </p>
               <h2 className="display-3 mt-3 text-navy-900">
-                {exact.total} matching {exact.total === 1 ? "property" : "properties"}
-                {content.kind !== "guide" && " in our live inventory"}
+                {showFallback
+                  ? `${listings.length} comparable ${listings.length === 1 ? "property" : "properties"} shown`
+                  : `${exact.total} matching ${exact.total === 1 ? "property" : "properties"}`}
+                {!showFallback && content.kind !== "guide" && " in our live inventory"}
               </h2>
             </div>
             <Link href="/properties" className="btn btn-outline">

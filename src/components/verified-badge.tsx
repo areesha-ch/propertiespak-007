@@ -31,7 +31,7 @@ export function VerifiedChip({ className = "", label = "Verified" }: { className
     <span
       className={`inline-flex items-center gap-1.5 rounded-full border border-[#1D9BF0]/35 bg-[#1D9BF0]/10 px-2 py-0.5 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-[#0b6fb8] ${className}`}
     >
-      <BlueTick className="h-3.5 w-3.5" />
+      <span aria-hidden="true"><BlueTick className="h-3.5 w-3.5" /></span>
       {label}
     </span>
   );

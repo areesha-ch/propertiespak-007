@@ -55,6 +55,18 @@ const TYPE_MATRIX: Record<string, TypeCopy> = {
     noun: "apartment",
     plural: "apartments",
     filters: (city, purpose) => ({ purpose, city, category: "apartment" }),
+    rentCopy: {
+      bullets: [
+        "Compare furnished, semi-furnished and unfurnished apartments by what is included in the monthly rent.",
+        "Confirm service charges, parking, lift, generator and utility costs before signing.",
+        "Put the lease term, security deposit, rent escalation, notice period and maintenance duties in writing.",
+        "Inspect water supply, fire-safety systems, lift condition and backup power in the building.",
+      ],
+      verification:
+        "At handover, match the unit, floor, parking and furniture against the signed inventory and ask for the latest service-charge statement.",
+      pitfalls:
+        "A low advertised rent may exclude maintenance, utilities or furniture; compare the full monthly cost before choosing an apartment.",
+    },
     bullets: [
       "Review maintenance charges, generator and lift costs in writing before booking.",
       "Confirm dedicated parking allocation rather than 'parking available'.",
@@ -70,6 +82,18 @@ const TYPE_MATRIX: Record<string, TypeCopy> = {
     noun: "flat",
     plural: "flats",
     filters: (city, purpose) => ({ purpose, city, category: "apartment" }),
+    rentCopy: {
+      bullets: [
+        "For a flat on rent, compare bedroom count, floor, usable area, lift access and monthly rent.",
+        "Ask whether furnishing, parking, water and backup power are included in the advertised terms.",
+        "Confirm the security deposit, rent escalation, lease duration, notice period and repair duties in writing.",
+        "Inspect the flat and shared areas during a normal working hour, including the lift, water and building access.",
+      ],
+      verification:
+        "Match the advertised bedroom count, floor, usable area and included items to the signed tenancy agreement and handover inventory.",
+      pitfalls:
+        "A flat with a lower monthly rent can cost more overall when parking, maintenance, utilities or furnishings are excluded.",
+    },
     bullets: [
       "Compare price per square foot rather than the headline price — flat sizes vary widely.",
       "Confirm the floor, lift access and backup power arrangement for that specific unit.",
@@ -242,7 +266,14 @@ function societiesFor(citySlug: string) {
   }));
 }
 
-function bands(city: (typeof CITY_MARKETS)[number], isRent: boolean) {
+function bands(city: (typeof CITY_MARKETS)[number], isRent: boolean, isPlot = false) {
+  if (!isRent && isPlot) {
+    return [
+      { label: "Files", range: "Allocation or file", note: "Verify approval, payment history and transfer" },
+      { label: "Balloted", range: "Numbered plot", note: "Match the plot to the society's official map" },
+      { label: "Possession", range: "Site readiness", note: "Check dues, utilities and access in person" },
+    ];
+  }
   const band = isRent ? city.rentBand : city.saleBand;
   const [low, high] = band.split("–").map((part) => part.trim());
   return [
@@ -288,7 +319,13 @@ function buildMatrixLanding(input: {
       `Indicative ${input.isRent ? "rents" : "prices"} in ${city.name} currently run ${bandLine}, with a market benchmark of ${city.ppsf}. Narrow by area, size and budget below, then add two or three shortlisted ${input.unitLabel} to the comparison view.`,
     ],
     filters: input.filters,
-    alternatives: { city: city.slug },
+    alternatives: {
+      city: city.slug,
+      purpose: input.isRent ? "rent" : "buy",
+      ...(input.filters.category ? { category: input.filters.category } : {}),
+      ...(input.filters.type ? { type: input.filters.type } : {}),
+      ...(input.filters.commercialOnly ? { commercialOnly: true } : {}),
+    },
     facets: [
       { label: `Property for sale in ${city.name}`, href: `/property-for-sale-in-${city.slug}`, note: "All sale inventory" },
       { label: `Property for rent in ${city.name}`, href: `/property-for-rent-in-${city.slug}`, note: "All rentals" },
@@ -296,7 +333,7 @@ function buildMatrixLanding(input: {
       ...societyLinks.slice(0, 5).map((society) => ({ label: society.name, href: society.href, note: society.note })),
     ],
     societies: societyLinks,
-    priceBands: bands(city, input.isRent),
+    priceBands: bands(city, input.isRent, input.filters.category === "plot"),
     insightNotes: [
       { title: `Evaluating ${input.unitLabel}`, copy: input.verification },
       { title: "Common pitfalls", copy: input.pitfalls },
@@ -354,13 +391,22 @@ function buildTypeMatrix(): Map<string, LandingContent> {
     for (const key of SALE_TYPES) {
       const copy = TYPE_MATRIX[key];
       const slug = typeSlug(key, "sale", city.slug);
+      const saleMetaDescription = key === "plots"
+        ? `Plots for sale in ${city.name} across ${city.keyAreas.slice(0, 3).join(", ")}. Compare 5 Marla, 10 Marla and 1 Kanal options where listed, plus area and possession status.`
+        : `Browse ${copy.plural} for sale in ${city.name} across ${city.keyAreas.slice(0, 4).join(", ")}. Filter by area, budget, size and bedrooms, and compare price per square foot on Properties Pak.`;
+      const plotSizeKeywords = key === "plots"
+        ? [`5 marla plot for sale in ${city.name}`, `10 marla plot for sale in ${city.name}`, `1 kanal plot for sale in ${city.name}`]
+        : [];
+      const saleIntro = key === "plots"
+        ? `${city.saleSupply} Use the area filters to look for listed 5 Marla, 10 Marla and 1 Kanal plots where available, then verify the exact area and possession status.`
+        : city.saleSupply;
       register(
         matrix,
         buildMatrixLanding({
           slug,
           h1: `${copy.plural.replace(/^./, (c) => c.toUpperCase())} for Sale in ${city.name}`,
           metaTitle: `${copy.plural.replace(/^./, (c) => c.toUpperCase())} for Sale in ${city.name} | ${city.keyAreas.slice(0, 3).join(", ")} | Properties Pak`,
-          metaDescription: `Browse ${copy.plural} for sale in ${city.name} across ${city.keyAreas.slice(0, 4).join(", ")}. Filter by area, budget, size and bedrooms, and compare price per square foot on Properties Pak.`,
+          metaDescription: saleMetaDescription,
           keywords: [
             `${copy.plural} for sale in ${city.name}`,
             `${copy.plural} for sale ${city.name}`,
@@ -368,11 +414,12 @@ function buildTypeMatrix(): Map<string, LandingContent> {
             `${city.name} ${copy.plural}`,
             `buy ${copy.noun} in ${city.name}`,
             `${copy.plural} ${city.name} price`,
+            ...plotSizeKeywords,
           ],
           citySlug: city.slug,
           isRent: false,
           filters: copy.filters(city.slug, "buy"),
-          introSecond: city.saleSupply,
+          introSecond: saleIntro,
           bullets: copy.bullets,
           verification: copy.verification,
           pitfalls: copy.pitfalls,
@@ -384,13 +431,28 @@ function buildTypeMatrix(): Map<string, LandingContent> {
     for (const key of RENT_TYPES) {
       const copy = TYPE_MATRIX[key];
       const slug = typeSlug(key, "rent", city.slug);
+      const rentalMetaDescription = key === "apartments"
+        ? `Find apartments for rent in ${city.name} across ${city.keyAreas.slice(0, 3).join(", ")}. Compare furnished options, bedrooms and monthly rent; availability varies by listing.`
+        : key === "flats"
+          ? `Find flats for rent in ${city.name} across ${city.keyAreas.slice(0, 3).join(", ")}. Filter by bedroom count, furnishing and monthly rent to check current matches.`
+          : `Find ${copy.plural} for rent in ${city.name} — ${city.keyAreas.slice(0, 4).join(", ")}. Compare monthly rent, size, furnishing and locality on Properties Pak.`;
+      const rentalKeywords = key === "apartments"
+        ? [`furnished apartments for rent in ${city.name}`, `2 bedroom apartments for rent in ${city.name}`]
+        : key === "flats"
+          ? [`furnished flats for rent in ${city.name}`, `2 bedroom flat for rent in ${city.name}`]
+          : [];
+      const rentalIntro = key === "apartments"
+        ? `${city.rentTenants} Compare furnished, semi-furnished and unfurnished apartments by bedroom count and monthly rent; check service charges and parking before arranging a visit.`
+        : key === "flats"
+          ? `${city.rentTenants} For a flat on rent, compare bedroom count, furnishing, floor access, parking and monthly rent; use the filters to check current matches.`
+          : city.rentTenants;
       register(
         matrix,
         buildMatrixLanding({
           slug,
           h1: `${copy.plural.replace(/^./, (c) => c.toUpperCase())} for Rent in ${city.name}`,
           metaTitle: `${copy.plural.replace(/^./, (c) => c.toUpperCase())} for Rent in ${city.name} | ${city.keyAreas.slice(0, 3).join(", ")} | Properties Pak`,
-          metaDescription: `Find ${copy.plural} for rent in ${city.name} — ${city.keyAreas.slice(0, 4).join(", ")}. Compare monthly rent, size, furnishing and locality on Properties Pak.`,
+          metaDescription: rentalMetaDescription,
           keywords: [
             `${copy.plural} for rent in ${city.name}`,
             `${copy.plural} on rent in ${city.name}`,
@@ -398,11 +460,12 @@ function buildTypeMatrix(): Map<string, LandingContent> {
             `rent ${copy.noun} ${city.name}`,
             `${city.name} ${copy.plural} rent`,
             `${copy.plural} ${city.name} monthly`,
+            ...rentalKeywords,
           ],
           citySlug: city.slug,
           isRent: true,
           filters: copy.filters(city.slug, "rent"),
-          introSecond: city.rentTenants,
+          introSecond: rentalIntro,
           bullets: copy.rentCopy?.bullets ?? copy.bullets,
           verification: copy.rentCopy?.verification ?? copy.verification,
           pitfalls: copy.rentCopy?.pitfalls ?? copy.pitfalls,

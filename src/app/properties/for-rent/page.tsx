@@ -5,11 +5,18 @@ import { PROPERTY_TYPES } from "@/lib/constants";
 import { buildMetadata, listingRobots } from "@/lib/seo";
 
 const baseMetadata: Metadata = buildMetadata({
-  title: "Houses & Apartments for Rent in Pakistan",
+  title: "Houses, Flats & Furnished Apartments for Rent in Pakistan",
   description:
-    "Rent a house, apartment, portion or commercial unit in Lahore, Islamabad, Karachi and Rawalpindi. Compare monthly rent, furnishing, size and society facilities.",
+    "Find houses, flats and furnished apartments for rent across Pakistan. Filter by city, bedroom count, monthly rent and furnishing; availability depends on current listings.",
   path: "/properties/for-rent",
-  keywords: ["houses for rent Lahore", "apartments for rent Islamabad", "property for rent Pakistan"],
+  keywords: [
+    "houses for rent Lahore",
+    "apartments for rent Islamabad",
+    "flats on rent Pakistan",
+    "furnished apartments for rent Pakistan",
+    "2 bedroom flat for rent Pakistan",
+    "property for rent Pakistan",
+  ],
 });
 
 const FILTER_KEYS = SEARCH_FILTER_KEYS;
@@ -33,7 +40,7 @@ export default async function ForRentPage({ searchParams }: { searchParams: Prom
     <ListingView
       eyebrow="For rent"
       title="Property for Rent in Pakistan"
-      description="Furnished and unfurnished options by month, with rent levels checked against similar units in the same society so you know what fair value looks like."
+      description="Browse houses, flats, portions and furnished apartments for rent. Filter by bedroom count, area and furnishing, then compare monthly rent with similar units in the same society."
       crumbs={[
         { name: "Home", href: "/" },
         { name: "Properties", href: "/properties" },

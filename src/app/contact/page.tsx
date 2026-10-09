@@ -16,7 +16,7 @@ export const metadata: Metadata = buildMetadata({
   keywords: ["property dealers Lahore", "real estate contact Pakistan", "Properties Pak contact"],
 });
 
-const DESK_WHATSAPP_TEXT = "Hi WordbitX, I would like to know more about the Properties Pak platform.";
+const DESK_WHATSAPP_TEXT = "Hi Properties Pak, I would like to discuss a property enquiry.";
 
 export default async function ContactPage() {
   const agents = await getAgents();

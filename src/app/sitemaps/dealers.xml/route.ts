@@ -16,7 +16,6 @@ export async function GET() {
       .filter((dealer) => dealer.slug)
       .map((dealer) => ({
         path: `/dealers/${dealer.slug}`,
-        lastModified: dealer.updatedAt instanceof Date ? dealer.updatedAt : new Date(),
         changeFrequency: "weekly" as const,
         priority: dealer.verified ? 0.8 : 0.6,
       }));

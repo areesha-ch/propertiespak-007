@@ -948,14 +948,24 @@ export const TYPE_LANDING_BY_SLUG = new Map(TYPE_LANDINGS.map((item) => [item.sl
 /*  Builders                                                           */
 /* ------------------------------------------------------------------ */
 
-function cityFacets(city: CityMarket) {
+function cityFacets(city: CityMarket, purpose: "sale" | "rent") {
+  if (purpose === "rent") {
+    return [
+      { label: `Property for rent in ${city.name}`, href: `/property-for-rent-in-${city.slug}`, note: "All rental listings" },
+      { label: `Houses for rent in ${city.name}`, href: `/properties/for-rent?city=${city.slug}&category=house`, note: "Family houses and farmhouses" },
+      { label: `Apartments for rent in ${city.name}`, href: `/properties/for-rent?city=${city.slug}&category=apartment`, note: "Flats and furnished units" },
+      { label: `Upper portions for rent in ${city.name}`, href: `/properties/for-rent?city=${city.slug}&type=Upper%20Portion`, note: "Independent family portions" },
+      { label: `Commercial rentals in ${city.name}`, href: `/properties/for-rent?city=${city.slug}&commercial=1`, note: "Offices, shops and buildings" },
+      { label: `Property for sale in ${city.name}`, href: `/property-for-sale-in-${city.slug}`, note: "All sale listings" },
+    ];
+  }
   return [
     { label: `Property for sale in ${city.name}`, href: `/property-for-sale-in-${city.slug}`, note: "All sale listings" },
-    { label: `Property for rent in ${city.name}`, href: `/property-for-rent-in-${city.slug}`, note: "All rental listings" },
-    { label: `Houses in ${city.name}`, href: `/properties/for-sale?city=${city.slug}&category=house`, note: "Detached and semi-detached" },
-    { label: `Apartments in ${city.name}`, href: `/properties/for-sale?city=${city.slug}&category=apartment`, note: "Flats and penthouses" },
-    { label: `Plots in ${city.name}`, href: `/properties/for-sale?city=${city.slug}&category=plot`, note: "Files and possession plots" },
+    { label: `Houses for sale in ${city.name}`, href: `/properties/for-sale?city=${city.slug}&category=house`, note: "Detached and semi-detached" },
+    { label: `Apartments for sale in ${city.name}`, href: `/properties/for-sale?city=${city.slug}&category=apartment`, note: "Flats and penthouses" },
+    { label: `Plots for sale in ${city.name}`, href: `/properties/for-sale?city=${city.slug}&category=plot`, note: "Files and possession plots" },
     { label: `Commercial in ${city.name}`, href: `/properties/commercial?city=${city.slug}`, note: "Offices, shops and buildings" },
+    { label: `Property for rent in ${city.name}`, href: `/property-for-rent-in-${city.slug}`, note: "All rental listings" },
   ];
 }
 
@@ -995,19 +1005,29 @@ export function buildCityLanding(citySlug: string, purpose: "sale" | "rent"): La
       : `Property for Rent in ${city.name} | Houses, Apartments & Portions | Properties Pak`,
     metaDescription: isSale
       ? `Browse property for sale in ${city.name}: houses, apartments, plots and commercial space across ${city.keyAreas.slice(0, 4).join(", ")}. Filter by area, budget and size on Properties Pak.`
-      : `Looking for property for rent in ${city.name}? Compare houses, apartments, portions and commercial units by area, rent and furnishing on Properties Pak.`,
-    keywords: [
-      `property for sale in ${city.name}`,
-      `property for rent in ${city.name}`,
-      `houses for sale in ${city.name}`,
-      `real estate ${city.name}`,
-      `plots for sale in ${city.name}`,
-    ],
+      : `Find houses, flats and apartments for rent in ${city.name}. Compare monthly rent, bedrooms and furnished or unfurnished options where listed.`,
+    keywords: isSale
+      ? [
+          `property for sale in ${city.name}`,
+          `houses for sale in ${city.name}`,
+          `plots for sale in ${city.name}`,
+          `real estate ${city.name}`,
+        ]
+      : [
+          `property for rent in ${city.name}`,
+          `houses for rent in ${city.name}`,
+          `house on rent in ${city.name}`,
+          `apartments for rent in ${city.name}`,
+          `flats on rent in ${city.name}`,
+          `furnished apartments for rent in ${city.name}`,
+          `2 bedroom flats for rent in ${city.name}`,
+          `commercial rentals in ${city.name}`,
+        ],
     intro: [
       city.character,
       isSale
         ? city.saleSupply
-        : `${city.rentTenants} Most rental listings show monthly rent, furnishing status and what is included, so you can compare like with like before arranging visits.`,
+        : `${city.rentTenants} Use the filters to look for 2- or 3-bedroom flats and furnished apartments where available. Compare the monthly rent, furnishing status and what is included before arranging visits.`,
       isSale
         ? `${city.investorAngle} Indicative price bands for ${city.name} currently run ${city.saleBand}, with a market benchmark of ${city.ppsf}.`
         : `Selecting a rental also means selecting a landlord relationship. Confirm maintenance responsibility, utility arrangements, escalation terms and the notice period in the tenancy agreement before you commit.`,
@@ -1015,8 +1035,8 @@ export function buildCityLanding(citySlug: string, purpose: "sale" | "rent"): La
     filters: isSale
       ? { purpose: "buy", city: city.slug }
       : { purpose: "rent", city: city.slug },
-    alternatives: { city: city.slug },
-    facets: cityFacets(city),
+    alternatives: { purpose: isSale ? "buy" : "rent", city: city.slug },
+    facets: cityFacets(city, purpose),
     societies: citySocieties(city),
     priceBands: isSale
       ? [
@@ -1062,7 +1082,44 @@ export function buildTypeLanding(slug: string): LandingContent | null {
   const city = CITY_BY_SLUG.get(config.citySlug);
   if (!city) return null;
   const copy = TYPE_COPY[config.typeKey];
-  const isRent = config.filters.purpose === "rent";
+  const purpose = config.filters.purpose;
+  const isRent = purpose === "rent";
+  const isMixedPurpose = purpose === undefined;
+  const isPlotSale = !isRent && !isMixedPurpose && config.typeKey === "plots";
+  const purposePhrase = isMixedPurpose ? "for sale and rent" : isRent ? "for rent" : "for sale";
+  const metaDescription = isMixedPurpose
+    ? `Offices, shops and warehouses for sale or rent in ${city.name}. Explore ${city.keyAreas.slice(0, 3).join(", ")} and compare prices, monthly rent, parking and permitted use.`
+    : isPlotSale
+      ? `Residential plots for sale in ${city.name} across ${city.keyAreas.slice(0, 3).join(", ")}. Compare 5 Marla, 10 Marla and 1 Kanal plots where listed; check area, budget and possession.`
+      : `Explore ${copy.plural} ${purposePhrase} in ${city.name} across ${city.keyAreas.slice(0, 4).join(", ")}. Compare price, size, bedrooms and property details with Properties Pak filters and comparison tools.`;
+  const priceBands = isMixedPurpose
+    ? [
+        { label: "For sale", range: "Compare current listing prices", note: "Use, floor and location affect value" },
+        { label: "For rent", range: "Compare monthly rent and lease terms", note: "Fit-out, maintenance and escalation matter" },
+        { label: "Due diligence", range: "Zoning, access and utilities", note: "Confirm permitted use and building services" },
+      ]
+    : isPlotSale
+      ? [
+          { label: "Files", range: "Allocation or file", note: "Verify approval, payment history and transfer" },
+          { label: "Balloted", range: "Numbered plot", note: "Match the plot to the society's official map" },
+          { label: "Possession", range: "Site readiness", note: "Check dues, utilities and access in person" },
+        ]
+      : [
+          { label: "Entry level", range: (isRent ? city.rentBand : city.saleBand).split("–")[0]?.trim() ?? "—", note: `Compact ${copy.plural} and older stock` },
+          { label: "Mid market", range: "Most end-user transactions", note: "Established areas with completed infrastructure" },
+          { label: "Premium", range: (isRent ? city.rentBand : city.saleBand).split("–")[1]?.trim() ?? "—", note: "Prime locations and newer construction" },
+        ];
+  const plotSizeKeywords = isPlotSale
+    ? [`5 marla plot for sale in ${city.name}`, `10 marla plot for sale in ${city.name}`, `1 kanal plot for sale in ${city.name}`]
+    : [];
+  const introSecond = isPlotSale
+    ? `${config.introExtra ?? city.saleSupply} Use the filters to look for 5 Marla, 10 Marla and 1 Kanal plots where available; confirm the society's area standard, stated size and possession status.`
+    : config.introExtra ?? (isRent ? city.rentTenants : city.saleSupply);
+  const introThird = isMixedPurpose
+    ? `Commercial listings in ${city.name} include sale and rental options. Compare asking prices and monthly rents on individual listings, and confirm permitted use, lease terms and building services before arranging a visit.`
+    : isPlotSale
+      ? `Plot asking prices in ${city.name} vary by society, size, possession and payment status. Compare listings in the same block rather than treating a city-wide residential range as a plot valuation.`
+      : `Indicative bands for ${city.name} currently run ${isRent ? city.rentBand : city.saleBand}. Use the filters below to narrow by area, budget and size, then add two or three shortlisted ${copy.plural} to the comparison view.`;
 
   return {
     slug: config.slug,
@@ -1070,30 +1127,33 @@ export function buildTypeLanding(slug: string): LandingContent | null {
     eyebrow: `${copy.plural} · ${city.name}`,
     h1: config.h1,
     metaTitle: config.metaTitle,
-    metaDescription: `Explore ${copy.plural} for sale in ${city.name} across ${city.keyAreas.slice(0, 4).join(", ")}. Compare price, size, bedrooms and price per square foot with Properties Pak filters and comparison tools.`,
+    metaDescription,
     keywords: [
-      `${copy.plural} for sale ${city.name}`,
+      `${copy.plural} ${purposePhrase} ${city.name}`,
       `${copy.plural} in ${city.name}`,
       `${city.name} property`,
+      ...plotSizeKeywords,
     ],
     intro: [
       `${city.character}`,
-      config.introExtra ?? city.saleSupply,
-      `Indicative bands for ${city.name} currently run ${isRent ? city.rentBand : city.saleBand}. Use the filters below to narrow by area, budget and size, then add two or three shortlisted ${copy.plural} to the comparison view.`,
+      introSecond,
+      introThird,
     ],
     filters: config.filters,
-    alternatives: { city: city.slug },
+    alternatives: {
+      city: city.slug,
+      ...(config.filters.purpose ? { purpose: config.filters.purpose } : {}),
+      ...(config.filters.category ? { category: config.filters.category } : {}),
+      ...(config.filters.type ? { type: config.filters.type } : {}),
+      ...(config.filters.commercialOnly ? { commercialOnly: true } : {}),
+    },
     facets: [
       { label: `Property for sale in ${city.name}`, href: `/property-for-sale-in-${city.slug}`, note: "All sale inventory" },
       { label: `Property for rent in ${city.name}`, href: `/property-for-rent-in-${city.slug}`, note: "All rentals" },
       ...citySocieties(city).map((society) => ({ label: society.name, href: society.href, note: society.note })),
     ],
     societies: citySocieties(city),
-    priceBands: [
-      { label: "Entry level", range: city.saleBand.split("–")[0]?.trim() ?? "—", note: `Compact ${copy.plural} and older stock` },
-      { label: "Mid market", range: "Most end-user transactions", note: "Established areas with completed infrastructure" },
-      { label: "Premium", range: city.saleBand.split("–")[1]?.trim() ?? "—", note: "Prime locations and newer construction" },
-    ],
+    priceBands,
     insightNotes: [
       { title: `Evaluating ${copy.plural}`, copy: copy.verification },
       { title: "Common pitfalls", copy: copy.pitfalls },
@@ -1101,17 +1161,24 @@ export function buildTypeLanding(slug: string): LandingContent | null {
     ],
     faqs: [
       {
-        question: `What should I check when buying ${copy.plural} in ${city.name}?`,
+        question: isMixedPurpose
+          ? `What should I check before buying or renting commercial property in ${city.name}?`
+          : `What should I check when ${isRent ? "renting" : "buying"} ${copy.plural} in ${city.name}?`,
         answer: copy.bullets.join(" "),
       },
       {
         question: `How do I compare ${copy.plural} in ${city.name} quickly?`,
-        answer:
-          "Use the price per square foot shown on each listing, then add up to three shortlisted properties to the Properties Pak comparison view to line up price, area, amenities and the Properties Pak Score side by side.",
+        answer: isMixedPurpose
+          ? "Use each listing's price, area, frontage, permitted use and lease details to compare like with like, then add up to three options to the Properties Pak comparison view."
+          : "Use the price per square foot shown on each listing, then add up to three shortlisted properties to the Properties Pak comparison view to compare price, area, amenities and the Properties Pak Score side by side.",
       },
       {
-        question: `What is an indicative price range for ${copy.plural} in ${city.name}?`,
-        answer: `Our reference band runs ${city.saleBand}, with a market benchmark of ${city.ppsf}. These are indicative figures based on current asking prices.`,
+        question: isMixedPurpose
+          ? `What affects commercial property prices and rents in ${city.name}?`
+          : `What is an indicative ${isRent ? "rent" : "price"} range for ${copy.plural} in ${city.name}?`,
+        answer: isMixedPurpose
+          ? "Commercial asking prices and rents vary by permitted use, floor, frontage, parking, lease length and fit-out. Compare current listings rather than treating a city-wide residential range as a commercial valuation."
+          : `Our reference band runs ${isRent ? city.rentBand : city.saleBand}, with a market benchmark of ${city.ppsf}. These figures are indicative; verify the specific property and current terms.`,
       },
     ],
     relatedLinks: [
@@ -1134,8 +1201,8 @@ export function buildSocietyLanding(slug: string): LandingContent | null {
 
   const filters: PropertyFilters =
     society.matchKind === "query"
-      ? { q: society.match, city: society.citySlug }
-      : { city: society.citySlug };
+      ? { purpose: "buy", q: society.match, city: society.citySlug }
+      : { purpose: "buy", city: society.citySlug };
 
   return {
     slug,
@@ -1156,10 +1223,14 @@ export function buildSocietyLanding(slug: string): LandingContent | null {
       `${society.priceNote} These figures are indicative, based on current asking prices across the market — confirm the exact unit, its dues and possession status before you commit.`,
     ],
     filters,
-    alternatives: { city: society.citySlug },
+    alternatives: { purpose: "buy", city: society.citySlug },
     facets: [
       { label: `All property in ${society.cityName}`, href: `/property-for-sale-in-${society.citySlug}`, note: "Full city inventory" },
-      { label: `Rentals in ${society.cityName}`, href: `/property-for-rent-in-${society.citySlug}`, note: "Monthly rent listings" },
+      {
+        label: `Rentals in ${society.name}`,
+        href: `/properties/for-rent?city=${society.citySlug}&town=${encodeURIComponent(society.match)}`,
+        note: "Live rental search for this area",
+      },
       { label: `Commercial in ${society.cityName}`, href: `/properties/commercial?city=${society.citySlug}`, note: "Offices, shops, buildings" },
     ],
     societies: society.nearby

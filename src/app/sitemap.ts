@@ -42,12 +42,18 @@ const STATIC_ROUTES: { path: string; priority: number; changeFrequency: "daily" 
   })),
 ];
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
+function uniqueCanonicalUrls(entries: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
+  const seen = new Set<string>();
+  return entries.filter((entry) => {
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  });
+}
 
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
     url: `${SITE.url}${route.path === "/" ? "" : route.path}`,
-    lastModified: now,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
@@ -57,14 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...getAllKeywordLandingSlugs(),
   ].map((slug) => ({
     url: `${SITE.url}/${slug}`,
-    lastModified: now,
     changeFrequency: "weekly",
     priority: 0.85,
   }));
 
   const society: MetadataRoute.Sitemap = [...getAllSocietySlugs(), ...getAllTownSlugs()].map((slug) => ({
     url: `${SITE.url}/property-for-sale/${slug}`,
-    lastModified: now,
     changeFrequency: "weekly",
     priority: 0.8,
   }));
@@ -78,31 +82,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       getAllDealerSlugs(),
     ]);
 
-    return [
+    const entries: MetadataRoute.Sitemap = [
       ...base,
       ...landing,
       ...society,
       ...cities.map((item) => ({
         url: `${SITE.url}/city/${item.slug}`,
-        lastModified: now,
         changeFrequency: "daily" as const,
         priority: 0.8,
       })),
       ...properties.map((item) => ({
         url: `${SITE.url}/property/${item.slug}`,
-        lastModified: item.updatedAt instanceof Date ? item.updatedAt : now,
         changeFrequency: "weekly" as const,
         priority: 0.7,
       })),
       ...projects.map((item) => ({
         url: `${SITE.url}/projects/${item.slug}`,
-        lastModified: now,
         changeFrequency: "weekly" as const,
         priority: 0.7,
       })),
       ...posts.map((item) => ({
         url: `${SITE.url}/blog/${item.slug}`,
-        lastModified: item.updatedAt instanceof Date ? item.updatedAt : now,
         changeFrequency: "monthly" as const,
         priority: 0.6,
       })),
@@ -110,12 +110,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .filter((dealer) => dealer.slug)
         .map((dealer) => ({
           url: `${SITE.url}/dealers/${dealer.slug}`,
-          lastModified: dealer.updatedAt instanceof Date ? dealer.updatedAt : now,
           changeFrequency: "weekly" as const,
           priority: dealer.verified ? 0.8 : 0.6,
         })),
     ];
+    return uniqueCanonicalUrls(entries);
   } catch {
-    return [...base, ...landing, ...society];
+    return uniqueCanonicalUrls([...base, ...landing, ...society]);
   }
 }

@@ -10,6 +10,7 @@ import {
   FeaturedProperties,
   InsightsPreview,
   NewProjectsSection,
+  RecentlyAddedProperties,
 } from "@/components/sections-discovery";
 
 import { CtaSection, InvestmentSection, WhyEstateWx } from "@/components/sections-editorial";
@@ -20,6 +21,7 @@ import {
   getCityListingCounts,
   getDealerShowcase,
   getPlatformStats,
+  getPropertyCategoryCounts,
   getPosts,
   getPopularSearches,
   getProjects,
@@ -59,6 +61,7 @@ export default async function HomePage() {
     stats,
     featured,
     discovery,
+    categoryCounts,
     cities,
     cityCounts,
     projects,
@@ -72,6 +75,7 @@ export default async function HomePage() {
     getPlatformStats(),
     searchProperties({ featured: true, verified: true, pageSize: 8 }),
     searchProperties({ sort: "newest", pageSize: 16 }),
+    getPropertyCategoryCounts(),
     getCities(),
     getCityListingCounts(),
     getProjects(8),
@@ -87,11 +91,14 @@ export default async function HomePage() {
     <div className="home-page">
       <Hero />
 
-      {/* Dealer profiles and the site's own tools and guides follow the hero in one compact run. */}
+      {/* Keep the dealer showcase and Properties Pak tools near the hero, as in the original layout. */}
       <DealersSlider dealers={showcaseDealers} />
       <ExploreMoreSection />
 
-      {/* Featured inventory leads the marketplace: the strongest listings first, then full discovery. */}
+      <CategoryGrid counts={categoryCounts} />
+      <RecentlyAddedProperties properties={discovery.items} />
+
+      {/* Keep featured inventory after the new listings and preserve the separate, locally viewed list. */}
       <FeaturedProperties properties={featured.items} total={featured.total} />
       <RecentProperties />
 
@@ -124,8 +131,6 @@ export default async function HomePage() {
       <CommercialSection properties={commercialListings.items} total={commercialListings.total} />
       {/* Map access lives exclusively in the header, on desktop and mobile. */}
       <PopularSearches groups={popularSearches} />
-      {/* "Every property category, in one place" closes the discovery run before new projects. */}
-      <CategoryGrid />
       <NewProjectsSection projects={projects} />
       <CityDiscovery cities={cities} counts={cityCounts} />
 

@@ -67,10 +67,61 @@ test("homepage is compact, retains Explore, removes duplicate dealers and never 
   page.on("pageerror", (error) => failures.push(error.message));
   page.on("console", (message) => { if (message.type() === "error" && /hydrat|React|runtime/i.test(message.text())) failures.push(message.text()); });
   await page.goto("/", { waitUntil: "domcontentloaded" });
-  await expect(visibleTestId(page, "home-hero").locator(".hero-headline-desktop")).toHaveText(/Find Your Future\.\s*Invest With Clarity\./);
-  await expect(visibleTestId(page, "home-hero").getByText("Pakistan’s Premium Property Marketplace", { exact: true })).toBeVisible();
-  await expect(visibleTestId(page, "home-hero").getByRole("link", { name: "List Your Property", exact: true })).toHaveAttribute("href", "/list-property");
+  const hero = visibleTestId(page, "home-hero");
+  await expect(hero.locator(".hero-headline-desktop")).toHaveText(/Find Your Dream Property\s+in Pakistan/);
+  await expect(hero.getByText("Pakistan’s Premium Property Marketplace", { exact: true })).toBeVisible();
+  await expect(hero.getByText("Buy, rent or invest in residential, commercial and plots across Pakistan — all in one place.", { exact: true })).toBeVisible();
+  await expect(hero.getByRole("link", { name: "Explore Properties", exact: true })).toHaveAttribute("href", "#featured");
+  await expect(hero.getByRole("link", { name: "Browse New Projects", exact: true })).toHaveAttribute("href", "/projects");
+  await expect(hero.getByText("For property owners", { exact: true })).toBeVisible();
+  await expect(hero.getByText("Have a property to sell or rent?", { exact: true })).toBeVisible();
+  await expect(hero.getByText("List it on Properties Pak and reach thousands of buyers and tenants across Pakistan.", { exact: true })).toBeVisible();
+  await expect(hero.getByText("Free listing", { exact: true })).toBeVisible();
+  await expect(hero.getByText("No hidden charges", { exact: true })).toBeVisible();
+  await expect(hero.getByText("Reach more buyers and tenants at home and abroad.", { exact: true })).toBeVisible();
+  await expect(hero.getByRole("link", { name: "List Your Property for Free", exact: true })).toHaveAttribute("href", "/list-property");
+  await expect(hero.getByRole("link", { name: "Need help selling or renting? Contact us", exact: true })).toHaveAttribute("href", "/contact");
+  expect(await hero.locator(".hero-owner-actions").evaluate((actions) => getComputedStyle(actions).flexDirection)).toBe("column");
+  await expect(hero.getByText("Better Homes. Bigger Dreams.", { exact: true })).toBeVisible();
+  await expect(hero.getByRole("link", { name: "Official platform by WordbitX Software Company", exact: true })).toHaveAttribute("href", "https://wordbitxtech.com/");
+  await expect(page.getByRole("heading", { name: "Recently Added Properties", exact: true })).toHaveCount(1);
+  await expect(page.getByRole("heading", { name: "Find Properties by Type", exact: true })).toHaveCount(1);
+  await expect(page.locator("#property-categories .home-type-rail-item")).toHaveCount(5);
+  const categoryImages = page.locator("#property-categories .home-type-rail-item img");
+  await expect(categoryImages).toHaveCount(5);
+  const categoryImageSources = await categoryImages.evaluateAll((images) => images.map((image) => image.getAttribute("src") ?? ""));
+  expect(new Set(categoryImageSources).size).toBe(5);
+  expect(categoryImageSources.join(" ")).not.toMatch(/36676879|7546321|36422828|31249549|1313534/);
+  await expect(page.locator('#property-categories a[href="/properties?category=land"]')).toContainText("Land");
+  await expect(page.locator("#recently-added article")).toHaveCount(8);
   await expect(page.getByRole("heading", { name: "Dealers & Agencies", exact: true })).toHaveCount(1);
+  const verifiedDealer = page.locator(".dealer-showcase-card").filter({ has: page.locator(".dealer-showcase-verified") }).first();
+  await expect(verifiedDealer.locator(".dealer-showcase-verified")).toHaveText("Verified");
+  const dealerColors = await verifiedDealer.evaluate((card) => ({
+    background: getComputedStyle(card).backgroundColor,
+    backgroundImage: getComputedStyle(card).backgroundImage,
+    name: getComputedStyle(card.querySelector(".dealer-showcase-name")!).color,
+    city: getComputedStyle(card.querySelector(".dealer-showcase-city")!).color,
+    listings: getComputedStyle(card.querySelector(".dealer-showcase-listings")!).color,
+  }));
+  expect(dealerColors.background).toBe("rgb(241, 246, 242)");
+  expect(dealerColors.backgroundImage).toBe("none");
+  expect(dealerColors.name).toBe("rgb(6, 28, 51)");
+  expect(dealerColors.city).toBe("rgb(74, 96, 121)");
+  expect(dealerColors.listings).toBe("rgb(12, 112, 64)");
+  await expect(verifiedDealer.locator(".dealer-showcase-person")).toHaveCount(0);
+  const dealerIdentityOrder = await verifiedDealer.locator(".dealer-showcase-info").evaluate((info) => Array.from(info.children).map((child) =>
+    child.classList.contains("dealer-showcase-name") ? "name" : child.classList.contains("dealer-showcase-verified") ? "verified" : "other",
+  ));
+  expect(dealerIdentityOrder.slice(0, 2)).toEqual(["name", "verified"]);
+  expect(await verifiedDealer.evaluate((card) => Number.parseFloat(getComputedStyle(card).height))).toBe(104);
+  expect((await verifiedDealer.locator(".dealer-showcase-avatar").boundingBox())!.width).toBe(62);
+  const dealerArrow = verifiedDealer.locator(".dealer-showcase-listings svg");
+  const restingArrowTransform = await dealerArrow.evaluate((arrow) => getComputedStyle(arrow).transform);
+  await verifiedDealer.hover();
+  await expect.poll(() => dealerArrow.evaluate((arrow) => getComputedStyle(arrow).transform)).not.toBe(restingArrowTransform);
+  await expect.poll(() => dealerArrow.evaluate((arrow) => new DOMMatrixReadOnly(getComputedStyle(arrow).transform).e)).toBeGreaterThanOrEqual(7);
+  await expect.poll(() => dealerArrow.evaluate((arrow) => new DOMMatrixReadOnly(getComputedStyle(arrow).transform).a)).toBeGreaterThan(1.05);
   await expect(page.getByRole("heading", { name: /Dealers & agencies behind/ })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "How different buyers would use Properties Pak", exact: true })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Property across Pakistan's major markets", exact: true })).toHaveCount(0);
@@ -82,7 +133,15 @@ test("homepage is compact, retains Explore, removes duplicate dealers and never 
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth), `${width}px overflow`).toBeLessThanOrEqual(1);
     expect((await visibleTestId(page, "home-hero").boundingBox())!.height).toBeGreaterThanOrEqual(540);
-    expect((await page.locator(".dealer-showcase-card").first().boundingBox())!.height).toBeLessThan(130);
+    const typeTrack = page.locator("#property-categories .mobile-scroll-track");
+    expect(await typeTrack.evaluate((element) => getComputedStyle(element).display)).toBe("flex");
+    expect(await typeTrack.evaluate((element) => getComputedStyle(element).overflowX)).toBe("auto");
+    expect(await typeTrack.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+    const dealerBox = (await page.locator(".dealer-showcase-card").first().boundingBox())!;
+    const exploreBox = (await page.locator(".explore-more-card").first().boundingBox())!;
+    expect(Math.abs(dealerBox.width - exploreBox.width)).toBeLessThanOrEqual(1);
+    expect(Math.abs(dealerBox.height - exploreBox.height)).toBeLessThanOrEqual(1);
+    expect((await page.locator(".dealer-showcase-avatar").first().boundingBox())!.width).toBe(width < 768 ? 56 : 62);
     await expect(visibleTestId(page, "header-map")).toBeVisible();
     if (width < 768) await expect(page.locator("#map")).toBeHidden();
     if (width === 1440 || width === 390) await page.screenshot({ path: testInfo.outputPath(`compact-home-${width}.png`) });
@@ -258,6 +317,12 @@ test("mobile header map opens real properties, pinches in place and closes clean
   const cdp = await page.context().newCDPSession(page);
   await cdp.send("Emulation.setTouchEmulationEnabled", { enabled: true, maxTouchPoints: 2 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
+  const externalMap = page.getByRole("link", { name: "Open Lahore Real Estate map in a new tab", exact: true });
+  await expect(externalMap).toBeVisible();
+  await expect(externalMap).toHaveAttribute("href", "https://lahorerealestate.com/all/");
+  await expect(externalMap).toHaveAttribute("target", "_blank");
+  await expect(externalMap).toHaveAttribute("rel", "noopener noreferrer");
+  expect(await externalMap.evaluate((anchor) => anchor.previousElementSibling?.getAttribute("data-testid"))).toBe("header-map");
   await visibleTestId(page, "header-map").click();
   const dialog = page.getByRole("dialog", { name: "Property map", exact: true });
   await expect(dialog.getByRole("group", { name: "Choose property map location", exact: true })).toBeVisible();

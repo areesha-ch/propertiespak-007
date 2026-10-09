@@ -49,6 +49,7 @@ export type PropertyFilters = {
 
 const COMMERCIAL_CATEGORIES = ["office", "shop", "building", "warehouse", "commercial", "factory", "other"];
 const PLOT_CATEGORIES = ["plot", "land", "plot_file", "plot_form", "agricultural_land", "commercial_plot", "industrial_land"];
+const LAND_CATEGORIES = ["land", "agricultural_land", "industrial_land"];
 const HOME_CATEGORIES = ["house", "apartment", "farmhouse", "penthouse"];
 
 /** A listing with its owning account's verification state resolved. */
@@ -114,6 +115,8 @@ export function buildConditions(filters: PropertyFilters): SQL[] {
     conditions.push(inArray(properties.category, HOME_CATEGORIES));
   } else if (filters.category === "plot") {
     conditions.push(inArray(properties.category, PLOT_CATEGORIES));
+  } else if (filters.category === "land") {
+    conditions.push(inArray(properties.category, LAND_CATEGORIES));
   } else if (filters.category === "commercial" || filters.commercialOnly) {
     conditions.push(inArray(properties.category, COMMERCIAL_CATEGORIES));
   } else if (filters.category) {
@@ -218,7 +221,7 @@ async function getPropertyBySlugUncached(slug: string): Promise<Property | undef
 async function getAllPropertySlugsUncached() {
   await ensureSeeded();
   return db
-    .select({ slug: properties.slug, updatedAt: properties.createdAt })
+    .select({ slug: properties.slug })
     .from(properties)
     .where(isPublished)
     .orderBy(desc(properties.createdAt));
@@ -392,7 +395,7 @@ async function getPostBySlugUncached(slug: string) {
 async function getAllPostSlugsUncached() {
   await ensureSeeded();
   return db
-    .select({ slug: posts.slug, updatedAt: posts.publishedAt })
+    .select({ slug: posts.slug })
     .from(posts)
     .orderBy(desc(posts.publishedAt));
 }
@@ -411,6 +414,19 @@ async function getAgentBySlugUncached(slug: string) {
   await ensureSeeded();
   const rows = await db.select().from(agents).where(eq(agents.slug, slug)).limit(1);
   return rows[0];
+}
+
+async function getPropertyCategoryCountsUncached() {
+  await ensureSeeded();
+  const rows = await db
+    .select({
+      category: properties.category,
+      total: sql<number>`cast(count(*) as int)`,
+    })
+    .from(properties)
+    .where(isPublished)
+    .groupBy(properties.category);
+  return Object.fromEntries(rows.map((row) => [row.category, Number(row.total)]));
 }
 
 async function getPlatformStatsUncached() {
@@ -590,7 +606,7 @@ export async function getDealerByEmail(email: string): Promise<DealerProfile | u
 async function getAllDealerSlugsUncached() {
   await ensureSeeded();
   return db
-    .select({ slug: users.slug, updatedAt: users.createdAt, verified: users.isVerified })
+    .select({ slug: users.slug, verified: users.isVerified })
     .from(users)
     .innerJoin(properties, dealerListingJoin())
     .where(sql`${users.slug} <> ''`)
@@ -854,6 +870,7 @@ export const getTestimonials = cachedQuery("getTestimonials", getTestimonialsUnc
 export const getAgents = cachedQuery("getAgents", getAgentsUncached);
 export const getAgentBySlug = cachedQuery("getAgentBySlug", getAgentBySlugUncached);
 export const getPlatformStats = cachedQuery("getPlatformStats", getPlatformStatsUncached);
+export const getPropertyCategoryCounts = cachedQuery("getPropertyCategoryCounts", getPropertyCategoryCountsUncached);
 export const getDealers = cachedQuery("getDealers", getDealersUncached);
 export const getDealerCount = cachedQuery("getDealerCount", getDealerCountUncached);
 export const getDealerBySlug = cachedQuery("getDealerBySlug", getDealerBySlugUncached);
