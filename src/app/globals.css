@@ -2510,3 +2510,49 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
       linear-gradient(180deg, rgba(3, 20, 26, .2) 0%, rgba(3, 20, 26, 0) 38%, rgba(3, 20, 26, .78) 100%);
   }
 }
+
+/* Experiment: translucent glass search panel on desktop so the hero photo shows through the tabs row. */
+@media (min-width: 1024px) {
+  .home-page .property-search-panel {
+    background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+    border: 1px solid rgba(255,255,255,.28);
+    box-shadow: 0 24px 60px -28px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    backdrop-filter: blur(16px) saturate(1.2);
+  }
+  .home-page .property-search-modes { border-bottom: 1px solid rgba(255,255,255,.18); }
+  .home-page .property-search-tabs button { color: rgba(255,255,255,.72); }
+  .home-page .property-search-tabs button[aria-selected="true"],
+  .home-page .property-search-tabs button[aria-pressed="true"] { color: #fff; }
+  .home-page .property-search-tabs button[aria-selected="true"]::after,
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #28d77b; }
+  .home-page .property-search-sell {
+    color: #7ff0b4;
+    padding: 8px 14px;
+    border: 1px solid rgba(127,240,180,.45);
+    border-radius: 999px;
+    background: rgba(40,215,123,.12);
+  }
+  .home-page .property-search-projects { color: rgba(255,255,255,.85); }
+  .home-page .property-search-projects span:last-child { color: #fff; }
+  .home-page .property-search-quick-types button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.9); }
+  .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.22); border-color: rgba(127,240,180,.6); color: #fff; }
+  .home-page .property-search-field label { color: rgba(255,255,255,.85); }
+}
+
+/* Experiment follow-up: the tabs row must inherit the glass panel, not paint its own white. */
+@media (min-width: 1024px) {
+  .home-page .property-search-modes { background: transparent; }
+  .home-page .property-search-tabs,
+  .home-page .property-search-tabs button { background: transparent; }
+}
+
+/* Experiment follow-up: compact pill for the sell link on the glass panel. */
+@media (min-width: 1024px) {
+  .home-page .property-search-sell { min-height: 0; height: 38px; padding: 0 16px; }
+}
+
+/* Experiment follow-up: keep the sell pill at its own height instead of stretching to the row. */
+@media (min-width: 1024px) {
+  .home-page .property-search-sell { align-self: center; }
+}
