@@ -26,12 +26,11 @@ export function HomeExploreProperties({ properties, total }: { properties: Prope
       query="sort=newest"
       label="Explore properties"
       pageSize={16}
-      propertyTypeBelowPrice
       autoPlay
       autoPlayDirection="backward"
     />
   ) :
     <div className="home-explore-grid mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {properties.map((property, index) => <Reveal key={property.id} delay={index * 50}><PropertyCard property={property} priority={index < 4} propertyTypeBelowPrice /></Reveal>)}
+      {properties.map((property, index) => <Reveal key={property.id} delay={index * 50}><PropertyCard property={property} priority={index < 4} compact /></Reveal>)}
     </div>;
 }

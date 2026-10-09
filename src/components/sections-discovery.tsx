@@ -3,13 +3,13 @@ import Link from "next/link";
 import {
   IconArrowRight,
   IconArea,
+  IconBath,
+  IconBed,
   IconBuilding,
   IconCompass,
-  IconKey,
   IconLayers,
+  IconMap,
   IconPin,
-  IconShield,
-  IconSpark,
 } from "@/components/icons";
 import { MobileScrollGrid } from "@/components/mobile-scroll-grid";
 import { PropertyRail } from "@/components/property-rail";
@@ -18,67 +18,158 @@ import { ResponsiveHomeMap } from "@/components/responsive-home-map";
 import { Reveal } from "@/components/reveal";
 import { Section, SectionHeading } from "@/components/section";
 import type { City, Post, Project, Property } from "@/db/schema";
-import { formatPrice } from "@/lib/format";
+import { compactPropertyTitle, formatArea, formatPrice } from "@/lib/format";
 import { photo, sectionPhotos } from "@/lib/images";
 import { SITE } from "@/lib/constants";
 import { siteImages } from "@/lib/site-images";
 import { SitePicture } from "@/components/site-picture";
 
 const CATEGORY_TILES = [
-  { label: "Buy", sub: "Houses, plots & villas", href: "/properties/for-sale", image: sectionPhotos.buy, icon: IconKey },
-  { label: "Rent", sub: "Homes & apartments", href: "/properties/for-rent", image: sectionPhotos.rent, icon: IconArea },
-  { label: "New Projects", sub: "Off-plan & launches", href: "/properties/new-projects", image: sectionPhotos.newProjects, icon: IconLayers },
-  { label: "Commercial", sub: "Offices & retail", href: "/commercial", image: sectionPhotos.commercial, icon: IconBuilding },
-  { label: "Luxury Homes", sub: "Signature residences", href: "/properties?category=house", image: sectionPhotos.luxury, icon: IconSpark },
-  { label: "Apartments", sub: "City living", href: "/properties?category=apartment", image: sectionPhotos.apartments, icon: IconBuilding },
-  { label: "Plots", sub: "Developed sectors", href: "/properties?category=plot", image: sectionPhotos.plots, icon: IconCompass },
-  { label: "Offices", sub: "Corporate floors", href: "/properties?type=Office", image: sectionPhotos.offices, icon: IconShield },
-];
+  { label: "Homes", href: "/properties?category=homes", image: sectionPhotos.typeHomes, icon: IconBuilding, countKeys: ["house", "apartment", "farmhouse", "penthouse"] },
+  { label: "Apartments", href: "/properties?category=apartment", image: sectionPhotos.typeApartments, icon: IconBuilding, countKeys: ["apartment"] },
+  { label: "Plots", href: "/properties?category=plot", image: sectionPhotos.typePlots, icon: IconCompass, countKeys: ["plot", "land", "plot_file", "plot_form", "agricultural_land", "commercial_plot", "industrial_land"] },
+  { label: "Land", href: "/properties?category=land", image: sectionPhotos.typeLand, icon: IconMap, countKeys: ["land", "agricultural_land", "industrial_land"] },
+  { label: "Commercial", href: "/properties?category=commercial", image: sectionPhotos.typeCommercial, icon: IconLayers, countKeys: ["office", "shop", "building", "warehouse", "commercial", "factory", "other"] },
+] as const;
 
-export function CategoryGrid() {
+export function CategoryGrid({ counts }: { counts: Record<string, number> }) {
   return (
-    <Section tone="light">
+    <Section tone="mist" id="property-categories">
       <div className="ui-container">
         <SectionHeading
-          eyebrow="Browse by intent"
-          title="Every property category, in one place"
-          description="Houses, flats, plots and commercial properties."
+          eyebrow="Explore by property type"
+          title="Find Properties by Type"
+          description="Browse homes, apartments, plots, land and commercial spaces across Pakistan."
           action={{ label: "View all listings", href: "/properties" }}
         />
-        <div className="mt-10 grid grid-cols-2 gap-3.5 sm:gap-4 lg:grid-cols-4">
-          {CATEGORY_TILES.map((tile, index) => {
+        <MobileScrollGrid
+          label="Property types"
+          className="home-horizontal-rail home-type-rail"
+          testId="home-type-rail"
+        >
+          {CATEGORY_TILES.map((tile) => {
             const Icon = tile.icon;
+            const count = tile.countKeys.reduce((total, key) => total + (counts[key] ?? 0), 0);
             return (
-              <Reveal key={tile.label} delay={index * 45}>
-                <Link
-                  href={tile.href}
-                  className="zoom-frame group relative flex h-full min-h-[168px] flex-col justify-between overflow-hidden rounded-panel bg-navy-900 p-5 lg:min-h-[196px]"
-                >
-                  <ResilientImage
-                    src={photo(tile.image, 700, 560)}
-                    alt=""
-                    width={700}
-                    height={560}
-                    loading="lazy"
-                    decoding="async"
-                    className="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity duration-500 group-hover:opacity-85"
-                  />
-                  <span className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/55 to-navy-950/10" />
-                  <span className="relative grid h-10 w-10 place-items-center rounded-lg border border-white/20 bg-white/10 text-white backdrop-blur-sm">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span className="relative">
-                    <span className="block font-sans text-[1.0625rem] font-semibold text-white">{tile.label}</span>
-                    <span className="mt-1 flex items-center justify-between gap-2 text-[0.8125rem] text-white/70">
-                      {tile.sub}
-                      <IconArrowRight className="h-4 w-4 shrink-0 text-forest-400 transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </span>
+              <div key={tile.label} className="home-type-rail-item">
+                <Link href={tile.href} className="home-type-card group block h-full overflow-hidden rounded-xl border p-2 transition-all duration-300">
+                  <div className="zoom-frame home-type-image aspect-[3/2] overflow-hidden rounded-lg bg-slate-100">
+                    <ResilientImage
+                      src={photo(tile.image, 1200, 800)}
+                      alt=""
+                      width={1200}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover saturate-[1.08] contrast-[1.08] transition-transform duration-700 group-hover:scale-[1.04]"
+                    />
+                    <span className="home-type-image-shade" aria-hidden="true" />
+                  </div>
+                  <div className="mt-2.5 flex items-center gap-2 px-1">
+                    <span className="home-type-icon" aria-hidden="true"><Icon className="h-4 w-4" /></span>
+                    <h3 className="min-w-0 flex-1 truncate font-sans text-[0.9375rem] font-semibold text-navy-900 sm:text-lg">{tile.label}</h3>
+                    <IconArrowRight className="home-type-arrow h-4 w-4 shrink-0 text-slate-400 transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
+                  <p className="home-type-count mt-1 px-1 text-xs text-slate-500 sm:text-[0.875rem]">
+                    {count.toLocaleString("en-PK")} Properties
+                  </p>
                 </Link>
-              </Reveal>
+              </div>
             );
           })}
+        </MobileScrollGrid>
+      </div>
+    </Section>
+  );
+}
+
+function listedTime(createdAt: Date | string) {
+  const timestamp = new Date(createdAt).getTime();
+  if (!Number.isFinite(timestamp)) return "Listed recently";
+  const minutes = Math.max(0, Math.floor((Date.now() - timestamp) / 60_000));
+  if (minutes < 1) return "Listed just now";
+  if (minutes < 60) return `Listed ${minutes} min ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `Listed ${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+  const days = Math.floor(hours / 24);
+  return `Listed ${days} ${days === 1 ? "day" : "days"} ago`;
+}
+
+function RecentPropertyCard({ property }: { property: Property }) {
+  const isRent = property.purpose === "rent";
+  const isLand = ["land", "agricultural_land", "industrial_land"].includes(property.category);
+  const isPlot = ["plot", "plot_file", "plot_form", "commercial_plot"].includes(property.category);
+  const isCommercial = ["office", "shop", "building", "warehouse", "commercial", "factory"].includes(property.category);
+  const TypeIcon = isLand ? IconMap : isPlot ? IconCompass : isCommercial ? IconLayers : IconBuilding;
+  const image = property.coverImage || property.images[0] || "/images/property-placeholder.svg";
+  const area = property.areaSqft > 0
+    ? `${Math.round(property.areaSqft).toLocaleString("en-PK")} sqft`
+    : formatArea(property.areaValue, property.areaUnit);
+
+  return (
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_5px_20px_-14px_rgba(10,29,48,.34)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-200 hover:shadow-[0_14px_30px_-18px_rgba(10,29,48,.3)]">
+      <Link href={`/property/${property.slug}`} className="relative block aspect-[16/10] overflow-hidden bg-slate-100">
+        <ResilientImage
+          src={image}
+          alt={`${property.title} — ${property.propertyType} in ${property.locationArea}, ${property.cityName}`}
+          width={1200}
+          height={750}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+        <span className={`absolute left-3 top-3 rounded-md px-2.5 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-white shadow-sm ${isRent ? "bg-navy-900" : "bg-[#13aa40]"}`}>
+          {isRent ? "For Rent" : "For Sale"}
+        </span>
+      </Link>
+      <div className="flex flex-1 flex-col p-3 sm:p-3.5">
+        <h3 className="line-clamp-1 min-h-[1.35em] font-sans text-sm font-semibold leading-snug text-navy-900 sm:text-[0.9375rem]">
+          <Link href={`/property/${property.slug}`} className="transition-colors hover:text-forest-700">{compactPropertyTitle(property.title)}</Link>
+        </h3>
+        <p className="mt-1 flex min-w-0 items-center gap-1.5 text-[0.6875rem] text-slate-600 sm:text-[0.75rem]">
+          <IconPin className="h-3.5 w-3.5 shrink-0 text-[#13aa40]" />
+          <span className="truncate">{property.locationArea}, {property.cityName}</span>
+        </p>
+        <p className="mt-1.5 font-sans text-base font-bold leading-tight tracking-[-0.02em] text-navy-900 sm:text-[1.0625rem]">
+          {formatPrice(property.price, property.priceUnit)}
+        </p>
+        <div className="mt-auto pt-2.5">
+          <div className="h-px bg-slate-100" />
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.6875rem] text-slate-600 sm:text-[0.75rem]">
+            {property.bedrooms > 0 && (
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><IconBed className="h-4 w-4 text-[#13aa40]" /> {property.bedrooms} Beds</span>
+            )}
+            {property.bathrooms > 0 && (
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><IconBath className="h-4 w-4 text-[#13aa40]" /> {property.bathrooms} Bath</span>
+            )}
+            <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><IconArea className="h-4 w-4 text-[#13aa40]" /> {area}</span>
+          </div>
+          <div className="mt-2 flex items-center justify-between gap-3 text-[0.6875rem] text-slate-500 sm:text-[0.75rem]">
+            <span>{listedTime(property.createdAt)}</span>
+            <TypeIcon className="h-4 w-4 shrink-0 text-[#13aa40]" />
+          </div>
         </div>
+      </div>
+    </article>
+  );
+}
+
+export function RecentlyAddedProperties({ properties }: { properties: Property[] }) {
+  if (properties.length === 0) return null;
+  return (
+    <Section tone="light" id="recently-added" className="recently-added-section">
+      <div className="ui-container">
+        <SectionHeading
+          eyebrow="Just listed"
+          title="Recently Added Properties"
+          description="Fresh listings from verified dealers and property owners."
+          action={{ label: "View all", href: "/properties?sort=newest" }}
+        />
+        <MobileScrollGrid label="Recently added properties" className="home-horizontal-rail home-recent-rail" testId="recently-added-rail">
+          {properties.slice(0, 8).map((property) => (
+            <div key={property.id}><RecentPropertyCard property={property} /></div>
+          ))}
+        </MobileScrollGrid>
       </div>
     </Section>
   );

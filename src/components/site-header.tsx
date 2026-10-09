@@ -179,6 +179,15 @@ export function SiteHeader({ isAuthenticated = false }: { isAuthenticated?: bool
 
           <div className="header-actions">
             <button type="button" data-testid="header-map" onClick={(event) => openPanel("map", event.currentTarget)} aria-label={t("Open property map")} aria-haspopup="dialog" className="header-action header-map-action"><IconMap className="h-5 w-5" /></button>
+            <a
+              href="https://lahorerealestate.com/all/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="header-map-external"
+              className="header-action header-map-external-link"
+              aria-label={t("Open Lahore Real Estate map in a new tab")}
+              title={t("Open Lahore Real Estate map in a new tab")}
+            ><IconMap className="h-5 w-5" aria-hidden="true" /></a>
             <button type="button" onClick={(event) => openPanel("search", event.currentTarget)} aria-label={t("Search properties")} aria-haspopup="dialog" className="header-action header-search-action"><IconSearch className="h-5 w-5" /></button>
             <Link href="/favorites" data-testid="header-saved" aria-label={`${t("Saved properties")}${count ? `, ${count} ${t("saved")}` : ""}`} className="header-action header-saved-action">
               <IconHeart className="h-5 w-5" />

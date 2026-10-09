@@ -6,7 +6,7 @@ test("hero is photographic, borderless and has no featured listing card", async 
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/", { waitUntil: "domcontentloaded" });
   const hero = visibleTestId(page, "home-hero");
-  await expect(hero.locator(".hero-headline-desktop")).toHaveText(/Find Your Future\.\s*Invest With Clarity\./);
+  await expect(hero.locator(".hero-headline-desktop")).toHaveText(/Find Your Dream Property\s+in Pakistan/);
   await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(hero.getByRole("link", { name: "Explore Properties", exact: true })).toHaveAttribute("href", "#featured");
   const image = visibleTestId(page, "hero-photograph");
@@ -153,21 +153,29 @@ test("mobile menu uses the top layer, closes reliably and navigates correctly", 
   expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
 });
 
-test("desktop homepage search exposes the Homes, Plots, Commercial and Beds filters", async ({ page }) => {
+test("desktop search restores Buy/Rent, seller and project links, and property categories", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
   const panel = page.getByTestId("hero-search");
+  const purposes = panel.getByRole("group", { name: "Search purpose", exact: true });
+  const categories = panel.getByRole("group", { name: "Quick property category", exact: true });
+  const city = panel.getByLabel("City", { exact: true });
   const type = panel.getByLabel("Property type", { exact: true });
-  await panel.getByRole("group", { name: "Quick property category", exact: true }).getByRole("button", { name: "Homes", exact: true }).click();
-  await expect(type.locator("option")).toHaveText(["All Homes", "House", "Upper Portion", "Farm House", "Penthouse", "Flat", "Lower Portion", "Room"]);
+  await expect(purposes.getByRole("button", { name: "Buy", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(purposes.getByRole("button", { name: "Rent", exact: true })).toHaveAttribute("aria-pressed", "false");
+  await expect(panel.getByRole("link", { name: "Sell a property", exact: true })).toHaveAttribute("href", "/list-property");
+  await expect(panel.getByRole("link", { name: /New projects/ })).toHaveAttribute("href", "/projects");
+  await expect(city).toHaveValue("");
+  await expect(city.locator("option").first()).toHaveText("All cities");
+  await expect(categories.getByRole("button", { name: "All properties", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(categories.getByRole("button", { name: "Homes", exact: true })).toBeVisible();
+  await expect(categories.getByRole("button", { name: "Plots", exact: true })).toBeVisible();
+  await expect(type.locator("option").first()).toHaveText("All types");
   await panel.getByLabel("Beds", { exact: true }).selectOption("3");
-  await panel.getByRole("group", { name: "Quick property category", exact: true }).getByRole("button", { name: "Plots", exact: true }).click();
-  await expect(type.locator("option")).toHaveText(["All Plots", "Residential Plot", "Agricultural Land", "Plot File", "Commercial Plot", "Industrial Land", "Plot Form"]);
-  await panel.getByRole("group", { name: "Quick property category", exact: true }).getByRole("button", { name: "Commercial", exact: true }).click();
+  await categories.getByRole("button", { name: "Commercial", exact: true }).click();
+  await expect(categories.getByRole("button", { name: "Commercial", exact: true })).toHaveAttribute("aria-pressed", "true");
   await expect(type.locator("option")).toHaveText(["All Commercial", "Office", "Warehouse", "Building", "Shop", "Factory", "Other"]);
   await type.selectOption("Factory");
-  await expect(panel.getByText("NEW", { exact: true })).toBeVisible();
-  await expect(panel.getByRole("link", { name: /New projects/ })).toHaveAttribute("href", "/projects");
   await panel.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page).toHaveURL(/\/properties\/for-sale\?category=commercial&type=Factory/);
 });
@@ -200,7 +208,7 @@ test("mobile hero search preserves filters and location suggestions", async ({ p
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
   const heroSearch = visibleTestId(page, "hero-search");
-  await heroSearch.getByRole("tab", { name: "Rent", exact: true }).click();
+  await heroSearch.getByRole("button", { name: "Rent", exact: true }).click();
   await page.route("**/api/geocode?**", (route) => route.fulfill({ json: { results: [{ label: "Lahore", lat: 31.52, lng: 74.35, source: "estatewx", kind: "city" }] } }));
   await heroSearch.getByRole("button", { name: "Search Properties", exact: true }).click();
   const form = page.getByRole("dialog", { name: "Search properties", exact: true });

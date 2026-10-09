@@ -5,7 +5,7 @@ import { ResilientImage } from "@/components/resilient-image";
 import Link from "next/link";
 import { useRef } from "react";
 import { IconArrowRight } from "@/components/icons";
-import { BlueTick } from "@/components/verified-badge";
+import { VerifiedChip } from "@/components/verified-badge";
 import { siteImages } from "@/lib/site-images";
 import { useDealerRail } from "@/components/use-dealer-rail";
 import type { DealerProfile } from "@/lib/queries";
@@ -43,10 +43,10 @@ export function DealersSlider({ dealers }: { dealers: DealerProfile[] }) {
                     className={dealer.companyLogo ? "h-full w-full object-contain p-1.5" : "h-full w-full object-cover"} />
                 </span>
                 <span className="dealer-showcase-info">
-                  <span className="dealer-showcase-name"><span>{dealer.agency || dealer.name}</span>{dealer.isVerified && <BlueTick className="h-3.5 w-3.5 shrink-0" />}</span>
-                  <span className="dealer-showcase-person">{dealer.agency ? dealer.name : dealer.designation || "Property consultant"}</span>
+                  <span className="dealer-showcase-name"><span>{dealer.agency?.trim() || "Property Dealer"}</span></span>
+                  {dealer.isVerified && <VerifiedChip className="dealer-showcase-verified" />}
                   <span className="dealer-showcase-city">{dealer.cityName || "Pakistan"}</span>
-                  <span className="dealer-showcase-listings">{dealer.listings > 0 ? `${dealer.listings} ${dealer.listings === 1 ? "listing" : "listings"}` : "View profile"}<IconArrowRight className="h-3 w-3" /></span>
+                  <span className="dealer-showcase-listings">{dealer.listings > 0 ? `${dealer.listings} ${dealer.listings === 1 ? "listing" : "listings"}` : "View profile"}<IconArrowRight className="dealer-showcase-arrow h-4 w-4 shrink-0" /></span>
                 </span>
               </Link>
             </li>

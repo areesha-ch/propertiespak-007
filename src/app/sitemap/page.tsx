@@ -269,8 +269,8 @@ export default async function HtmlSitemapPage() {
               Looking for Search Console XML Sitemap?
             </p>
             <p className="mt-1 text-[0.8125rem] text-ink-muted">
-              Submit the sitemap index in Google Search Console and Bing Webmaster Tools. The master and focused sitemaps
-              remain available for individual submission when you want to inspect a specific content group.
+              Submit the sitemap index in Google Search Console and Bing Webmaster Tools. It points to the deduplicated
+              master sitemap; focused XML files remain available for diagnostics if you need to inspect one content group.
             </p>
             <div className="mt-5 grid gap-2 text-left sm:grid-cols-2 lg:grid-cols-3">
               {getSitemapRegistry().map((item) => (
@@ -287,9 +287,8 @@ export default async function HtmlSitemapPage() {
               ))}
             </div>
             <p className="mt-4 text-left text-[0.75rem] leading-relaxed text-ink-muted">
-              robots.txt: <span className="font-mono text-forest-700">{SITE.url}/robots.txt</span> · Every property, city,
-              society, keyword and guide page is also reachable from the master sitemap; the focused files simply let
-              Search Console report coverage per content group.
+              robots.txt: <span className="font-mono text-forest-700">{SITE.url}/robots.txt</span> · The master sitemap
+              lists canonical, indexable URLs once. Focused files remain available if you need to inspect a content group.
             </p>
           </div>
         </div>

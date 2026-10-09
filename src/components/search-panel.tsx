@@ -16,6 +16,7 @@ import {
   PLOT_SEARCH_TYPES,
   propertySearchHref,
   searchTypeLabel,
+  SEARCH_CITIES,
   type PropertySearchState,
   type SearchGroup,
 } from "@/lib/property-search";
@@ -59,7 +60,7 @@ export function SearchPanel() {
   const budget = state.minPrice || state.maxPrice ? `${state.minPrice}-${state.maxPrice}` : "";
 
   function changePurpose(purpose: "buy" | "rent") {
-    setState((current) => ({ ...current, purpose, minPrice: "", maxPrice: "" }));
+    setState((current) => ({ ...current, purpose, group: "all", type: "", minPrice: "", maxPrice: "" }));
   }
 
   function changeGroup(group: SearchGroup) {
@@ -82,13 +83,13 @@ export function SearchPanel() {
   return (
     <div className="property-search-panel">
       <div className="property-search-modes">
-        <div className="property-search-tabs" role="tablist" aria-label={t("Search purpose")}>
-          <button type="button" role="tab" aria-selected={state.purpose === "buy"} onClick={() => changePurpose("buy")} title={t("Buy property for sale")}>{t("Buy")}</button>
-          <button type="button" role="tab" aria-selected={state.purpose === "rent"} onClick={() => changePurpose("rent")}>{t("Rent")}</button>
+        <div className="property-search-tabs" role="group" aria-label={t("Search purpose")}>
+          <button type="button" aria-pressed={state.purpose === "buy"} onClick={() => changePurpose("buy")}>{t("Buy")}</button>
+          <button type="button" aria-pressed={state.purpose === "rent"} onClick={() => changePurpose("rent")}>{t("Rent")}</button>
         </div>
         <Link href="/list-property" className="property-search-sell">{t("Sell a property")}</Link>
         <Link href="/projects" className="property-search-projects">
-          <span className="property-search-new-badge">NEW</span>
+          <span className="property-search-new-badge" aria-hidden="true">NEW</span>
           <span>{t("New projects")}</span>
         </Link>
       </div>
@@ -119,9 +120,7 @@ export function SearchPanel() {
           <label htmlFor="hero-city">{t("City")}</label>
           <select id="hero-city" value={state.city} onChange={(event) => setState((current) => ({ ...current, city: event.target.value, town: "" }))}>
             <option value="">{t("All cities")}</option>
-            <option value="lahore">Lahore</option><option value="karachi">Karachi</option><option value="islamabad">Islamabad</option>
-            <option value="rawalpindi">Rawalpindi</option><option value="faisalabad">Faisalabad</option><option value="multan">Multan</option>
-            <option value="gujranwala">Gujranwala</option><option value="peshawar">Peshawar</option>
+            {SEARCH_CITIES.map((city) => <option key={city.slug} value={city.slug}>{city.name}</option>)}
           </select>
         </div>
         <div className="property-search-field property-search-field--type">
@@ -151,7 +150,8 @@ export function SearchPanel() {
         </div>
         <div className="property-search-buttons">
           <button type="submit" className="btn btn-green"><IconSearch className="h-4 w-4" />{t("Search")}</button>
-          <button type="button" onClick={(event) => { triggerRef.current = event.currentTarget; setOpen(true); }} className="property-search-advanced"><IconSliders className="h-4 w-4" />{t("All filters")}</button>
+          <button type="button" onClick={(event) => { triggerRef.current = event.currentTarget; setOpen(true); }} className="property-search-advanced"><IconSliders className="h-3.5 w-3.5" />{t("All filters")}</button>
+          <span className="sr-only">{t("Search by city, society, property type or budget.")}</span>
         </div>
       </form>
 

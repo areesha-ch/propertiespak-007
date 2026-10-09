@@ -27,6 +27,7 @@ const CATEGORIES = [
   { value: "house", label: "House", types: ["House", "Villa"] },
   { value: "apartment", label: "Apartment / Flat", types: ["Apartment", "Penthouse", "Upper Portion", "Lower Portion", "Room"] },
   { value: "plot", label: "Plot / File", types: ["Plot"] },
+  { value: "land", label: "Land", types: ["Agricultural Land", "Industrial Land"] },
   { value: "office", label: "Office", types: ["Office"] },
   { value: "shop", label: "Shop / Retail", types: ["Shop"] },
   { value: "building", label: "Commercial Building", types: ["Commercial Building"] },

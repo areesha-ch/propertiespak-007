@@ -31,13 +31,13 @@ export function renderUrlSet(entries: SitemapEntry[]): string {
       return true;
     })
     .map((entry) => {
-      const lastmod = entry.lastModified
-        ? new Date(entry.lastModified).toISOString()
-        : new Date().toISOString();
+      // Google can use lastmod only when it reflects a real significant edit;
+      // omit it rather than fabricating a fresh timestamp for every crawl.
+      const lastmod = entry.lastModified ? new Date(entry.lastModified).toISOString() : "";
       return [
         "<url>",
         `<loc>${escapeXml(absoluteUrl(entry.path))}</loc>`,
-        `<lastmod>${lastmod}</lastmod>`,
+        lastmod ? `<lastmod>${lastmod}</lastmod>` : "",
         entry.changeFrequency ? `<changefreq>${entry.changeFrequency}</changefreq>` : "",
         typeof entry.priority === "number" ? `<priority>${entry.priority.toFixed(1)}</priority>` : "",
         "</url>",
@@ -51,12 +51,8 @@ export function renderUrlSet(entries: SitemapEntry[]): string {
 }
 
 export function renderSitemapIndex(paths: string[]): string {
-  const lastmod = new Date().toISOString();
   const rows = [...new Set(paths)]
-    .map(
-      (path) =>
-        `<sitemap><loc>${escapeXml(absoluteUrl(path))}</loc><lastmod>${lastmod}</lastmod></sitemap>`,
-    )
+    .map((path) => `<sitemap><loc>${escapeXml(absoluteUrl(path))}</loc></sitemap>`)
     .join("");
   return `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${rows}</sitemapindex>`;
 }

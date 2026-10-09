@@ -10,11 +10,18 @@ import { getProjects } from "@/lib/queries";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "New Property Projects & Developments in Pakistan",
+  title: "New Property Projects in Pakistan | Developments & Payment Plans",
   description:
-    "Explore residential and mixed-use developments in Pakistan — luxury apartments in Islamabad, towers in Karachi, housing schemes in Lahore and Faisalabad with launch pricing and payment plans.",
+    "Compare new housing projects in Pakistan by location, unit type, development status, launch price and instalment plan. Review the full payment schedule and handover terms before booking.",
   path: "/projects",
-  keywords: ["new projects Pakistan", "new developments Islamabad", "housing schemes Lahore", "off plan apartments Pakistan"],
+  keywords: [
+    "new projects Pakistan",
+    "new developments Islamabad",
+    "housing schemes Lahore",
+    "off plan apartments Pakistan",
+    "property on installments Pakistan",
+    "housing projects with payment plans Pakistan",
+  ],
 });
 
 export default async function ProjectsPage() {
@@ -25,7 +32,7 @@ export default async function ProjectsPage() {
       <PageHero
         eyebrow="New projects"
         title="New Developments Across Pakistan"
-        description="Launch pricing, unit configuration, payment plans and handover timelines presented side by side — so a project can be judged on substance and not just marketing."
+        description="Compare launch prices, unit sizes, instalment schedules and handover timelines — including the total payable cost, not only the monthly payment."
         crumbs={[
           { name: "Home", href: "/" },
           { name: "New Projects", href: "/projects" },

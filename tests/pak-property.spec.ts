@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { inArray } from "drizzle-orm";
 import { db, pool } from "../src/db";
 import { inquiries } from "../src/db/schema";
+import { SITE } from "../src/lib/constants";
 
 const PROPERTY_PATH = "/property/premium-office-space-gulberg-lahore";
 const PROPERTY_TITLE = "Premium Corporate Office Floor";
@@ -140,9 +141,54 @@ test("public SEO and protected inbox endpoints remain available", async ({ reque
     const response = await request.get(path);
     expect(response.status(), path).toBe(200);
   }
+  const masterSitemap = await (await request.get("/sitemap.xml")).text();
+  const sitemapLocations = Array.from(masterSitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
+  expect(sitemapLocations.length).toBeGreaterThan(0);
+  expect(new Set(sitemapLocations).size).toBe(sitemapLocations.length);
+
+  const sitemapIndex = await (await request.get("/sitemap-index.xml")).text();
+  const childSitemaps = Array.from(sitemapIndex.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
+  expect(childSitemaps).toEqual([`${SITE.url}/sitemap.xml`]);
+  const robots = await (await request.get("/robots.txt")).text();
+  const advertisedSitemaps = robots.match(/^Sitemap:\s+.+$/gm) ?? [];
+  expect(advertisedSitemaps).toHaveLength(1);
+  expect(advertisedSitemaps[0]).toContain("/sitemap-index.xml");
+
+  const areaResponse = await request.get("/property-for-sale/f-11-islamabad");
+  expect(areaResponse.status()).toBe(200);
+  const areaPage = await areaResponse.text();
+  expect(areaPage).toContain("Rentals in F-11 Islamabad");
+  expect(areaPage).toContain('href="/properties/for-rent?city=islamabad&amp;town=F-11"');
+
+  const cityRentLanding = await (await request.get("/property-for-rent-in-lahore")).text();
+  expect(cityRentLanding).toContain("Houses for rent in Lahore");
+  expect(cityRentLanding).toContain('href="/properties/for-rent?city=lahore&amp;category=house"');
+  expect(cityRentLanding).toContain("Commercial rentals in Lahore");
+  expect(cityRentLanding).toContain("2- or 3-bedroom flats and furnished apartments where available");
+
+  const plotLanding = await (await request.get("/plots-for-sale-in-pakistan")).text();
+  expect(plotLanding).toContain("5 Marla, 10 Marla and 1 Kanal options");
+  expect(plotLanding).toContain("verify any remaining instalments");
+  const lahorePlots = await (await request.get("/plots-for-sale-in-lahore")).text();
+  expect(lahorePlots).toContain("5 Marla, 10 Marla and 1 Kanal plots where available");
+  const islamabadPlots = await (await request.get("/plots-for-sale-in-islamabad")).text();
+  expect(islamabadPlots).toContain("look for 5 Marla, 10 Marla and 1 Kanal plots where available");
+
+  const apartmentRentLanding = await (await request.get("/apartments-for-rent-in-lahore")).text();
+  expect(apartmentRentLanding).toContain("Compare furnished, semi-furnished and unfurnished apartments by bedroom count and monthly rent");
+  const islamabadApartmentRent = await (await request.get("/apartments-for-rent-in-islamabad")).text();
+  expect(islamabadApartmentRent).toContain("Compare furnished, semi-furnished and unfurnished apartments by bedroom count and monthly rent");
+
+  const commercialLanding = await (await request.get("/commercial-property-in-islamabad")).text();
+  expect(commercialLanding).toContain("Offices, shops and warehouses for sale or rent in Islamabad");
+  expect(commercialLanding).toContain("Blue Area");
+
+  const projectLanding = await (await request.get("/new-property-projects-in-pakistan")).text();
+  expect(projectLanding).toContain("For property on instalments, compare the total payable amount");
+
   const page = await (await request.get(PROPERTY_PATH)).text();
-  expect(page).toContain(`https://property.wordbitxtech.com${PROPERTY_PATH}`);
-  expect(page).toContain("Pak Property");
+  expect(page).toContain(`${SITE.url}${PROPERTY_PATH}`);
+  expect(page).toContain("Properties Pak");
   expect(page).toContain("See nearby properties");
   expect((await request.patch("/api/admin/inquiries/1", { data: { status: "closed", adminNote: "" } })).status()).toBe(401);
 });

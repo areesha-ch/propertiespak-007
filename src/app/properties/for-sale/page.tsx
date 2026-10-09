@@ -33,7 +33,7 @@ export default async function ForSalePage({ searchParams }: { searchParams: Prom
     <ListingView
       eyebrow="For sale"
       title="Property for Sale in Pakistan"
-      description="From DHA and Bahria Town addresses to family houses in Johar Town and investment plots in new societies — compare properte sale listings in one place."
+      description="From DHA and Bahria Town addresses to family houses in Johar Town and investment plots in new societies — compare property listings for sale in one place."
       crumbs={[
         { name: "Home", href: "/" },
         { name: "Properties", href: "/properties" },

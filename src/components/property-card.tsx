@@ -4,7 +4,7 @@ import { IconArea, IconArrowRight, IconBath, IconBed, IconEye, IconPin } from "@
 import { FavoriteButton } from "@/components/favorite-button";
 import { CompareToggle } from "@/components/compare-toggle";
 import type { Property } from "@/db/schema";
-import { formatArea, formatNumber, formatPrice } from "@/lib/format";
+import { compactPropertyTitle, formatArea, formatNumber, formatPrice } from "@/lib/format";
 import { CATEGORY_LABELS } from "@/lib/constants";
 import { computePropertyScore, pricePerSqft } from "@/lib/score";
 import { BlueTick } from "@/components/verified-badge";
@@ -21,20 +21,20 @@ export function PropertyCard({
   priority = false,
   className = "",
   compact = false,
-  propertyTypeBelowPrice = false,
 }: {
   property: Property | PropertyWithDealer;
   priority?: boolean;
   className?: string;
   compact?: boolean;
-  propertyTypeBelowPrice?: boolean;
 }) {
   const dealerVerified = Boolean((property as PropertyWithDealer).dealerVerified);
   const listingVerified = dealerVerified || Boolean(property.verified);
   const badge = purposeBadge(property);
   const score = computePropertyScore(property);
   const pps = pricePerSqft(property);
-  const stackType = compact || propertyTypeBelowPrice;
+  const titleClass = compact
+    ? "line-clamp-1 min-h-[1.35em] text-[0.9375rem]"
+    : "line-clamp-2 text-[1.0625rem]";
 
   return (
     <article
@@ -78,16 +78,13 @@ export function PropertyCard({
         <CompareToggle propertyId={property.id} title={property.title} />
       </div>
 
-      <div className={`flex min-w-0 flex-1 flex-col ${compact ? "p-3.5" : "p-5"}`}>
-        {/* Compact cards always stack the price above the type chip. Sitting
-            them side by side works for "PKR 5.6 Crore" but wraps for
-            "PKR 2.8 Lakh / month", and that one extra line is what made some
-            cards a line taller than their neighbours. */}
-        <div className={`property-card-price-block flex min-w-0 ${stackType ? "flex-col items-start gap-1.5" : "flex-wrap items-start justify-between gap-3"}`} data-property-type-stack={stackType ? "true" : undefined}>
-          <p className={`font-sans font-bold leading-tight tracking-[-0.03em] text-navy-900 ${compact ? "text-[1.0625rem]" : "text-[1.28rem]"}`}>
+      <div className={`flex min-w-0 flex-1 flex-col ${compact ? "p-3" : "p-5"}`}>
+        {/* Compact card details stay lean so the listing photo remains prominent. */}
+        <div className={`property-card-price-block flex min-w-0 ${compact ? "flex-wrap items-center justify-between gap-x-2 gap-y-1" : "flex-wrap items-start justify-between gap-3"}`}>
+          <p className={`font-sans font-bold leading-tight tracking-[-0.03em] text-navy-900 ${compact ? "text-base" : "text-[1.28rem]"}`}>
             {formatPrice(property.price, property.priceUnit)}
           </p>
-          <span className={`max-w-full rounded-md bg-mist px-2 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-ink-muted ${stackType ? "" : "mt-0.5"}`}>
+          <span className={`max-w-full rounded-md bg-mist font-semibold uppercase tracking-[0.08em] text-ink-muted ${compact ? "px-1.5 py-0.5 text-[0.625rem]" : "px-2 py-1 text-[0.6875rem]"} ${compact ? "" : "mt-0.5"}`}>
             {property.propertyType}
           </span>
         </div>
@@ -98,25 +95,22 @@ export function PropertyCard({
           <span className="font-semibold text-forest-700">Score {score.overall}/10</span>
         </p>}
 
-        <h3 className={`mt-2.5 line-clamp-2 font-sans font-semibold leading-snug text-navy-900 ${compact ? "min-h-[2.6em] text-[0.9375rem]" : propertyTypeBelowPrice ? "min-h-[2.75em] text-[1.0625rem]" : "text-[1.0625rem]"}`}>
+        <h3 className={`mt-2 font-sans font-semibold leading-snug text-navy-900 ${titleClass}`}>
           <Link href={`/property/${property.slug}`} className="transition-colors hover:text-forest-700">
-            {property.title}
+            {compact ? compactPropertyTitle(property.title) : property.title}
           </Link>
         </h3>
 
-        <p className={`mt-2 flex items-center gap-1.5 text-ink-muted ${compact ? "text-[0.75rem]" : "text-[0.875rem]"}`}>
-          <IconPin className="h-4 w-4 shrink-0 text-forest-600" />
+        <p className={`mt-1.5 flex items-center gap-1 text-ink-muted ${compact ? "text-[0.6875rem]" : "text-[0.875rem]"}`}>
+          <IconPin className="h-3.5 w-3.5 shrink-0 text-forest-600" />
           <span className="truncate">
             {property.locationArea}, {property.cityName}
           </span>
         </p>
 
-        {/* mt-auto in both modes: the rail stretches every card to the tallest
-            one, so the specs and the call to action have to be pinned to the
-            bottom edge or short listings leave a dead gap underneath them. */}
-        <div className={`${compact ? "mt-auto pt-2" : "mt-auto pt-4"}`}>
+        <div className="mt-auto pt-1.5">
           <div className="hairline" />
-          <div className={`flex flex-wrap items-center gap-y-2 font-medium text-ink ${compact ? "mt-3 gap-x-3 text-[0.75rem]" : "mt-3.5 gap-x-4 text-[0.8125rem]"}`}>
+          <div className={`flex flex-wrap items-center gap-y-1.5 font-medium text-ink ${compact ? "mt-2 gap-x-2.5 text-[0.6875rem]" : "mt-3.5 gap-x-4 text-[0.8125rem]"}`}>
             {property.bedrooms > 0 && (
               <span className="inline-flex items-center gap-1.5">
                 <IconBed className="h-4 w-4 text-navy-600" /> {property.bedrooms} Beds
@@ -136,10 +130,10 @@ export function PropertyCard({
             {property.amenities.slice(0, 3).join(" · ") || property.furnishing}
           </p>}
 
-          <div className={`${compact ? "mt-3" : "mt-4"} flex items-center justify-between gap-3`}>
+          <div className={`${compact ? "mt-2" : "mt-4"} flex items-center justify-between gap-3`}>
             <Link
               href={`/property/${property.slug}`}
-              className="inline-flex items-center gap-1.5 font-sans text-[0.875rem] font-semibold text-navy-800 transition-colors hover:text-forest-700"
+              className={`inline-flex items-center gap-1.5 font-sans font-semibold text-navy-800 transition-colors hover:text-forest-700 ${compact ? "text-[0.75rem]" : "text-[0.875rem]"}`}
             >
               View Details
               <IconArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

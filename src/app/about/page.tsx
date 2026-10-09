@@ -12,7 +12,7 @@ import { SitePicture } from "@/components/site-picture";
 import { siteImages } from "@/lib/site-images";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About Properties Pak — Pakistan Real Estate in Pakistan",
+  title: "About Properties Pak | Pakistan Property Marketplace",
   description:
     "Properties Pak is a property marketplace for Pakistan built by WordbitX Software Company. Learn how we verify listings, structure search and support buyers, tenants and investors.",
   path: "/about",
@@ -132,15 +132,15 @@ export default async function AboutPage() {
             </p>
             <h2 className="display-2 mt-4 text-navy-900">Standard-setting, not listing volume</h2>
             <p className="lede mt-4">
-              Pakistan's property market moves on relationships — but the information behind a deal is often scattered
+              Pakistan&apos;s property market moves on relationships — but the information behind a deal is often scattered
               across phone calls and screenshots. Properties Pak structures that information so a buyer can compare, filter and
               decide without travelling the city first.
             </p>
             <ul className="mt-7 space-y-4">
               {[
                 {
-                  title: "Verification first",
-                  copy: "Listings carry their documentation status, dues position and a clear price basis.",
+                  title: "Reviewed before publication",
+                  copy: "We review seller contact, location, size and price details before publication; buyers should still verify title, dues and possession independently.",
                 },
                 {
                   title: "Comparable presentation",

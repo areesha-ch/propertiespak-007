@@ -1445,7 +1445,7 @@ export function buildTownLanding(slug: string): LandingContent | null {
     .map((nearbySlug) => TOWN_BY_SLUG.get(nearbySlug))
     .filter((item): item is Town => Boolean(item));
 
-  const filters: PropertyFilters = { city: town.citySlug, town: town.match };
+  const filters: PropertyFilters = { purpose: "buy", city: town.citySlug, town: town.match };
 
   const faqs = [
     {
@@ -1487,10 +1487,14 @@ export function buildTownLanding(slug: string): LandingContent | null {
       `This guide follows how our ${town.cityName} desk actually transacts in ${town.name}: what a fair price looks like, which documents matter, and how the town compares with neighbouring locations. ${town.buyers}`,
     ],
     filters,
-    alternatives: { city: town.citySlug },
+    alternatives: { purpose: "buy", city: town.citySlug },
     facets: [
       { label: `All property in ${town.cityName}`, href: `/property-for-sale-in-${town.citySlug}`, note: "City-wide inventory" },
-      { label: `Rentals in ${town.cityName}`, href: `/property-for-rent-in-${town.citySlug}`, note: "Monthly rent options" },
+      {
+        label: `Rentals in ${town.name}`,
+        href: `/properties/for-rent?city=${town.citySlug}&town=${encodeURIComponent(town.match)}`,
+        note: "Live rental search for this area",
+      },
       { label: `${town.cityName} town directory`, href: `/towns/${town.citySlug}`, note: "Every town and scheme we cover" },
     ],
     societies: nearby.map((item) => ({
