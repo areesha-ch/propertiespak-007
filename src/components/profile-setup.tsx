@@ -298,7 +298,7 @@ export function ProfileSetupDialog({
                         <button
                           type="button"
                           onClick={() => set("avatarUrl", "")}
-                          className="text-[0.6875rem] font-semibold text-ink-muted hover:text-red-600"
+                          className="text-[0.75rem] font-semibold text-ink-muted hover:text-red-600"
                         >
                           Remove photo
                         </button>
@@ -448,7 +448,7 @@ export function ProfileSetupDialog({
                         {fields.companyLogo ? (
                                         <ResilientImage src={fields.companyLogo} alt="" className="h-full w-full object-contain" />
                         ) : (
-                          <span className="text-[0.625rem] font-semibold uppercase tracking-wide text-ink-muted">Logo</span>
+                          <span className="text-[0.75rem] font-semibold uppercase tracking-wide text-ink-muted">Logo</span>
                         )}
                       </span>
                       <button
@@ -463,7 +463,7 @@ export function ProfileSetupDialog({
                         <button
                           type="button"
                           onClick={() => set("companyLogo", "")}
-                          className="text-[0.6875rem] font-semibold text-ink-muted hover:text-red-600"
+                          className="text-[0.75rem] font-semibold text-ink-muted hover:text-red-600"
                         >
                           Remove
                         </button>

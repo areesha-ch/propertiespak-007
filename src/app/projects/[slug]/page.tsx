@@ -72,10 +72,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <div className="mt-7 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-end">
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="rounded-md bg-forest-600 px-2.5 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.12em] text-white">
+                <span className="rounded-md bg-forest-600 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] text-white">
                   {project.status}
                 </span>
-                <span className="rounded-md border border-white/15 px-2.5 py-1 font-sans text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-white/70">
+                <span className="rounded-md border border-white/15 px-2.5 py-1 font-sans text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-white/70">
                   {project.projectType}
                 </span>
               </div>
@@ -86,7 +86,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <p className="mt-2 text-[0.875rem] text-white/60">Developed by {project.developer}</p>
             </div>
             <div className="rounded-panel border border-white/12 bg-white/[0.05] p-5 backdrop-blur-sm">
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-forest-400">
+              <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-forest-400">
                 Starting from
               </p>
               <p className="mt-2 font-sans text-[1.9rem] font-bold leading-none tracking-[-0.03em] text-white">

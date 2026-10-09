@@ -832,7 +832,7 @@ export function LeafletMap({
             {header.title && header.title !== header.subtitle && <span className="hidden truncate font-normal text-white/70 2xl:inline">{header.title}</span>}
           </p>
           <div className="flex shrink-0 items-center gap-3">
-            <span className="hidden text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-white/80 sm:inline">{baseName.replace("Google Maps ", "")}</span>
+            <span className="hidden text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-white/80 sm:inline">{baseName.replace("Google Maps ", "")}</span>
             <button type="button" onClick={() => (fullscreen ? setFullscreen(false) : setOpen((v) => !v))} aria-label={fullscreen ? "Exit full screen" : open ? "Collapse map" : "Expand map"} className="grid h-8 w-8 place-items-center rounded-md text-white hover:bg-white/15">
               {fullscreen ? (
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6 6 18" /></svg>

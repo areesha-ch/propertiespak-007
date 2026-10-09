@@ -18,10 +18,10 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
           className="h-full w-full object-cover"
         />
         <span className="absolute inset-0 bg-gradient-to-t from-navy-950/45 to-transparent" />
-        <span className="absolute left-4 top-4 rounded-md bg-navy-950/85 px-2.5 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+        <span className="absolute left-4 top-4 rounded-md bg-navy-950/85 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
           {project.status}
         </span>
-        <span className="absolute bottom-4 left-4 rounded-md bg-white/94 px-2.5 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.12em] text-navy-900">
+        <span className="absolute bottom-4 left-4 rounded-md bg-white/94 px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] text-navy-900">
           {project.projectType}
         </span>
       </Link>

@@ -280,7 +280,7 @@ export default async function HtmlSitemapPage() {
                   className={`rounded-xl border px-4 py-3 hover:border-navy-800 ${item.group === "primary" ? "border-forest-500/50 bg-forest-50" : "border-soft bg-white"}`}
                 >
                   <span className="block text-[0.75rem] font-semibold text-navy-900">{item.label}</span>
-                  <span className="mt-1 block break-all font-mono text-[0.6875rem] text-forest-700">
+                  <span className="mt-1 block break-all font-mono text-[0.75rem] text-forest-700">
                     {SITE.url}{item.path}
                   </span>
                 </a>

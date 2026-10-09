@@ -423,7 +423,7 @@ export function ListingForm({ signedIn: initiallySignedIn = false }: { signedIn?
           </div>
           <div>
             <label className={label} htmlFor="listing-area">Society / Area *</label>
-            <p className="mt-1 text-[0.6875rem] text-ink-muted">Start typing — sectors, phases and blocks appear below (e.g. &ldquo;Bahria Town Sector&rdquo;).</p>
+            <p className="mt-1 text-[0.75rem] text-ink-muted">Start typing — sectors, phases and blocks appear below (e.g. &ldquo;Bahria Town Sector&rdquo;).</p>
             <LocationAutocomplete
               id="listing-area"
               required

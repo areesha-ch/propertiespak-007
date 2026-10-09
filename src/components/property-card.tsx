@@ -58,16 +58,16 @@ export function PropertyCard({
 
       <div className={`absolute flex flex-wrap items-center gap-1.5 ${compact ? "left-2.5 top-2.5 max-w-[calc(100%-60px)]" : "left-4 top-4"}`}>
         <span
-          className={`rounded-md px-2.5 py-1 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.12em] shadow-soft ${badge.className}`}
+          className={`rounded-md px-2.5 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] shadow-soft ${badge.className}`}
         >
           {badge.label}
         </span>
         {listingVerified ? (
-          <span className="inline-flex items-center gap-1 rounded-md bg-white/95 px-2 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.12em] text-[#0b6fb8] shadow-soft">
+          <span className="inline-flex items-center gap-1 rounded-md bg-white/95 px-2 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] text-[#0b6fb8] shadow-soft">
             <BlueTick className="h-3.5 w-3.5" /> {dealerVerified ? (compact ? "Verified" : "Verified dealer") : "Verified"}
           </span>
         ) : (
-          <span className="rounded-md bg-navy-950/70 px-2 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.12em] text-white/90 backdrop-blur-sm">
+          <span className="rounded-md bg-navy-950/70 px-2 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.12em] text-white/90 backdrop-blur-sm">
             Owner listing
           </span>
         )}
@@ -84,7 +84,7 @@ export function PropertyCard({
           <p className={`font-sans font-bold leading-tight tracking-[-0.03em] text-navy-900 ${compact ? "text-base" : "text-[1.28rem]"}`}>
             {formatPrice(property.price, property.priceUnit)}
           </p>
-          <span className={`max-w-full rounded-md bg-mist font-semibold uppercase tracking-[0.08em] text-ink-muted ${compact ? "px-1.5 py-0.5 text-[0.625rem]" : "px-2 py-1 text-[0.6875rem]"} ${compact ? "" : "mt-0.5"}`}>
+          <span className={`max-w-full rounded-md bg-mist font-semibold uppercase tracking-[0.08em] text-ink-muted ${compact ? "px-1.5 py-0.5 text-[0.75rem]" : "px-2 py-1 text-[0.75rem]"} ${compact ? "" : "mt-0.5"}`}>
             {property.propertyType}
           </span>
         </div>
@@ -101,7 +101,7 @@ export function PropertyCard({
           </Link>
         </h3>
 
-        <p className={`mt-1.5 flex items-center gap-1 text-ink-muted ${compact ? "text-[0.6875rem]" : "text-[0.875rem]"}`}>
+        <p className={`mt-1.5 flex items-center gap-1 text-ink-muted ${compact ? "text-[0.75rem]" : "text-[0.875rem]"}`}>
           <IconPin className="h-3.5 w-3.5 shrink-0 text-forest-600" />
           <span className="truncate">
             {property.locationArea}, {property.cityName}
@@ -110,7 +110,7 @@ export function PropertyCard({
 
         <div className="mt-auto pt-1.5">
           <div className="hairline" />
-          <div className={`flex flex-wrap items-center gap-y-1.5 font-medium text-ink ${compact ? "mt-2 gap-x-2.5 text-[0.6875rem]" : "mt-3.5 gap-x-4 text-[0.8125rem]"}`}>
+          <div className={`flex flex-wrap items-center gap-y-1.5 font-medium text-ink ${compact ? "mt-2 gap-x-2.5 text-[0.75rem]" : "mt-3.5 gap-x-4 text-[0.8125rem]"}`}>
             {property.bedrooms > 0 && (
               <span className="inline-flex items-center gap-1.5">
                 <IconBed className="h-4 w-4 text-navy-600" /> {property.bedrooms} Beds
@@ -168,7 +168,7 @@ export function PropertyRow({ property }: { property: Property }) {
           decoding="async"
           className="h-full w-full object-cover"
         />
-        <span className={`absolute left-2 top-2 rounded-md px-1.5 py-0.5 text-[0.625rem] font-bold uppercase tracking-[0.1em] ${badge.className}`}>
+        <span className={`absolute left-2 top-2 rounded-md px-1.5 py-0.5 text-[0.75rem] font-bold uppercase tracking-[0.1em] ${badge.className}`}>
           {badge.label}
         </span>
       </Link>

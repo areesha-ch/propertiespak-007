@@ -186,7 +186,7 @@ export default async function ContactPage() {
                 { label: "Website", value: "wordbitxtech.com", note: "Company profile and services" },
               ].map((item) => (
                 <div key={item.label} className="rounded-xl border border-soft bg-white p-4">
-                  <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">{item.label}</p>
+                  <p className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">{item.label}</p>
                   <p className="mt-2 font-sans text-[0.9375rem] font-semibold text-navy-900">{item.value}</p>
                   <p className="mt-1 text-[0.75rem] leading-relaxed text-ink-muted">{item.note}</p>
                 </div>

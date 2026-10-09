@@ -49,7 +49,7 @@ export function SinglePropertyMap({ property, address }: { property: MapProperty
       <div className="mt-3 flex min-w-0 flex-wrap items-start justify-between gap-3 rounded-lg border border-soft bg-white p-4">
         <p className="flex min-w-0 items-start gap-2 text-[0.8125rem] leading-6 text-ink-muted">
           <IconPin className="mt-1 h-4 w-4 shrink-0 text-forest-600" />
-          <span>{address || `${property.locationArea}, ${property.cityName}`}<span className="mt-0.5 block text-[0.6875rem] tabular-nums">{property.lat.toFixed(5)}, {property.lng.toFixed(5)}</span></span>
+          <span>{address || `${property.locationArea}, ${property.cityName}`}<span className="mt-0.5 block text-[0.75rem] tabular-nums">{property.lat.toFixed(5)}, {property.lng.toFixed(5)}</span></span>
         </p>
         <a
           href={`https://www.google.com/maps/search/?api=1&query=${property.lat},${property.lng}`}
@@ -60,7 +60,7 @@ export function SinglePropertyMap({ property, address }: { property: MapProperty
           Open directions <IconArrowRight className="h-4 w-4" />
         </a>
       </div>
-      <p className="mt-3 text-[0.6875rem] leading-5 text-ink-muted">Only this listing’s saved pin is shown. Confirm the exact address with the listing person before travelling.</p>
+      <p className="mt-3 text-[0.75rem] leading-5 text-ink-muted">Only this listing’s saved pin is shown. Confirm the exact address with the listing person before travelling.</p>
     </div>
   );
 }

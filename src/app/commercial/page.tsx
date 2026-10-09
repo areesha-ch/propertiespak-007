@@ -146,8 +146,8 @@ export default async function CommercialPage() {
       </Section>
 
       <Section tone="light">
-        <div className="ui-container grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-start">
-          <div>
+        <div className="ui-container grid gap-10 grid-cols-[minmax(0,1fr)] lg:grid-cols-[1.15fr_1fr] lg:items-start">
+          <div className="min-w-0">
             <p className="eyebrow text-forest-700">
               <span className="h-[1px] w-6 bg-current opacity-70" />
               Rule of thumb

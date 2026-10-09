@@ -160,7 +160,7 @@ export function ComparePageClient() {
           <thead>
             <tr>
               <th scope="col" className="w-[168px] border-b border-soft bg-mist p-4 align-bottom">
-                <span className="text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-ink-muted">Attribute</span>
+                <span className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-ink-muted">Attribute</span>
               </th>
               {items.map((property, index) => (
                 <th key={property.id} scope="col" className="border-b border-l border-soft p-4 align-top">
@@ -174,10 +174,10 @@ export function ComparePageClient() {
                       loading="lazy"
                       decoding="async"
                     />
-                    <span className="absolute right-2 top-2 rounded-md bg-navy-950/85 px-2 py-0.5 font-sans text-[0.625rem] font-bold uppercase tracking-[0.1em] text-white">
+                    <span className="absolute right-2 top-2 rounded-md bg-navy-950/85 px-2 py-0.5 font-sans text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white">
                       {property.purpose === "rent" ? "Rent" : "Sale"}
                     </span>
-                    <span className="absolute left-2 top-2 rounded-md bg-white/92 px-2 py-0.5 font-sans text-[0.625rem] font-bold uppercase tracking-[0.1em] text-navy-900">
+                    <span className="absolute left-2 top-2 rounded-md bg-white/92 px-2 py-0.5 font-sans text-[0.75rem] font-bold uppercase tracking-[0.1em] text-navy-900">
                       Score {scores[index].overall}
                     </span>
                   </div>

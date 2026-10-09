@@ -121,7 +121,7 @@ function Result({
 }) {
   return (
     <div className="calculator-result rounded-panel bg-navy-950 p-6 text-white">
-      <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-forest-400">{emphasis.label}</p>
+      <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-forest-400">{emphasis.label}</p>
       <p className="calculator-result-value mt-2 font-sans text-[clamp(1.55rem,3vw,2.1rem)] font-bold leading-none tracking-[-0.03em]" aria-live="polite">
         {emphasis.value}
       </p>

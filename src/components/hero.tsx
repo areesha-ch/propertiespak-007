@@ -26,16 +26,15 @@ export function Hero() {
   const headline = locale === "en" ? englishHeadline : t("Find Your Dream Property in Pakistan");
   return (
     <section id="home-hero" className="home-hero" aria-labelledby="hero-heading" data-testid="home-hero">
-      <link rel="preconnect" href={heroImage.origin} crossOrigin="anonymous" />
       <ResilientImage
         pictureClassName="hero-photograph"
         pictureSources={HERO_IMAGE_SOURCES}
         srcSet={heroImage.desktopSrcSet}
-        fallbackSrc="/images/residence-1600.webp"
+        fallbackSrc="/images/hero-premium.jpg"
         src={heroImage.desktop}
         sizes="100vw"
-        width={7688}
-        height={5128}
+        width={1376}
+        height={768}
         alt={heroImage.alt}
         loading="eager"
         fetchPriority="high"
@@ -54,16 +53,15 @@ export function Hero() {
               <span className="hero-headline-mobile">{headline}</span>
             </h1>
             <p className="hero-description hero-description-desktop">
-              {t("Buy, rent or invest in residential, commercial and plots across Pakistan — all in one place.")}
+              {t("Buy, rent or invest across Pakistan.")}
             </p>
             <p className="hero-description hero-description-mobile">
-              {t("Buy, rent or invest in residential, commercial and plots across Pakistan — all in one place.")}
+              {t("Buy, rent or invest across Pakistan.")}
             </p>
             <div className="hero-actions hero-actions-desktop">
               <Link href="#featured" className="btn btn-green">{t("Explore Properties")}<IconArrowRight className="h-4 w-4" /></Link>
               <Link href="/projects" className="btn btn-ghost-light">{t("Browse New Projects")}</Link>
             </div>
-            <p className="hero-signature">{t("Better Homes. Bigger Dreams.")}</p>
             <a className="hero-credit" href={SITE.companyUrl} target="_blank" rel="noreferrer noopener">
               {t("Official platform by WordbitX Software Company")}
             </a>

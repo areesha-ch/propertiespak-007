@@ -97,7 +97,7 @@ export function SiteFooter() {
               {t("List your property")} <IconArrowRight className="h-4 w-4" />
             </Link>
             <div className="mt-8 max-w-sm">
-              <h2 className="font-sans text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-white/90">{t("Market updates")}</h2>
+              <h2 className="font-sans text-[0.75rem] font-bold uppercase tracking-[0.14em] text-white/90">{t("Market updates")}</h2>
               <p className="mt-2 text-[0.8125rem] leading-relaxed">{t("Register your interest in property news and guides.")}</p>
               <NewsletterForm />
             </div>
@@ -106,7 +106,7 @@ export function SiteFooter() {
           <nav aria-label={t("Footer navigation")} className="grid min-w-0 grid-cols-2 gap-x-6 gap-y-8 xl:grid-cols-4">
             {COLUMNS.map((column) => (
               <div key={column.title} className="min-w-0">
-                <h2 className="font-sans text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-white/90">{t(column.title)}</h2>
+                <h2 className="font-sans text-[0.75rem] font-bold uppercase tracking-[0.13em] text-white/90">{t(column.title)}</h2>
                 <ul className="mt-4 space-y-2.5">
                   {column.links.map((link) => (
                     <li key={link.href}>
@@ -123,12 +123,12 @@ export function SiteFooter() {
 
         <div className="footer-company-credit">
           <div className="min-w-0">
-            <p className="text-[0.625rem] font-semibold uppercase tracking-[0.13em] text-white/50">{t("A WordbitX Product")}</p>
+            <p className="text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-white/50">{t("A WordbitX Product")}</p>
             <a href={SITE.companyUrl} target="_blank" rel="noopener noreferrer" aria-label="WordbitX | Group of Companies" className="mt-2 inline-block font-sans text-[0.9375rem] font-semibold text-white hover:text-forest-400"><span>Wordbit<span className="footer-wordbitx-x text-forest-400">X</span></span> <span className="text-[0.8125rem] font-normal">| {t("Group of Companies")}</span></a>
             <a href={`mailto:${SITE.companyEmail}`} className="mt-2 flex items-center gap-2 text-[0.75rem] text-white/60 hover:text-white"><IconMail className="h-3.5 w-3.5 shrink-0" /><span className="break-all">{SITE.companyEmail}</span></a>
             {COMPANY_SOCIAL.length > 0 && (
               <div className="mt-5">
-                <h2 className="text-[0.625rem] font-semibold uppercase tracking-[0.13em] text-white/50">{t("Follow WordbitX")}</h2>
+                <h2 className="text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-white/50">{t("Follow WordbitX")}</h2>
                 <ul className="mt-3 flex flex-wrap items-center gap-2.5">
                   {COMPANY_SOCIAL.map(({ platform, href, Icon }) => (
                     <li key={platform}>
@@ -151,7 +151,7 @@ export function SiteFooter() {
           <WordbitxContacts light />
         </div>
 
-        <p className="mt-5 max-w-5xl text-[0.6875rem] leading-5 text-white/45">
+        <p className="mt-5 max-w-5xl text-[0.75rem] leading-5 text-white/45">
           Asking prices, market figures and property scores are published indicators — verify title, dues and possession before
           any transaction. Owner-submitted listings are identified on their detail pages, and verified dealer profiles carry a blue
           tick. Verify information independently before making a property decision.

@@ -103,7 +103,7 @@ export function ListingImageUploader({
                   className="aspect-[4/3] w-full object-cover"
                 />
                 {index === 0 && (
-                  <span className="absolute left-2 top-2 rounded-md bg-navy-950/85 px-2 py-1 font-sans text-[0.625rem] font-bold uppercase tracking-[0.1em] text-white">
+                  <span className="absolute left-2 top-2 rounded-md bg-navy-950/85 px-2 py-1 font-sans text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white">
                     Cover photo
                   </span>
                 )}
@@ -116,8 +116,8 @@ export function ListingImageUploader({
                   <IconClose className="h-4 w-4" />
                 </button>
                 <div className="flex items-center justify-between gap-2 px-2 py-2">
-                  <button type="button" disabled={index === 0} onClick={() => move(index, -1)} className="text-[0.6875rem] font-semibold text-ink-muted hover:text-navy-900 disabled:opacity-25">← Earlier</button>
-                  <button type="button" disabled={index === images.length - 1} onClick={() => move(index, 1)} className="text-[0.6875rem] font-semibold text-ink-muted hover:text-navy-900 disabled:opacity-25">Later →</button>
+                  <button type="button" disabled={index === 0} onClick={() => move(index, -1)} className="text-[0.75rem] font-semibold text-ink-muted hover:text-navy-900 disabled:opacity-25">← Earlier</button>
+                  <button type="button" disabled={index === images.length - 1} onClick={() => move(index, 1)} className="text-[0.75rem] font-semibold text-ink-muted hover:text-navy-900 disabled:opacity-25">Later →</button>
                 </div>
               </div>
             ))}

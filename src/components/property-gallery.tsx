@@ -197,7 +197,7 @@ export function PropertyGallery({ images, title }: { images: string[]; title: st
                 <IconClose className="h-4 w-4" />
                 Close Gallery
               </button>
-              <p className="mt-2 hidden text-center text-[0.6875rem] text-white/40 sm:block">
+              <p className="mt-2 hidden text-center text-[0.75rem] text-white/40 sm:block">
                 Press Esc or click outside the photo to close
               </p>
             </div>

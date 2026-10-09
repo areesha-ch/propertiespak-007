@@ -157,19 +157,19 @@ export default async function DealerProfilePage({ params }: PageProps) {
                   </div>
                   <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
                     <div className="rounded-xl border border-soft bg-mist px-3 py-2.5">
-                      <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Listings</dt>
+                      <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Listings</dt>
                       <dd className="mt-1 font-sans text-[1.05rem] font-bold text-navy-900">{dealer.listings}</dd>
                     </div>
                     <div className="rounded-xl border border-soft bg-mist px-3 py-2.5">
-                      <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Verified</dt>
+                      <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Verified</dt>
                       <dd className="mt-1 font-sans text-[1.05rem] font-bold text-navy-900">{dealer.verifiedListings}</dd>
                     </div>
                     <div className="rounded-xl border border-soft bg-mist px-3 py-2.5">
-                      <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Cities</dt>
+                      <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Cities</dt>
                       <dd className="mt-1 font-sans text-[1.05rem] font-bold text-navy-900">{dealer.cityCount || 1}</dd>
                     </div>
                     <div className="rounded-xl border border-soft bg-mist px-3 py-2.5">
-                      <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Status</dt>
+                      <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Status</dt>
                       <dd className="mt-1 font-sans text-[0.875rem] font-bold text-navy-900">
                         {dealer.isVerified ? "Verified" : "In review"}
                       </dd>

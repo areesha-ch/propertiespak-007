@@ -10,7 +10,7 @@ function timestamp(value: string) {
 }
 function Status({ status }: { status: string }) {
   const color = status === "new" ? "border-amber-200 bg-amber-50 text-amber-800" : status === "contacted" ? "border-blue-200 bg-blue-50 text-blue-800" : "border-soft bg-mist text-ink-muted";
-  return <span className={`rounded-md border px-2 py-1 text-[0.625rem] font-bold uppercase tracking-[0.1em] ${color}`}>{status}</span>;
+  return <span className={`rounded-md border px-2 py-1 text-[0.75rem] font-bold uppercase tracking-[0.1em] ${color}`}>{status}</span>;
 }
 
 function FollowUp({ inquiry, onSaved }: { inquiry: InboxItem; onSaved: () => void }) {
@@ -40,10 +40,10 @@ function FollowUp({ inquiry, onSaved }: { inquiry: InboxItem; onSaved: () => voi
       </select>
       <label className="mt-4 block text-[0.75rem] font-semibold text-ink-muted" htmlFor={`enquiry-note-${inquiry.id}`}>Internal notes</label>
       <textarea id={`enquiry-note-${inquiry.id}`} value={note} maxLength={3000} rows={4} onChange={(event) => setNote(event.target.value)} className="field mt-2 resize-y" placeholder="Record your call, next steps or visit confirmation…" />
-      <p className="mt-2 text-[0.6875rem] leading-5 text-ink-muted">Visible only to admins. Saving a status does not send an email or confirm a visit automatically.</p>
+      <p className="mt-2 text-[0.75rem] leading-5 text-ink-muted">Visible only to admins. Saving a status does not send an email or confirm a visit automatically.</p>
       {error && <p role="alert" className="mt-3 text-sm text-red-700">{error}</p>}
       <button type="submit" disabled={saving} className="btn btn-primary mt-4 w-full disabled:opacity-60"><IconCheck className="h-4 w-4" />{saving ? "Saving…" : "Save follow-up"}</button>
-      {inquiry.reviewedAt && <p className="mt-3 text-[0.6875rem] text-ink-muted">Last updated {timestamp(inquiry.reviewedAt)} PKT</p>}
+      {inquiry.reviewedAt && <p className="mt-3 text-[0.75rem] text-ink-muted">Last updated {timestamp(inquiry.reviewedAt)} PKT</p>}
     </form>
   );
 }
@@ -63,22 +63,22 @@ function InquiryDetails({ item, onSaved }: { item: InboxItem; onSaved: () => voi
             ["Received (PKT)", timestamp(item.createdAt)], ["Reference", reference], ["Source", item.source],
           ].map(([label, value]) => (
             <div key={label} className="min-w-0">
-              <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">{label}</dt>
+              <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">{label}</dt>
               <dd className="mt-1 break-words text-[0.875rem] font-medium leading-6 text-navy-900">{value}</dd>
             </div>
           ))}
         </dl>
         <div className="mt-5 rounded-lg border border-soft p-4">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Property / project</p>
+          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Property / project</p>
           {item.propertyUrl || item.projectUrl ? (
             <Link href={item.propertyUrl || item.projectUrl!} target="_blank" className="mt-2 inline-flex items-start gap-2 break-words text-[0.875rem] font-semibold text-forest-700 hover:underline">
               {item.propertyTitle || item.propertySlug || item.projectSlug}<IconArrowRight className="mt-0.5 h-4 w-4 shrink-0" />
             </Link>
           ) : <p className="mt-2 break-words text-[0.875rem] text-navy-900">{item.propertyTitle || "General enquiry — no property selected"}</p>}
-          {(item.propertySlug || item.projectSlug) && <p className="mt-2 break-all font-mono text-[0.6875rem] text-ink-muted">{item.propertySlug || item.projectSlug}{!item.propertyUrl && !item.projectUrl ? " (listing no longer available)" : ""}</p>}
+          {(item.propertySlug || item.projectSlug) && <p className="mt-2 break-all font-mono text-[0.75rem] text-ink-muted">{item.propertySlug || item.projectSlug}{!item.propertyUrl && !item.projectUrl ? " (listing no longer available)" : ""}</p>}
         </div>
         <div className="mt-5">
-          <h3 className="text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Full client message</h3>
+          <h3 className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Full client message</h3>
           <p className="mt-2 whitespace-pre-wrap break-words rounded-lg border border-soft bg-white p-4 text-[0.875rem] leading-7 text-ink">{item.message || "No additional message was supplied."}</p>
         </div>
         <div className="mt-5 flex flex-wrap gap-2.5">
@@ -157,7 +157,7 @@ export function AdminInquiryInbox({ onNewCount }: { onNewCount?: (count: number)
           { label: "Visit requests", value: stats?.visits }, { label: "Contacted", value: stats?.contacted },
         ].map((stat) => (
           <div key={stat.label} className="rounded-xl border border-soft bg-white p-4">
-            <p className="text-[0.625rem] font-bold uppercase tracking-[0.13em] text-ink-muted">{stat.label}</p>
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.13em] text-ink-muted">{stat.label}</p>
             <p className="mt-2 font-sans text-[1.75rem] font-bold leading-none text-navy-900">{stat.value ?? "—"}</p>
           </div>
         ))}
@@ -198,13 +198,13 @@ export function AdminInquiryInbox({ onNewCount }: { onNewCount?: (count: number)
               <article key={item.id} className={`min-w-0 rounded-panel border bg-white p-5 shadow-soft sm:p-6 ${item.status === "new" ? "border-l-[3px] border-l-forest-600 border-t-soft border-r-soft border-b-soft" : "border-soft"}`}>
                 <div className="flex min-w-0 flex-wrap items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2"><Status status={item.status} /><span className="text-[0.6875rem] font-semibold text-ink-muted">{INQUIRY_LABELS[item.type] || item.type}</span><span className="text-[0.6875rem] text-ink-muted">#{item.id}</span></div>
+                    <div className="flex flex-wrap items-center gap-2"><Status status={item.status} /><span className="text-[0.75rem] font-semibold text-ink-muted">{INQUIRY_LABELS[item.type] || item.type}</span><span className="text-[0.75rem] text-ink-muted">#{item.id}</span></div>
                     <h2 className="mt-3 break-words font-sans text-[1.05rem] font-bold text-navy-900">{item.name}</h2>
                     <p className="mt-1 break-words text-[0.8125rem] leading-6 text-ink-muted">{item.propertyTitle || "General enquiry"}</p>
                     <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.8125rem] text-ink">{item.phone && <span>{item.phone}</span>}<span className="break-all">{item.email}</span></p>
                     {item.type === "visit" && item.preferredDate && <p className="mt-2 flex items-center gap-1.5 text-[0.75rem] font-semibold text-forest-700"><IconCalendar className="h-4 w-4" />Requested visit: {item.preferredDate}</p>}
                   </div>
-                  <div className="flex shrink-0 flex-col items-start gap-3 sm:items-end"><p className="text-[0.6875rem] text-ink-muted">{timestamp(item.createdAt)} PKT</p>
+                  <div className="flex shrink-0 flex-col items-start gap-3 sm:items-end"><p className="text-[0.75rem] text-ink-muted">{timestamp(item.createdAt)} PKT</p>
                     <div className="flex flex-wrap gap-2">
                       <button type="button" aria-expanded={expanded} aria-controls={`inquiry-details-${item.id}`} onClick={() => setOpenId(expanded ? null : item.id)} className="btn btn-outline px-3.5 py-2.5 text-[0.8125rem]">
                         {expanded ? "Hide details" : "View full details"}<IconChevronDown className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} />

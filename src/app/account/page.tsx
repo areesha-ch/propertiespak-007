@@ -152,26 +152,26 @@ export default async function AccountPage() {
                   <IconUser className="h-4 w-4 text-forest-600" />
                   Professional profile
                   {user.profileCompletedAt ? (
-                    <span className="rounded-md bg-forest-50 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-[0.1em] text-forest-700">
+                    <span className="rounded-md bg-forest-50 px-2 py-0.5 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-forest-700">
                       Complete
                     </span>
                   ) : (
-                    <span className="rounded-md bg-amber-50 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-[0.1em] text-amber-700">
+                    <span className="rounded-md bg-amber-50 px-2 py-0.5 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-amber-700">
                       Incomplete
                     </span>
                   )}
                 </p>
                 <dl className="mt-3 space-y-2 text-[0.8125rem] text-ink-muted">
                   <div>
-                    <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.1em]">Agency</dt>
+                    <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em]">Agency</dt>
                     <dd className="text-navy-900">{user.agency || "Not set"}</dd>
                   </div>
                   <div>
-                    <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.1em]">Areas you deal in</dt>
+                    <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em]">Areas you deal in</dt>
                     <dd className="text-navy-900">{user.areas || "Not set"}</dd>
                   </div>
                   <div>
-                    <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.1em]">City</dt>
+                    <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em]">City</dt>
                     <dd className="text-navy-900">{user.cityName || "Not set"}</dd>
                   </div>
                 </dl>

@@ -45,15 +45,15 @@ export function DealerCard({ dealer, compact = false }: { dealer: DealerProfile;
 
       <dl className="mt-4 grid grid-cols-3 gap-3 rounded-xl border border-soft bg-mist px-3 py-2.5 text-center">
         <div>
-          <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Listings</dt>
+          <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Listings</dt>
           <dd className="mt-1 font-sans text-[1rem] font-bold text-navy-900">{dealer.listings}</dd>
         </div>
         <div>
-          <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Verified</dt>
+          <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Verified</dt>
           <dd className="mt-1 font-sans text-[1rem] font-bold text-navy-900">{dealer.verifiedListings}</dd>
         </div>
         <div>
-          <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Since</dt>
+          <dt className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">Since</dt>
           <dd className="mt-1 font-sans text-[0.8125rem] font-bold text-navy-900">
             {new Date(dealer.createdAt).getFullYear()}
           </dd>
@@ -72,7 +72,7 @@ export function DealerCard({ dealer, compact = false }: { dealer: DealerProfile;
       </div>
 
       {dealer.isVerified && dealer.verifiedAt && (
-        <p className="mt-3 border-t border-soft pt-3 text-[0.6875rem] text-ink-muted">
+        <p className="mt-3 border-t border-soft pt-3 text-[0.75rem] text-ink-muted">
           Verified by the Properties Pak team on {formatDate(dealer.verifiedAt)}
         </p>
       )}

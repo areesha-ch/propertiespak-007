@@ -20,7 +20,7 @@ function StatusBadge({ status }: { status: string }) {
         ? "bg-red-50 text-red-700 border-red-200"
         : "bg-amber-50 text-amber-700 border-amber-200";
   return (
-    <span className={`inline-flex items-center rounded-md border px-2 py-0.5 font-sans text-[0.6875rem] font-bold uppercase tracking-[0.1em] ${styles}`}>
+    <span className={`inline-flex items-center rounded-md border px-2 py-0.5 font-sans text-[0.75rem] font-bold uppercase tracking-[0.1em] ${styles}`}>
       {status}
     </span>
   );
@@ -162,7 +162,7 @@ export function AdminDashboard() {
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-sans text-[0.75rem] font-bold text-ink-muted">#{item.id}</span>
                     <StatusBadge status={item.status} />
-                    <span className="rounded-md bg-mist px-2 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+                    <span className="rounded-md bg-mist px-2 py-0.5 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
                       {item.purpose === "rent" ? "For Rent" : "For Sale"} · {item.propertyType}
                     </span>
                   </div>
@@ -173,7 +173,7 @@ export function AdminDashboard() {
                     {item.address ? ` — ${item.address}` : ""}
                   </p>
                   {!item.userId && (
-                    <p className="mt-2 inline-flex items-center rounded-md border border-amber-200 bg-amber-50 px-2 py-1 text-[0.6875rem] font-semibold text-amber-800">
+                    <p className="mt-2 inline-flex items-center rounded-md border border-amber-200 bg-amber-50 px-2 py-1 text-[0.75rem] font-semibold text-amber-800">
                       Not linked to an account — confirm ownership on the phone number before approving
                     </p>
                   )}

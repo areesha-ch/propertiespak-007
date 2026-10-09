@@ -44,7 +44,7 @@ function PinLegend() {
     { color: "#10a456", label: "Selected" },
   ];
   return (
-    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[0.6875rem] font-medium text-ink-muted">
+    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[0.75rem] font-medium text-ink-muted">
       {items.map((item) => (
         <span key={item.label} className="inline-flex items-center gap-1.5">
           <svg viewBox="0 0 30 41" className="h-3.5 w-auto" aria-hidden="true">
@@ -118,7 +118,7 @@ export function MapView({
       </div>
       <div className={`map-view-list flex h-full min-w-0 flex-col rounded-panel border border-soft bg-white p-2 shadow-soft ${fullScreen ? "map-view-list--horizontal" : ""}`}>
         <div className="flex items-center justify-between gap-2 px-3 py-3">
-          <p className="flex items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-navy-900">
+          <p className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.08em] text-navy-900">
             <IconMap className="h-4 w-4 shrink-0 text-forest-600" />
             {t(nearby ? "Nearby listings" : "Properties on map")}
           </p>
@@ -147,7 +147,7 @@ export function MapView({
                 </div>
               </div>
               <div className="mt-1.5 flex flex-wrap items-center justify-between gap-2 border-t border-soft pt-1.5">
-                <span className="text-[0.6875rem] text-ink-muted">{typeof property.distanceKm === "number" ? `${property.distanceKm < 0.1 ? "Under 100 m" : `${property.distanceKm.toFixed(1)} km`} away · approximate` : formatArea(property.areaValue, property.areaUnit)}</span>
+                <span className="text-[0.75rem] text-ink-muted">{typeof property.distanceKm === "number" ? `${property.distanceKm < 0.1 ? "Under 100 m" : `${property.distanceKm.toFixed(1)} km`} away · approximate` : formatArea(property.areaValue, property.areaUnit)}</span>
                 <button type="button" onClick={() => { setSelected(property.id); setFocus({ key: datasetKey, lat: property.lat, lng: property.lng, zoom: 16 }); }} className="inline-flex items-center gap-1 rounded px-1.5 py-1 text-[0.75rem] font-semibold text-forest-700 hover:bg-forest-50">
                   <IconPin className="h-3.5 w-3.5" /> {t("Show on map")}
                 </button>
