@@ -2556,3 +2556,25 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 @media (min-width: 1024px) {
   .home-page .property-search-sell { align-self: center; }
 }
+
+/* Experiment: transparent glass dealer cards on a dark premium band, so the translucency actually reads. */
+@media (min-width: 1024px) {
+  .home-page > section.home-dealers {
+    background: linear-gradient(135deg, #061a24 0%, #0b2b2a 55%, #082018 100%);
+    color: #fff;
+  }
+  .home-page > section.home-dealers h2 { color: #fff; }
+  .home-page > section.home-dealers .text-ink,
+  .home-page > section.home-dealers .text-navy-900 { color: #fff; }
+  .home-page .dealer-showcase-card {
+    background: linear-gradient(160deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+    border: 1px solid rgba(255,255,255,.26);
+    box-shadow: 0 18px 40px -24px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.18);
+    -webkit-backdrop-filter: blur(14px) saturate(1.15);
+    backdrop-filter: blur(14px) saturate(1.15);
+  }
+  .home-page .dealer-showcase-card:hover { border-color: rgba(127,240,180,.6); background: linear-gradient(160deg, rgba(40,215,123,.22), rgba(255,255,255,.06)); }
+  .home-page .dealer-showcase-name,
+  .home-page .dealer-showcase-city { color: #fff; }
+  .home-page .dealer-showcase-listings { color: #7ff0b4; }
+}
