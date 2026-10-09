@@ -2495,3 +2495,18 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .hero-eyebrow { color: rgba(214, 255, 232, .95); }
   .home-page .hero-description-desktop { font-size: clamp(1rem, 1.25vw, 1.15rem); color: rgba(255,255,255,.9); }
 }
+
+/* Hero alignment: owner card and eyebrow share the same top line; richer photo grade. */
+@media (min-width: 1024px) {
+  .home-page .hero-main { align-items: start; }
+  .home-page .hero-search-intro { transform: none; }
+  .hero-owner-card { margin-top: 0; }
+  .home-page .hero-background-image { filter: saturate(1.18) contrast(1.1) brightness(.9); }
+  .home-page .hero-photograph-shade {
+    background:
+      radial-gradient(90% 70% at 100% 0%, rgba(214, 178, 96, .12) 0%, rgba(214, 178, 96, 0) 60%),
+      radial-gradient(120% 90% at 0% 0%, rgba(4, 36, 28, .8) 0%, rgba(4, 36, 28, 0) 60%),
+      linear-gradient(90deg, rgba(3, 20, 26, .92) 0%, rgba(3, 20, 26, .7) 42%, rgba(3, 20, 26, .28) 100%),
+      linear-gradient(180deg, rgba(3, 20, 26, .2) 0%, rgba(3, 20, 26, 0) 38%, rgba(3, 20, 26, .78) 100%);
+  }
+}
