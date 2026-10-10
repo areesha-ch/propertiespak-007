@@ -2563,3 +2563,97 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 4px; left: 4px; }
   .home-page .property-search-sell { padding: 0 9px; font-size: .75rem; }
 }
+
+/* Hero search card — responsive pass. Kept last so it wins over the earlier
+   white-panel, glass-panel and full-bleed experiments.
+
+   1. The category chips (All properties / Homes / Plots / Commercial) now stay
+      on ONE line at every width instead of wrapping into two ragged rows. The
+      row only scrolls sideways below ~340px, where the four labels genuinely
+      cannot fit next to each other.
+   2. Every row of the card shares one inset, so the Buy/Rent bar, the chips and
+      the search field start on the same left edge (they were 10px / 28px / 11px
+      on phones and 28px / 28px / 18px on desktop).
+   3. Tablets: the card no longer breaks out to `100vw`. 100vw includes the
+      scrollbar, so the card was wider than the visible hero and its right edge
+      was cut off by `.home-hero { overflow: hidden }`.
+   4. Desktop: labels reserve a fixed height so all four selects start on the
+      same line even when a label wraps, and from 1280px Search / All filters
+      sit level with the selects in the last column instead of floating up over
+      the labels (the old `margin-top: -18px`). */
+.property-search-quick-types {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.property-search-quick-types::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.property-search-quick-types button { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: start; }
+
+/* Phones: one shared inset for all three rows, and fluid chip metrics sized so
+   the four labels fit on a single line from ~344px upwards (measured against
+   the shipped Inter variable font: 277px of chips + gaps at 344px). */
+@media (max-width: 767px) {
+  .home-page .property-search-modes { padding-inline: 12px; }
+  .home-page .property-search-quick-types {
+    gap: clamp(4px, 1.4vw, 9px);
+    padding: 12px 12px 8px;
+  }
+  .home-page .property-search-quick-types button {
+    padding: 7px clamp(7px, 2.4vw, 14px);
+    font-size: clamp(10.5px, 3.05vw, 13px);
+  }
+  .home-page .property-search-mobile { padding: 2px 12px 12px; }
+}
+@media (max-width: 374px) {
+  .home-page .property-search-modes,
+  .home-page .property-search-quick-types,
+  .home-page .property-search-mobile { padding-inline: 9px; }
+}
+
+/* Tablet and up: the card stays inside the hero container and all three rows
+   share the same inset. */
+@media (min-width: 768px) {
+  .home-page .home-search-wrap { width: 100%; min-width: 0; flex: 0 1 auto; margin-inline: 0; }
+  .home-page .property-search-modes { padding-inline: 22px; }
+  .home-page .property-search-quick-types { padding: 14px 22px 8px; }
+  .home-page .property-search-form { padding-inline: 22px; }
+}
+
+/* Desktop: labels reserve two lines so all four selects start on the same line
+   even when one label wraps, and every control in the row shares one height. */
+@media (min-width: 1024px) {
+  .home-page .property-search-form { align-items: start; --search-field-label: 34px; }
+  .home-page .property-search-field { display: flex; min-width: 0; flex-direction: column; }
+  .home-page .property-search-field label {
+    display: flex;
+    min-height: var(--search-field-label);
+    align-items: flex-end;
+    margin-bottom: 8px;
+  }
+  .home-page .property-search-field select { min-height: 46px; }
+  .home-page .property-search-buttons .btn { min-height: 46px; }
+  .home-page .property-search-advanced { min-height: 46px; }
+}
+
+/* 1280 and up: Search + All filters join the field row as the fifth column,
+   level with the selects instead of floating up over the labels (the old
+   `margin-top: -18px`). Below that the pair keeps its own right-aligned row so
+   the four select columns stay wide enough for their longest values. */
+@media (min-width: 1280px) {
+  .home-page .property-search-buttons {
+    grid-column: auto;
+    align-self: start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: calc(var(--search-field-label) + 8px) 0 0;
+  }
+  .home-page .property-search-buttons .btn { width: auto; flex: 0 0 auto; padding-inline: 26px; }
+  .home-page .property-search-advanced { white-space: nowrap; }
+}
