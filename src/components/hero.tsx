@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { IconArrowRight, IconKey } from "@/components/icons";
+import { IconArrowRight, IconBuilding } from "@/components/icons";
 import { useLanguage } from "@/components/language-provider";
 import { ResilientImage } from "@/components/resilient-image";
 import { SearchPanel } from "@/components/search-panel";
@@ -18,8 +18,7 @@ export function Hero() {
   const { t, locale } = useLanguage();
   const englishHeadline = (
     <>
-      Find Your <span className="hero-headline-accent">Dream</span><br />
-      <span className="hero-headline-accent">Property</span><br />
+      Find Your Dream <span className="hero-headline-accent">Property</span><br />
       {t("in Pakistan")}
     </>
   );
@@ -30,7 +29,7 @@ export function Hero() {
         pictureClassName="hero-photograph"
         pictureSources={HERO_IMAGE_SOURCES}
         srcSet={heroImage.desktopSrcSet}
-        fallbackSrc="/images/hero-cinematic-mansion.jpg"
+        fallbackSrc="/images/hero-residence-day.jpg"
         src={heroImage.desktop}
         sizes="100vw"
         width={1376}
@@ -53,10 +52,10 @@ export function Hero() {
               <span className="hero-headline-mobile">{headline}</span>
             </h1>
             <p className="hero-description hero-description-desktop">
-              {t("Buy, rent or invest across Pakistan.")}
+              {t("Buy, rent or invest in residential, commercial and plots across Pakistan — all in one place.")}
             </p>
             <p className="hero-description hero-description-mobile">
-              {t("Buy, rent or invest across Pakistan.")}
+              {t("Buy, rent or invest in residential, commercial and plots across Pakistan — all in one place.")}
             </p>
             <div className="hero-actions hero-actions-desktop">
               <Link href="#featured" className="btn btn-green">{t("Explore Properties")}<IconArrowRight className="h-4 w-4" /></Link>
@@ -68,7 +67,7 @@ export function Hero() {
           </div>
 
           <aside className="hero-owner-card" aria-labelledby="hero-owner-heading">
-            <p className="hero-owner-eyebrow"><IconKey className="h-4 w-4" />{t("For property owners")}</p>
+            <p className="hero-owner-eyebrow"><span className="hero-owner-mark"><IconBuilding /></span>{t("For property owners")}</p>
             <h2 id="hero-owner-heading">{t("Have a property to sell or rent?")}</h2>
             <p className="hero-owner-copy">
               {t("List it on Properties Pak and reach thousands of buyers and tenants across Pakistan.")}
