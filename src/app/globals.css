@@ -2466,48 +2466,35 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   }
 }
 
-/* Experiment: translucent glass search panel from tablet up so the hero photo shows through the tabs row. */
+/* Solid professional search card from tablet up (replaces the glass experiment). */
 @media (min-width: 768px) {
   .home-page .property-search-panel {
-    background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
-    border: 1px solid rgba(255,255,255,.28);
-    box-shadow: 0 24px 60px -28px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    backdrop-filter: blur(16px) saturate(1.2);
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.82);
+    box-shadow: 0 18px 40px -22px rgba(8,24,38,.5), 0 2px 10px rgba(8,24,38,.08);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
-  .home-page .property-search-modes { border-bottom: 1px solid rgba(255,255,255,.18); }
-  .home-page .property-search-tabs button { color: rgba(255,255,255,.72); }
-  .home-page .property-search-tabs button[aria-selected="true"],
-  .home-page .property-search-tabs button[aria-pressed="true"] { color: #fff; }
-  .home-page .property-search-tabs button[aria-selected="true"]::after,
-  .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #28d77b; }
-  .home-page .property-search-sell {
-    color: #7ff0b4;
-    padding: 8px 14px;
-    border: 1px solid rgba(127,240,180,.45);
-    border-radius: 999px;
-    background: rgba(40,215,123,.12);
-  }
-  .home-page .property-search-quick-types button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.9); }
-  .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.22); border-color: rgba(127,240,180,.6); color: #fff; }
-  .home-page .property-search-field label { color: rgba(255,255,255,.85); }
-}
-
-/* Experiment follow-up: the tabs row must inherit the glass panel, not paint its own white. */
-@media (min-width: 768px) {
-  .home-page .property-search-modes { background: transparent; }
+  .home-page .property-search-modes { background: #fff; border-bottom: 1px solid #e8ecee; }
   .home-page .property-search-tabs,
-  .home-page .property-search-tabs button { background: transparent; }
-}
-
-/* Experiment follow-up: compact pill for the sell link on the glass panel. */
-@media (min-width: 768px) {
-  .home-page .property-search-sell { min-height: 0; height: 38px; padding: 0 16px; }
-}
-
-/* Experiment follow-up: keep the sell pill at its own height instead of stretching to the row. */
-@media (min-width: 768px) {
-  .home-page .property-search-sell { align-self: center; }
+  .home-page .property-search-tabs button { background: transparent; color: #5a6a76; }
+  .home-page .property-search-tabs button[aria-selected="true"],
+  .home-page .property-search-tabs button[aria-pressed="true"] { color: #102638; }
+  .home-page .property-search-tabs button[aria-selected="true"]::after,
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #13aa40; }
+  .home-page .property-search-sell {
+    color: #0b8a45;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    min-height: 56px;
+    height: auto;
+    align-self: stretch;
+  }
+  .home-page .property-search-quick-types button { background: #fff; border-color: #d7e0e5; color: #4d5c67; }
+  .home-page .property-search-quick-types button[aria-pressed="true"] { background: #edf7f0; border-color: #b7d4c2; color: #16824d; }
+  .home-page .property-search-field label { color: #52616d; }
 }
 
 /* Dealers & Agencies: white section; cards stay translucent (soft green tint) so they read on white. */
@@ -2524,38 +2511,61 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .dealer-showcase-listings { color: #0c7040; }
 }
 
-/* Search purpose row after removing the New projects shortcut (it lives on the
-   hero buttons, the explore rail and the footer instead): phones keep
-   Buy / Rent tabs and the seller link together as one compact bar instead of
-   spreading them across the row, and the panel itself turns into the same
-   translucent glass card the desktop hero uses, so the photograph shows
-   through. Kept at the very end so it wins over the white-panel rules
-   further up the file. */
+/* Phones: solid white card, equal Buy / Rent / Sell columns, dark readable type. */
 @media (max-width: 767px) {
   .home-page .property-search-panel {
-    background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.09));
-    border: 1px solid rgba(255,255,255,.3);
-    box-shadow: 0 24px 60px -28px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.22);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    backdrop-filter: blur(16px) saturate(1.2);
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.82);
+    box-shadow: 0 18px 40px -22px rgba(8,24,38,.5), 0 2px 10px rgba(8,24,38,.08);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
-  .home-page .property-search-modes { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px; min-height: 52px; padding-inline: 10px; background: transparent; border-bottom: 1px solid rgba(255,255,255,.18); }
-  .home-page .property-search-tabs { width: auto; min-height: 52px; align-items: stretch; justify-content: center; gap: 0; }
-  .home-page .property-search-tabs button { min-width: 36px; min-height: 52px; padding-inline: 6px; font-size: .8125rem; color: rgba(255,255,255,.72); }
-  .home-page .property-search-tabs button[aria-pressed="true"] { color: #fff; }
-  .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 6px; left: 6px; background: #28d77b; }
+  .home-page .property-search-modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 0;
+    min-height: 50px;
+    padding-inline: 4px;
+    background: #fff;
+    border-bottom: 1px solid #e8ecee;
+  }
+  .home-page .property-search-tabs {
+    display: grid;
+    grid-column: 1 / 3;
+    grid-template-columns: 1fr 1fr;
+    width: auto;
+    min-height: 0;
+    gap: 0;
+  }
+  .home-page .property-search-tabs button {
+    display: inline-flex;
+    width: 100%;
+    min-width: 0;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 4px;
+    font-size: .8125rem;
+    color: #5a6a76;
+    background: transparent;
+  }
+  .home-page .property-search-tabs button[aria-pressed="true"] { color: #102638; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 16%; left: 16%; background: #13aa40; }
   .home-page .property-search-sell {
     display: inline-flex; align-items: center; justify-content: center;
-    min-height: 34px; margin: 0; padding: 0 10px;
-    border: 1px solid rgba(127,240,180,.45); border-radius: 999px;
-    background: rgba(40,215,123,.14); color: #7ff0b4;
+    align-self: stretch; width: 100%; min-width: 0;
+    min-height: 50px; height: auto; margin: 0; padding: 0 4px;
+    border: 0; border-radius: 0; background: transparent; color: #0b8a45;
     font-size: .8125rem; font-weight: 650; white-space: nowrap;
   }
-  .home-page .property-search-quick-types button { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.32); color: rgba(255,255,255,.92); }
-  .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.24); border-color: rgba(127,240,180,.62); color: #fff; }
-  .home-page .property-search-input-like { min-height: 58px; border-color: rgba(255,255,255,.36); background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
-  .home-page .property-search-input-title { color: #fff; }
-  .home-page .property-search-input-hint { color: rgba(255,255,255,.72); }
+  .home-page .property-search-quick-types button { background: #fff; border-color: #d7e0e5; color: #4d5c67; }
+  .home-page .property-search-quick-types button[aria-pressed="true"] { background: #edf7f0; border-color: #b7d4c2; color: #16824d; }
+  .home-page .property-search-input-like { min-height: 58px; border-color: #d5dee3; background: #f4f7f8; color: #5a6a76; }
+  .home-page .property-search-input-title { color: #102638; }
+  .home-page .property-search-input-hint { color: #6b7a85; }
 }
 @media (max-width: 374px) {
   .home-page .property-search-modes { padding-inline: 8px; }
@@ -2594,24 +2604,19 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 .property-search-quick-types::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .property-search-quick-types button { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: start; }
 
-/* Phones: four equal columns so All properties / Homes / Plots / Commercial
-   cannot wrap (the live screenshot had Commercial alone on a second row
-   because the chips were flex-wrap + 28px inset). Grid + max-content keeps
-   each chip sized to its label and space-between spreads them across the
-   card, matching the search field's width. */
+/* Phones: chips stay on one line, sized to their labels, with a normal gap. */
 @media (max-width: 767px) {
-  .home-page .property-search-modes { padding-inline: 12px; }
   .home-page .property-search-quick-types {
-    display: grid;
-    grid-template-columns: repeat(4, max-content);
-    justify-content: space-between;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     align-items: stretch;
     gap: 6px;
     padding: 10px 12px 8px;
   }
   .home-page .property-search-quick-types button {
     min-height: 34px;
-    padding: 6px 8px;
+    padding: 6px 10px;
     font-size: 12px;
     white-space: nowrap;
   }
