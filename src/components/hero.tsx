@@ -18,8 +18,8 @@ export function Hero() {
   const { t, locale } = useLanguage();
   const englishHeadline = (
     <>
-      Find Your Dream <span className="hero-headline-accent">Property</span><br />
-      {t("in Pakistan")}
+      Find Your Dream Property<br />
+      <span className="hero-headline-accent">{t("in Pakistan")}</span>
     </>
   );
   const headline = locale === "en" ? englishHeadline : t("Find Your Dream Property in Pakistan");
@@ -29,7 +29,7 @@ export function Hero() {
         pictureClassName="hero-photograph"
         pictureSources={HERO_IMAGE_SOURCES}
         srcSet={heroImage.desktopSrcSet}
-        fallbackSrc="/images/hero-residence-day.jpg"
+        fallbackSrc="/images/hero-villa-twilight.jpg"
         src={heroImage.desktop}
         sizes="100vw"
         width={1376}
@@ -67,8 +67,13 @@ export function Hero() {
           </div>
 
           <aside className="hero-owner-card" aria-labelledby="hero-owner-heading">
-            <p className="hero-owner-eyebrow"><span className="hero-owner-mark"><IconBuilding /></span>{t("For property owners")}</p>
-            <h2 id="hero-owner-heading">{t("Have a property to sell or rent?")}</h2>
+            <div className="hero-owner-top">
+              <span className="hero-owner-mark"><IconBuilding /></span>
+              <div className="hero-owner-heading">
+                <p className="hero-owner-eyebrow">{t("For property owners")}</p>
+                <h2 id="hero-owner-heading">{t("Have a property to sell or rent?")}</h2>
+              </div>
+            </div>
             <p className="hero-owner-copy">
               {t("List it on Properties Pak and reach thousands of buyers and tenants across Pakistan.")}
             </p>

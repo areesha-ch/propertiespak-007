@@ -2915,80 +2915,181 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .property-search-field label { color: rgba(255,255,255,.85); }
 }
 
-/* Bright residence hero: house stays visible, owner card is a green-bordered
-   white panel, and the search card is solid white on desktop too. */
-.home-page .hero-background-image { object-position: 62% center; filter: none; transform: none; }
+/* Twilight villa hero: compact white search, slim owner callout, house visible. */
+.home-page .hero-background-image { object-position: 68% center; filter: none; transform: none; }
 .home-page .hero-photograph-shade {
   background:
-    linear-gradient(90deg, rgba(4, 18, 28, .72) 0%, rgba(4, 18, 28, .38) 42%, rgba(4, 18, 28, .08) 100%),
-    linear-gradient(180deg, rgba(4, 18, 28, .12) 0%, rgba(4, 18, 28, 0) 48%, rgba(4, 18, 28, .45) 100%);
+    linear-gradient(90deg, rgba(3, 16, 24, .62) 0%, rgba(3, 16, 24, .28) 46%, rgba(3, 16, 24, .08) 100%),
+    linear-gradient(180deg, rgba(3, 16, 24, .18) 0%, rgba(3, 16, 24, 0) 42%, rgba(3, 16, 24, .5) 100%);
 }
-.home-page .hero-headline { max-width: 18ch; }
+.home-page .hero-headline { max-width: 13em; }
 .home-page .hero-owner-card {
-  background: rgba(255,255,255,.96);
+  align-self: start;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 16px 16px 14px;
   border: 2px solid #13aa40;
-  box-shadow: 0 18px 40px -26px rgba(8,24,38,.4);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  color: #102638;
+  border-radius: 16px;
+  background: rgba(8, 28, 24, .78);
+  box-shadow: 0 16px 36px -24px rgba(0,0,0,.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: #fff;
 }
 .home-page .hero-owner-card::before,
 .home-page .hero-owner-card::after { display: none; }
-.home-page .hero-owner-eyebrow { color: #0b8a45; letter-spacing: .12em; }
+.home-page .hero-owner-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.home-page .hero-owner-heading { min-width: 0; }
+.home-page .hero-owner-eyebrow {
+  margin: 0;
+  color: #8ee0b0;
+  letter-spacing: .12em;
+  font-size: .62rem;
+}
 .home-page .hero-owner-mark {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  margin-top: 2px;
   border-radius: 10px;
-  background: #e8f7ee;
-  color: #13aa40;
+  background: rgba(19, 170, 64, .18);
+  color: #3ad67a;
 }
-.home-page .hero-owner-mark svg { width: 20px; height: 20px; padding: 0; border: 0; background: none; }
-.home-page .hero-owner-card h2 { color: #102638; }
-.home-page .hero-owner-copy { color: #52616d; }
-.home-page .hero-owner-benefits li { color: #2d3f4c; }
+.home-page .hero-owner-mark svg { width: 22px; height: 22px; padding: 0; border: 0; background: none; color: inherit; }
+.home-page .hero-owner-card h2 {
+  margin-top: 4px;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  color: #fff;
+}
+.home-page .hero-owner-copy {
+  margin-top: 8px;
+  font-size: .8rem;
+  line-height: 1.45;
+  color: rgba(255,255,255,.78);
+}
+.home-page .hero-owner-benefits { gap: 4px; margin-top: 10px; }
+.home-page .hero-owner-benefits li { gap: 8px; font-size: .75rem; color: rgba(255,255,255,.88); }
 .home-page .hero-owner-check {
-  border-color: #b7d4c2;
-  background: #edf7f0;
-  color: #0b8a45;
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+  border-color: rgba(19,170,64,.35);
+  background: rgba(19,170,64,.16);
+  color: #3ad67a;
+  font-size: .62rem;
 }
-.home-page .hero-owner-contact { color: #0b8a45; }
-.home-page .hero-owner-contact:hover { color: #08743b; }
-.home-page .hero-owner-actions { flex-direction: column; align-items: stretch; }
-@media (min-width: 1024px) {
-  .home-page .hero-background-image { filter: none; transform: none; object-position: 58% center; }
-  .home-page .hero-photograph-shade {
-    background:
-      linear-gradient(90deg, rgba(4, 18, 28, .68) 0%, rgba(4, 18, 28, .32) 46%, rgba(4, 18, 28, .06) 100%),
-      linear-gradient(180deg, rgba(4, 18, 28, .08) 0%, rgba(4, 18, 28, 0) 50%, rgba(4, 18, 28, .38) 100%);
+.home-page .hero-owner-actions { flex-direction: column; align-items: stretch; gap: 4px; margin-top: 12px; }
+.home-page .hero-owner-actions .btn { min-height: 40px; font-size: .8125rem; }
+.home-page .hero-owner-contact { color: #8ee0b0; min-height: 24px; font-size: .75rem; }
+.home-page .hero-owner-contact:hover { color: #fff; }
+
+@media (min-width: 768px) {
+  .home-page .home-hero { min-height: 700px; }
+  .home-page .hero-main {
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 300px);
+    align-items: start;
+    gap: 28px;
   }
   .home-page .property-search-panel {
     background: #fff;
     border: 1px solid #e4ece7;
-    box-shadow: 0 18px 40px -24px rgba(8,24,38,.32);
+    border-radius: 14px;
+    box-shadow: 0 16px 36px -22px rgba(8,24,38,.32);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
-  .home-page .property-search-modes { background: #fff; border-bottom: 1px solid #e8ecee; }
+  .home-page .property-search-modes {
+    min-height: 42px;
+    gap: 10px;
+    padding-inline: 8px;
+    background: #fff;
+    border-bottom: 1px solid #e8ecee;
+  }
   .home-page .property-search-tabs,
-  .home-page .property-search-tabs button { background: transparent; color: #5a6a76; }
+  .home-page .property-search-tabs button {
+    min-height: 42px;
+    background: transparent;
+    color: #5a6a76;
+  }
+  .home-page .property-search-tabs button { padding: 0 10px; font-size: .8125rem; }
   .home-page .property-search-tabs button[aria-pressed="true"],
   .home-page .property-search-tabs button[aria-selected="true"] { color: #102638; }
   .home-page .property-search-tabs button[aria-pressed="true"]::after,
   .home-page .property-search-tabs button[aria-selected="true"]::after { background: #13aa40; }
   .home-page .property-search-sell {
     min-height: 0;
-    height: 38px;
+    height: 30px;
     align-self: center;
-    padding: 0 16px;
+    padding: 0 12px;
     border: 1px solid #13aa40;
     border-radius: 999px;
     background: #edf7f0;
     color: #0b8a45;
+    font-size: .75rem;
   }
-  .home-page .property-search-quick-types button { background: #fff; border-color: #d7e0e5; color: #4d5c67; }
-  .home-page .property-search-quick-types button[aria-pressed="true"] { background: #edf7f0; border-color: #b7d4c2; color: #16824d; }
-  .home-page .property-search-field label { color: #52616d; }
+  .home-page .property-search-quick-types {
+    gap: 6px;
+    padding: 8px 16px 0;
+  }
+  .home-page .property-search-quick-types button {
+    min-height: 28px;
+    padding: 4px 10px;
+    font-size: .75rem;
+    background: #fff;
+    border-color: #d7e0e5;
+    color: #4d5c67;
+  }
+  .home-page .property-search-quick-types button[aria-pressed="true"] {
+    background: #edf7f0;
+    border-color: #b7d4c2;
+    color: #16824d;
+  }
+  .home-page .property-search-form { padding: 8px 16px 12px; gap: 10px 12px; }
+  .home-page .property-search-field label { margin-bottom: 4px; font-size: .6875rem; color: #52616d; }
+  .home-page .property-search-field select { min-height: 40px; }
+  .home-page .property-search-buttons .btn { min-height: 40px; }
+}
+
+@media (min-width: 1024px) {
+  .home-page .home-hero { min-height: 720px; }
+  .home-page .hero-background-image { filter: none; transform: none; object-position: 72% center; }
+  .home-page .hero-photograph-shade {
+    background:
+      linear-gradient(90deg, rgba(3, 16, 24, .58) 0%, rgba(3, 16, 24, .22) 48%, rgba(3, 16, 24, .04) 100%),
+      linear-gradient(180deg, rgba(3, 16, 24, .12) 0%, rgba(3, 16, 24, 0) 46%, rgba(3, 16, 24, .42) 100%);
+  }
+  .home-page .hero-headline { font-size: clamp(2.35rem, 3.8vw, 3.35rem); margin-top: 12px; }
+  .home-page .hero-headline-accent { background: none; -webkit-background-clip: unset; background-clip: unset; color: #13aa40; }
+  .home-page .property-search-panel {
+    background: #fff;
+    border: 1px solid #e4ece7;
+    box-shadow: 0 16px 36px -22px rgba(8,24,38,.32);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .home-page .property-search-modes { background: #fff; border-bottom: 1px solid #e8ecee; min-height: 42px; padding-inline: 8px; }
+  .home-page .property-search-tabs,
+  .home-page .property-search-tabs button { background: transparent; color: #5a6a76; min-height: 42px; }
+  .home-page .property-search-tabs button[aria-pressed="true"],
+  .home-page .property-search-tabs button[aria-selected="true"] { color: #102638; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after,
+  .home-page .property-search-tabs button[aria-selected="true"]::after { background: #13aa40; }
+  .home-page .property-search-form { align-items: start; --search-field-label: 22px; padding: 8px 16px 12px; }
+  .home-page .property-search-field label { min-height: var(--search-field-label); margin-bottom: 4px; color: #52616d; }
+  .home-page .property-search-field select { min-height: 40px; }
+  .home-page .property-search-buttons .btn { min-height: 40px; }
+  .home-page .property-search-advanced { min-height: 40px; }
+}
+
+@media (min-width: 1280px) {
+  .home-page .property-search-buttons {
+    margin: calc(var(--search-field-label) + 4px) 0 0;
+  }
 }
