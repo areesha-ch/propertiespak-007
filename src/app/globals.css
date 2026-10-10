@@ -2539,17 +2539,17 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
     -webkit-backdrop-filter: blur(16px) saturate(1.2);
     backdrop-filter: blur(16px) saturate(1.2);
   }
-  .home-page .property-search-modes { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 4px; min-height: 52px; padding-inline: 10px; background: transparent; border-bottom: 1px solid rgba(255,255,255,.18); }
-  .home-page .property-search-tabs { width: auto; min-height: 52px; align-items: stretch; justify-content: flex-start; gap: 0; }
-  .home-page .property-search-tabs button { min-width: 44px; min-height: 52px; padding-inline: 8px; font-size: .8125rem; color: rgba(255,255,255,.72); }
+  .home-page .property-search-modes { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px; min-height: 52px; padding-inline: 10px; background: transparent; border-bottom: 1px solid rgba(255,255,255,.18); }
+  .home-page .property-search-tabs { width: auto; min-height: 52px; align-items: stretch; justify-content: center; gap: 0; }
+  .home-page .property-search-tabs button { min-width: 36px; min-height: 52px; padding-inline: 6px; font-size: .8125rem; color: rgba(255,255,255,.72); }
   .home-page .property-search-tabs button[aria-pressed="true"] { color: #fff; }
-  .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #28d77b; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 6px; left: 6px; background: #28d77b; }
   .home-page .property-search-sell {
     display: inline-flex; align-items: center; justify-content: center;
-    min-height: 34px; margin: 0; padding: 0 12px;
+    min-height: 34px; margin: 0; padding: 0 10px;
     border: 1px solid rgba(127,240,180,.45); border-radius: 999px;
     background: rgba(40,215,123,.14); color: #7ff0b4;
-    font-size: .75rem; font-weight: 650; white-space: nowrap;
+    font-size: .8125rem; font-weight: 650; white-space: nowrap;
   }
   .home-page .property-search-quick-types button { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.32); color: rgba(255,255,255,.92); }
   .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.24); border-color: rgba(127,240,180,.62); color: #fff; }
@@ -2559,6 +2559,7 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 }
 @media (max-width: 374px) {
   .home-page .property-search-modes { padding-inline: 8px; }
-  .home-page .property-search-tabs button { min-width: 40px; padding-inline: 5px; font-size: .75rem; }
-  .home-page .property-search-sell { padding: 0 10px; font-size: .75rem; }
+  .home-page .property-search-tabs button { min-width: 32px; padding-inline: 5px; font-size: .75rem; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 4px; left: 4px; }
+  .home-page .property-search-sell { padding: 0 9px; font-size: .75rem; }
 }
