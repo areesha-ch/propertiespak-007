@@ -62,12 +62,12 @@ export const HERO_PHOTO_ID = 31817157;
 export const heroImage = {
   origin: "",
   /** Premium villa at dusk, shipped locally so the hero no longer depends on a remote photo CDN. */
-  desktop: "/images/hero-property.jpg",
-  desktopSrcSet: "/images/hero-property.jpg 1376w",
-  mobileSrcSet: "/images/hero-property.jpg 1376w",
+  desktop: "/images/hero-villa-dusk.jpg",
+  desktopSrcSet: "/images/hero-villa-dusk.jpg 1376w",
+  mobileSrcSet: "/images/hero-villa-dusk.jpg 1376w",
   /** Local, real-JPEG social card (WhatsApp / Facebook / X previews). */
   og: "/images/residence-social.jpg",
-  alt: "Luxury hillside residence with glowing interiors and an infinity pool at blue hour",
+  alt: "Luxury hillside villa with an infinity pool and coastal view at golden hour",
 };
 
 export const investmentImage = {

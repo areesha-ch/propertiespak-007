@@ -2466,35 +2466,35 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   }
 }
 
-/* Solid professional search card from tablet up (replaces the glass experiment). */
-@media (min-width: 768px) {
+/* Desktop glass search card — original look from 1024px up. */
+@media (min-width: 1024px) {
   .home-page .property-search-panel {
-    background: #fff;
-    border: 1px solid rgba(255,255,255,.82);
-    box-shadow: 0 18px 40px -22px rgba(8,24,38,.5), 0 2px 10px rgba(8,24,38,.08);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+    border: 1px solid rgba(255,255,255,.28);
+    box-shadow: 0 24px 60px -28px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    backdrop-filter: blur(16px) saturate(1.2);
   }
-  .home-page .property-search-modes { background: #fff; border-bottom: 1px solid #e8ecee; }
+  .home-page .property-search-modes { background: transparent; border-bottom: 1px solid rgba(255,255,255,.18); }
   .home-page .property-search-tabs,
-  .home-page .property-search-tabs button { background: transparent; color: #5a6a76; }
+  .home-page .property-search-tabs button { background: transparent; color: rgba(255,255,255,.72); }
   .home-page .property-search-tabs button[aria-selected="true"],
-  .home-page .property-search-tabs button[aria-pressed="true"] { color: #102638; }
+  .home-page .property-search-tabs button[aria-pressed="true"] { color: #fff; }
   .home-page .property-search-tabs button[aria-selected="true"]::after,
-  .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #13aa40; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #28d77b; }
   .home-page .property-search-sell {
-    color: #0b8a45;
-    padding: 0 8px;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    min-height: 56px;
-    height: auto;
-    align-self: stretch;
+    color: #7ff0b4;
+    padding: 0 16px;
+    border: 1px solid rgba(127,240,180,.45);
+    border-radius: 999px;
+    background: rgba(40,215,123,.12);
+    min-height: 0;
+    height: 38px;
+    align-self: center;
   }
-  .home-page .property-search-quick-types button { background: #fff; border-color: #d7e0e5; color: #4d5c67; }
-  .home-page .property-search-quick-types button[aria-pressed="true"] { background: #edf7f0; border-color: #b7d4c2; color: #16824d; }
-  .home-page .property-search-field label { color: #52616d; }
+  .home-page .property-search-quick-types button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.9); }
+  .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.22); border-color: rgba(127,240,180,.6); color: #fff; }
+  .home-page .property-search-field label { color: rgba(255,255,255,.85); }
 }
 
 /* Dealers & Agencies: white section; cards stay translucent (soft green tint) so they read on white. */
@@ -2674,9 +2674,9 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 }
 
 
-/* Professional search card: solid white (not glass), equal Buy / Rent / Sell
-   columns, and category chips sitting next to each other instead of stretched
-   across the row. Kept last so it wins over the earlier glass experiments. */
+/* Phones only: solid white card, equal Buy / Rent / Sell columns. Desktop
+   keeps the original glass / flex tab bar below. */
+@media (max-width: 767px) {
 .home-page .property-search-panel {
   background: #fff;
   border: 1px solid rgba(255,255,255,.82);
@@ -2769,6 +2769,7 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 }
 .home-page .property-search-input-title { color: #102638; }
 .home-page .property-search-input-hint { color: #6b7a85; }
+}
 
 @media (max-width: 767px) {
   .home-page .property-search-modes { min-height: 50px; padding-inline: 4px; }
@@ -2797,9 +2798,119 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .property-search-quick-types button { padding-inline: 7px; font-size: 11px; min-height: 32px; }
   .home-page .property-search-mobile { padding-inline: 9px; }
 }
+/* Tablet and desktop: original flex tab bar (Buy / Rent left, Sell as a link/pill),
+   not the equal three-column mobile layout. */
 @media (min-width: 768px) {
-  .home-page .property-search-modes { min-height: 56px; padding-inline: 8px; }
-  .home-page .property-search-tabs button { min-height: 56px; }
-  .home-page .property-search-sell { min-height: 56px; font-size: .875rem; }
-  .home-page .property-search-quick-types { gap: 8px; padding: 12px 22px 8px; }
+  .home-page .property-search-panel {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.92);
+    border-radius: 16px;
+    box-shadow: 0 20px 44px -26px rgba(10,28,44,.3), 0 2px 9px rgba(10,28,44,.07);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .home-page .property-search-modes {
+    display: flex;
+    grid-template-columns: none;
+    min-height: 65px;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 18px;
+    padding-inline: 28px;
+    background: #fff;
+    border-bottom: 1px solid #e8ecee;
+  }
+  .home-page .property-search-tabs {
+    display: flex;
+    grid-column: auto;
+    grid-template-columns: none;
+    width: fit-content;
+    min-height: 65px;
+    flex: 0 0 auto;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .home-page .property-search-tabs button {
+    display: inline-flex;
+    width: auto;
+    min-width: 0;
+    min-height: 65px;
+    padding: 0 14px;
+    background: transparent;
+    color: #52606c;
+    font-size: .875rem;
+  }
+  .home-page .property-search-tabs button[aria-pressed="true"],
+  .home-page .property-search-tabs button[aria-selected="true"] { color: #102638; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after,
+  .home-page .property-search-tabs button[aria-selected="true"]::after {
+    right: 12px;
+    left: 12px;
+    background: #10a456;
+  }
+  .home-page .property-search-sell {
+    display: inline-flex;
+    width: auto;
+    min-width: 0;
+    min-height: 65px;
+    height: auto;
+    align-self: stretch;
+    margin: 0;
+    padding-inline: 14px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #16824d;
+    font-size: .8125rem;
+  }
+  .home-page .property-search-quick-types {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 9px;
+    padding: 14px 28px 0;
+  }
+  .home-page .property-search-quick-types button {
+    background: #fff;
+    border-color: #e2e8e5;
+    color: #5d6871;
+  }
+  .home-page .property-search-quick-types button[aria-pressed="true"] {
+    background: #edf7f0;
+    border-color: #b7d4c2;
+    color: #16824d;
+  }
+  .home-page .property-search-field label { color: #52616d; }
+}
+
+/* Desktop: original glass panel, white type, green sell pill. */
+@media (min-width: 1024px) {
+  .home-page .property-search-panel {
+    background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+    border: 1px solid rgba(255,255,255,.28);
+    box-shadow: 0 24px 60px -28px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    backdrop-filter: blur(16px) saturate(1.2);
+  }
+  .home-page .property-search-modes { background: transparent; border-bottom: 1px solid rgba(255,255,255,.18); }
+  .home-page .property-search-tabs,
+  .home-page .property-search-tabs button { background: transparent; color: rgba(255,255,255,.72); }
+  .home-page .property-search-tabs button[aria-pressed="true"],
+  .home-page .property-search-tabs button[aria-selected="true"] { color: #fff; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after,
+  .home-page .property-search-tabs button[aria-selected="true"]::after { background: #28d77b; }
+  .home-page .property-search-sell {
+    min-height: 0;
+    height: 38px;
+    align-self: center;
+    padding: 0 16px;
+    border: 1px solid rgba(127,240,180,.45);
+    border-radius: 999px;
+    background: rgba(40,215,123,.12);
+    color: #7ff0b4;
+  }
+  .home-page .property-search-quick-types button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.9); }
+  .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.22); border-color: rgba(127,240,180,.6); color: #fff; }
+  .home-page .property-search-field label { color: rgba(255,255,255,.85); }
 }
