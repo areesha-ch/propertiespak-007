@@ -88,10 +88,6 @@ export function SearchPanel() {
           <button type="button" aria-pressed={state.purpose === "rent"} onClick={() => changePurpose("rent")}>{t("Rent")}</button>
         </div>
         <Link href="/list-property" className="property-search-sell">{t("Sell a property")}</Link>
-        <Link href="/projects" className="property-search-projects">
-          <span className="property-search-new-badge" aria-hidden="true">NEW</span>
-          <span>{t("New projects")}</span>
-        </Link>
       </div>
 
       <div className="property-search-quick-types" role="group" aria-label={t("Quick property category")}>
