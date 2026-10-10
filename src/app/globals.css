@@ -2095,12 +2095,6 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .hero-owner-actions { gap: 4px; margin-top: 15px; }
   .hero-owner-actions .btn { min-height: 46px; font-size: .75rem; }
   .hero-owner-contact { min-height: 27px; }
-  /* New Projects moved to the hero buttons, so phones get just three even,
-     thumb-friendly segments: Buy | Rent | Sell a property. */
-  .home-page .property-search-modes { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1.15fr); align-items: stretch; gap: 0; min-height: 54px; padding-inline: 6px; }
-  .home-page .property-search-tabs { width: auto; min-height: 54px; align-items: stretch; justify-content: stretch; gap: 0; }
-  .home-page .property-search-tabs button { flex: 1 1 0; min-width: 0; min-height: 54px; padding-inline: 6px; font-size: .875rem; }
-  .home-page .property-search-sell { display: flex; min-width: 0; min-height: 54px; align-items: center; justify-content: center; margin: 0; padding-inline: 8px; font-size: .8125rem; line-height: 1.3; text-align: center; white-space: normal; }
   .home-page .property-search-mobile { padding: 10px 11px 12px; }
   .home-page .property-search-input-like { min-height: 58px; }
   .home-page .home-type-rail .mobile-scroll-toolbar { display: none; }
@@ -2118,9 +2112,6 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .hero-owner-card h2 { font-size: 1.125rem; }
   .home-page .hero-owner-benefits li { gap: 7px; font-size: .75rem; }
   .home-page .hero-actions .btn { flex-basis: 125px; font-size: .75rem; }
-  .home-page .property-search-modes { padding-inline: 4px; }
-  .home-page .property-search-tabs button { padding-inline: 4px; font-size: .8125rem; }
-  .home-page .property-search-sell { padding-inline: 6px; font-size: .75rem; }
   .home-page .home-type-rail .mobile-scroll-track > div { flex-basis: 212px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2534,14 +2525,40 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 }
 
 /* Search purpose row after removing the New projects shortcut (it lives on the
-   hero buttons, the explore rail and the footer instead): phones balance
-   Buy / Rent tabs against the seller link instead of crowding four actions
-   into one thin strip. Scoped to the base panel — the home page has its own
-   mobile grid above; `.home-page .property-search-sell { margin: 0 }` wins
-   there on specificity. */
-@media (max-width: 600px) {
-  .property-search-modes { flex-wrap: wrap; row-gap: 0; }
-  .property-search-tabs { flex: 1 1 auto; }
-  .property-search-tabs button { flex: 1 1 0; }
-  .property-search-sell { margin-left: auto; padding-inline: 8px; text-align: right; }
+   hero buttons, the explore rail and the footer instead): phones keep
+   Buy / Rent tabs and the seller link together as one compact bar instead of
+   spreading them across the row, and the panel itself turns into the same
+   translucent glass card the desktop hero uses, so the photograph shows
+   through. Kept at the very end so it wins over the white-panel rules
+   further up the file. */
+@media (max-width: 767px) {
+  .home-page .property-search-panel {
+    background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.09));
+    border: 1px solid rgba(255,255,255,.3);
+    box-shadow: 0 24px 60px -28px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.22);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    backdrop-filter: blur(16px) saturate(1.2);
+  }
+  .home-page .property-search-modes { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 4px; min-height: 52px; padding-inline: 10px; background: transparent; border-bottom: 1px solid rgba(255,255,255,.18); }
+  .home-page .property-search-tabs { width: auto; min-height: 52px; align-items: stretch; justify-content: flex-start; gap: 0; }
+  .home-page .property-search-tabs button { min-width: 44px; min-height: 52px; padding-inline: 8px; font-size: .8125rem; color: rgba(255,255,255,.72); }
+  .home-page .property-search-tabs button[aria-pressed="true"] { color: #fff; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #28d77b; }
+  .home-page .property-search-sell {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 34px; margin: 0; padding: 0 12px;
+    border: 1px solid rgba(127,240,180,.45); border-radius: 999px;
+    background: rgba(40,215,123,.14); color: #7ff0b4;
+    font-size: .75rem; font-weight: 650; white-space: nowrap;
+  }
+  .home-page .property-search-quick-types button { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.32); color: rgba(255,255,255,.92); }
+  .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.24); border-color: rgba(127,240,180,.62); color: #fff; }
+  .home-page .property-search-input-like { min-height: 58px; border-color: rgba(255,255,255,.36); background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
+  .home-page .property-search-input-title { color: #fff; }
+  .home-page .property-search-input-hint { color: rgba(255,255,255,.72); }
+}
+@media (max-width: 374px) {
+  .home-page .property-search-modes { padding-inline: 8px; }
+  .home-page .property-search-tabs button { min-width: 40px; padding-inline: 5px; font-size: .75rem; }
+  .home-page .property-search-sell { padding: 0 10px; font-size: .75rem; }
 }
