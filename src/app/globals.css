@@ -2594,18 +2594,26 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 .property-search-quick-types::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .property-search-quick-types button { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: start; }
 
-/* Phones: one shared inset for all three rows, and fluid chip metrics sized so
-   the four labels fit on a single line from ~344px upwards (measured against
-   the shipped Inter variable font: 277px of chips + gaps at 344px). */
+/* Phones: four equal columns so All properties / Homes / Plots / Commercial
+   cannot wrap (the live screenshot had Commercial alone on a second row
+   because the chips were flex-wrap + 28px inset). Grid + max-content keeps
+   each chip sized to its label and space-between spreads them across the
+   card, matching the search field's width. */
 @media (max-width: 767px) {
   .home-page .property-search-modes { padding-inline: 12px; }
   .home-page .property-search-quick-types {
-    gap: clamp(4px, 1.4vw, 9px);
-    padding: 12px 12px 8px;
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 6px;
+    padding: 10px 12px 8px;
   }
   .home-page .property-search-quick-types button {
-    padding: 7px clamp(7px, 2.4vw, 14px);
-    font-size: clamp(10.5px, 3.05vw, 13px);
+    min-height: 34px;
+    padding: 6px 8px;
+    font-size: 12px;
+    white-space: nowrap;
   }
   .home-page .property-search-mobile { padding: 2px 12px 12px; }
 }
@@ -2613,6 +2621,8 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .property-search-modes,
   .home-page .property-search-quick-types,
   .home-page .property-search-mobile { padding-inline: 9px; }
+  .home-page .property-search-quick-types { gap: 4px; }
+  .home-page .property-search-quick-types button { padding-inline: 6px; font-size: 11px; min-height: 32px; }
 }
 
 /* Tablet and up: the card stays inside the hero container and all three rows
