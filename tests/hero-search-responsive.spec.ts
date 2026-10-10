@@ -35,8 +35,8 @@ test("hero search card keeps one chip row, aligned insets and no overflow", asyn
       `${width}px: category chips wrapped onto more than one row`,
     ).toBeLessThanOrEqual(1);
 
-    // 2. Every row inside the card shares the same left inset. Phones show the
-    //    tap-to-search button, wider screens the field form.
+    // 2. The Buy / Rent / Sell bar is a full-width equal tab row (tight inset).
+    //    The chips and the search field share a slightly larger content inset.
     const controlSelector = width < 768 ? ".property-search-mobile" : ".property-search-form";
     const insets = await panel.evaluate(
       (element, controls) => {
@@ -49,8 +49,8 @@ test("hero search card keeps one chip row, aligned insets and no overflow", asyn
       controlSelector,
     );
     expect(Number.isNaN(insets.modes), `${width}px: Buy/Rent row inset`).toBe(false);
-    expect(Math.abs(insets.chips - insets.modes), `${width}px: chip row inset`).toBeLessThanOrEqual(0.5);
-    expect(Math.abs(insets.controls - insets.modes), `${width}px: search control row inset`).toBeLessThanOrEqual(0.5);
+    expect(insets.modes, `${width}px: tab bar should sit near the card edge`).toBeLessThanOrEqual(10);
+    expect(Math.abs(insets.chips - insets.controls), `${width}px: chip row and search field insets`).toBeLessThanOrEqual(0.5);
 
     // 3. Nothing spills out of the card or the page.
     const panelBox = await panel.boundingBox();

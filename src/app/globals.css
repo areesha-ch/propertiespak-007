@@ -2667,3 +2667,134 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .property-search-buttons .btn { width: auto; flex: 0 0 auto; padding-inline: 26px; }
   .home-page .property-search-advanced { white-space: nowrap; }
 }
+
+
+/* Professional search card: solid white (not glass), equal Buy / Rent / Sell
+   columns, and category chips sitting next to each other instead of stretched
+   across the row. Kept last so it wins over the earlier glass experiments. */
+.home-page .property-search-panel {
+  background: #fff;
+  border: 1px solid rgba(255,255,255,.82);
+  box-shadow: 0 18px 40px -22px rgba(8,24,38,.5), 0 2px 10px rgba(8,24,38,.08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.home-page .property-search-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: stretch;
+  justify-content: stretch;
+  gap: 0;
+  min-height: 52px;
+  padding-inline: 4px;
+  background: #fff;
+  border-bottom: 1px solid #e8ecee;
+}
+.home-page .property-search-tabs {
+  display: grid;
+  grid-column: 1 / 3;
+  grid-template-columns: 1fr 1fr;
+  width: auto;
+  min-height: 0;
+  gap: 0;
+}
+.home-page .property-search-tabs button {
+  display: inline-flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  background: transparent;
+  color: #5a6a76;
+  font-size: .875rem;
+  font-weight: 650;
+}
+.home-page .property-search-tabs button[aria-pressed="true"],
+.home-page .property-search-tabs button[aria-selected="true"] { color: #102638; }
+.home-page .property-search-tabs button[aria-pressed="true"]::after,
+.home-page .property-search-tabs button[aria-selected="true"]::after {
+  right: 18%;
+  left: 18%;
+  background: #13aa40;
+}
+.home-page .property-search-tabs button:hover { color: #0b8a45; }
+.home-page .property-search-sell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  height: auto;
+  margin: 0;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #0b8a45;
+  font-size: .8125rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.home-page .property-search-sell:hover { color: #08743b; }
+.home-page .property-search-quick-types {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 8px;
+}
+.home-page .property-search-quick-types button {
+  background: #fff;
+  border-color: #d7e0e5;
+  color: #4d5c67;
+}
+.home-page .property-search-quick-types button[aria-pressed="true"] {
+  background: #edf7f0;
+  border-color: #b7d4c2;
+  color: #16824d;
+}
+.home-page .property-search-field label { color: #52616d; }
+.home-page .property-search-input-like {
+  background: #f4f7f8;
+  border-color: #d5dee3;
+  color: #5a6a76;
+}
+.home-page .property-search-input-title { color: #102638; }
+.home-page .property-search-input-hint { color: #6b7a85; }
+
+@media (max-width: 767px) {
+  .home-page .property-search-modes { min-height: 50px; padding-inline: 4px; }
+  .home-page .property-search-tabs button { min-height: 50px; padding-inline: 4px; font-size: .8125rem; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 16%; left: 16%; }
+  .home-page .property-search-sell { min-height: 50px; padding: 0 4px; font-size: .8125rem; }
+  .home-page .property-search-quick-types {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 10px 12px 8px;
+  }
+  .home-page .property-search-quick-types button {
+    min-height: 34px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .home-page .property-search-mobile { padding: 2px 12px 12px; }
+}
+@media (max-width: 374px) {
+  .home-page .property-search-modes { padding-inline: 2px; }
+  .home-page .property-search-tabs button { font-size: .75rem; }
+  .home-page .property-search-sell { font-size: .75rem; }
+  .home-page .property-search-quick-types { gap: 5px; padding-inline: 9px; }
+  .home-page .property-search-quick-types button { padding-inline: 7px; font-size: 11px; min-height: 32px; }
+  .home-page .property-search-mobile { padding-inline: 9px; }
+}
+@media (min-width: 768px) {
+  .home-page .property-search-modes { min-height: 56px; padding-inline: 8px; }
+  .home-page .property-search-tabs button { min-height: 56px; }
+  .home-page .property-search-sell { min-height: 56px; font-size: .875rem; }
+  .home-page .property-search-quick-types { gap: 8px; padding: 12px 22px 8px; }
+}
