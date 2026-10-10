@@ -30,7 +30,7 @@ export function Hero() {
         pictureClassName="hero-photograph"
         pictureSources={HERO_IMAGE_SOURCES}
         srcSet={heroImage.desktopSrcSet}
-        fallbackSrc="/images/hero-villa-dusk.jpg"
+        fallbackSrc="/images/hero-cinematic-mansion.jpg"
         src={heroImage.desktop}
         sizes="100vw"
         width={1376}
