@@ -41,7 +41,10 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       ...(process.env.NODE_ENV !== "production"
-        ? [{ source: "/_next/static/:path*", headers: [{ key: "Cache-Control", value: "no-store, must-revalidate" }] }]
+        ? [
+            { source: "/_next/static/:path*", headers: [{ key: "Cache-Control", value: "no-store, must-revalidate" }] },
+            { source: "/images/:path*", headers: [{ key: "Cache-Control", value: "no-store, must-revalidate" }] },
+          ]
         : []),
       {
         source: "/:path*",
