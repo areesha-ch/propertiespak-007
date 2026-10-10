@@ -1014,7 +1014,6 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 .property-search-tabs button[aria-selected="true"] { color: var(--color-forest-700); }
 .property-search-tabs button[aria-selected="true"]::after { content: ""; position: absolute; bottom: 0; left: 8px; right: 8px; height: 3px; background: var(--color-forest-600); border-radius: 3px; }
 .property-search-sell { font-size: .8125rem; font-weight: 650; color: var(--color-forest-700); }
-.property-search-projects { margin-left: auto; font-size: .75rem; color: var(--color-ink-muted); }
 .property-search-quick-types { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 14px 0; }
 .property-search-quick-types button { min-height: 32px; padding: 5px 10px; border: 1px solid var(--color-soft); border-radius: 6px; font-size: .75rem; color: var(--color-ink-muted); }
 .property-search-quick-types button[aria-pressed="true"] { color: var(--color-forest-700); background: var(--color-forest-50); border-color: #acd2bc; font-weight: 600; }
@@ -1183,7 +1182,6 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .header-brand .brand-lockup { gap: 6px; }
   .property-search-modes { gap: 10px; padding-inline: 10px; }
   .property-search-sell { font-size: .75rem; }
-  .property-search-projects { font-size: .75rem; }
   .property-search-quick-types { padding-inline: 10px; gap: 5px; }
   .property-search-quick-types button { padding-inline: 8px; font-size: .75rem; }
   .header-map-heading-actions { gap: 8px; }
@@ -1558,8 +1556,6 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 .property-search-modes { min-height: 56px; gap: 18px; padding-inline: 20px; }
 .property-search-tabs button { min-height: 52px; padding-inline: 12px; }
 .property-search-sell { display: inline-flex; align-items: center; min-height: 52px; white-space: nowrap; }
-.property-search-projects { position: relative; display: inline-flex; align-items: center; flex-direction: column; justify-content: center; gap: 0; min-height: 52px; white-space: nowrap; }
-.property-search-new-badge { align-self: flex-end; margin: 0 0 -2px; padding: 2px 5px; border-radius: 3px 3px 3px 1px; background: #e7f4eb; color: #207449; font-size: .75rem; font-weight: 800; letter-spacing: .09em; line-height: 1.25; }
 .property-search-quick-types { gap: 8px; padding: 12px 20px 0; }
 .property-search-quick-types button { min-height: 36px; padding: 6px 12px; border-radius: 7px; }
 .property-search-form { padding: 18px 22px 21px; }
@@ -1639,7 +1635,6 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .property-search-modes { min-height: 52px; gap: 10px; padding-inline: 12px; }
   .property-search-tabs button { min-width: 44px; min-height: 48px; padding-inline: 7px; font-size: .8125rem; }
   .property-search-sell { min-height: 48px; font-size: .75rem; }
-  .property-search-projects { min-height: 48px; font-size: .75rem; }
   .property-search-quick-types { gap: 6px; padding: 11px 12px 0; }
   .property-search-quick-types button { min-height: 35px; padding-inline: 10px; font-size: .75rem; }
   .property-search-mobile { padding: 12px; }
@@ -1655,13 +1650,10 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .property-search-tabs { gap: 0; }
   .property-search-tabs button { min-width: 40px; padding-inline: 5px; }
   .property-search-sell { font-size: .75rem; }
-  .property-search-projects { font-size: .75rem; }
-  .property-search-new-badge { font-size: .75rem; }
   .property-search-quick-types { gap: 5px; padding-inline: 10px; }
   .property-search-quick-types button { padding-inline: 8px; font-size: .75rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .property-search-new-badge { animation: none; }
   .explore-more-card,
   .explore-more-card:hover,
   .explore-more-card:focus-visible { transition: none; transform: none; }
@@ -1876,8 +1868,7 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   background: #fff;
 }
 .home-page .property-search-tabs { display: flex; width: fit-content; min-height: 65px; flex: 0 0 auto; align-items: stretch; gap: 8px; }
-.home-page .property-search-tabs button,
-.home-page .property-search-projects {
+.home-page .property-search-tabs button {
   position: relative;
   display: inline-flex;
   min-width: 0;
@@ -1912,32 +1903,8 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   font-weight: 650;
   white-space: nowrap;
 }
-.home-page .property-search-projects {
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0;
-  margin: 0 0 0 auto;
-  padding: 0 4px;
-  color: #52606c;
-}
-.home-page .property-search-new-badge {
-  align-self: flex-end;
-  margin: 0 0 -2px;
-  padding: 2px 5px;
-  border-radius: 3px 3px 3px 1px;
-  background: #d5323f;
-  color: #fff;
-  font-size: .75rem;
-  font-weight: 800;
-  letter-spacing: .09em;
-  line-height: 1.25;
-  box-shadow: 0 2px 6px rgba(155,19,35,.24);
-  animation: none;
-}
 .home-page .property-search-sell:hover,
-.home-page .property-search-tabs button:hover,
-.home-page .property-search-projects:hover { color: #0b713f; }
+.home-page .property-search-tabs button:hover { color: #0b713f; }
 .home-page .property-search-quick-types { gap: 9px; padding: 14px 28px 0; }
 .home-page .property-search-quick-types button {
   min-height: 42px;
@@ -2128,13 +2095,6 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .hero-owner-actions { gap: 4px; margin-top: 15px; }
   .hero-owner-actions .btn { min-height: 46px; font-size: .75rem; }
   .hero-owner-contact { min-height: 27px; }
-  .home-page .property-search-modes { display: grid; grid-template-columns: minmax(68px, 1fr) auto auto; gap: 2px; min-height: 50px; padding-inline: 8px; }
-  .home-page .property-search-tabs { width: auto; min-height: 50px; justify-content: flex-start; gap: 0; }
-  .home-page .property-search-tabs button { min-width: 34px; min-height: 50px; flex: 1 1 auto; padding-inline: 4px; font-size: .75rem; }
-  .home-page .property-search-sell { min-width: 0; min-height: 50px; margin: 0; padding-inline: 3px; font-size: .75rem; }
-  .home-page .property-search-projects { min-width: 0; min-height: 50px; flex: 0 1 auto; flex-direction: row; gap: 3px; padding-inline: 3px; font-size: .75rem; }
-  .home-page .property-search-new-badge { padding: 2px 4px; font-size: .75rem; }
-  .home-page .property-search-projects > span:last-child { white-space: nowrap; }
   .home-page .property-search-mobile { padding: 10px 11px 12px; }
   .home-page .property-search-input-like { min-height: 58px; }
   .home-page .home-type-rail .mobile-scroll-toolbar { display: none; }
@@ -2152,13 +2112,9 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .hero-owner-card h2 { font-size: 1.125rem; }
   .home-page .hero-owner-benefits li { gap: 7px; font-size: .75rem; }
   .home-page .hero-actions .btn { flex-basis: 125px; font-size: .75rem; }
-  .home-page .property-search-modes { gap: 4px; padding-inline: 7px; }
-  .home-page .property-search-tabs button { min-width: 34px; padding-inline: 3px; font-size: .75rem; }
-  .home-page .property-search-projects { font-size: .75rem; }
   .home-page .home-type-rail .mobile-scroll-track > div { flex-basis: 212px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-page .property-search-new-badge { animation: none; }
   .home-page .hero-owner-actions .btn { transition: none; }
 }
 
@@ -2263,8 +2219,7 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
 .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #13aa40; }
 .home-page .property-search-sell { color: #13aa40; }
 .home-page .property-search-sell:hover,
-.home-page .property-search-tabs button:hover,
-.home-page .property-search-projects:hover { color: #13aa40; }
+.home-page .property-search-tabs button:hover { color: #13aa40; }
 .home-page .property-search-quick-types button[aria-pressed="true"] {
   border-color: rgba(19,170,64,.48);
   background: rgba(19,170,64,.09);
@@ -2533,8 +2488,6 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
     border-radius: 999px;
     background: rgba(40,215,123,.12);
   }
-  .home-page .property-search-projects { color: rgba(255,255,255,.85); }
-  .home-page .property-search-projects span:last-child { color: #fff; }
   .home-page .property-search-quick-types button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.9); }
   .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.22); border-color: rgba(127,240,180,.6); color: #fff; }
   .home-page .property-search-field label { color: rgba(255,255,255,.85); }
@@ -2569,4 +2522,44 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   }
   .home-page .dealer-showcase-card:hover { border-color: rgba(16,164,86,.55); background: linear-gradient(160deg, rgba(16,164,86,.13), rgba(16,164,86,.04)); }
   .home-page .dealer-showcase-listings { color: #0c7040; }
+}
+
+/* Search purpose row after removing the New projects shortcut (it lives on the
+   hero buttons, the explore rail and the footer instead): phones keep
+   Buy / Rent tabs and the seller link together as one compact bar instead of
+   spreading them across the row, and the panel itself turns into the same
+   translucent glass card the desktop hero uses, so the photograph shows
+   through. Kept at the very end so it wins over the white-panel rules
+   further up the file. */
+@media (max-width: 767px) {
+  .home-page .property-search-panel {
+    background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.09));
+    border: 1px solid rgba(255,255,255,.3);
+    box-shadow: 0 24px 60px -28px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.22);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    backdrop-filter: blur(16px) saturate(1.2);
+  }
+  .home-page .property-search-modes { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px; min-height: 52px; padding-inline: 10px; background: transparent; border-bottom: 1px solid rgba(255,255,255,.18); }
+  .home-page .property-search-tabs { width: auto; min-height: 52px; align-items: stretch; justify-content: center; gap: 0; }
+  .home-page .property-search-tabs button { min-width: 36px; min-height: 52px; padding-inline: 6px; font-size: .8125rem; color: rgba(255,255,255,.72); }
+  .home-page .property-search-tabs button[aria-pressed="true"] { color: #fff; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 6px; left: 6px; background: #28d77b; }
+  .home-page .property-search-sell {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 34px; margin: 0; padding: 0 10px;
+    border: 1px solid rgba(127,240,180,.45); border-radius: 999px;
+    background: rgba(40,215,123,.14); color: #7ff0b4;
+    font-size: .8125rem; font-weight: 650; white-space: nowrap;
+  }
+  .home-page .property-search-quick-types button { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.32); color: rgba(255,255,255,.92); }
+  .home-page .property-search-quick-types button[aria-pressed="true"] { background: rgba(40,215,123,.24); border-color: rgba(127,240,180,.62); color: #fff; }
+  .home-page .property-search-input-like { min-height: 58px; border-color: rgba(255,255,255,.36); background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
+  .home-page .property-search-input-title { color: #fff; }
+  .home-page .property-search-input-hint { color: rgba(255,255,255,.72); }
+}
+@media (max-width: 374px) {
+  .home-page .property-search-modes { padding-inline: 8px; }
+  .home-page .property-search-tabs button { min-width: 32px; padding-inline: 5px; font-size: .75rem; }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 4px; left: 4px; }
+  .home-page .property-search-sell { padding: 0 9px; font-size: .75rem; }
 }

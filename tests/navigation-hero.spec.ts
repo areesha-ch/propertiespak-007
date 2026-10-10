@@ -153,7 +153,7 @@ test("mobile menu uses the top layer, closes reliably and navigates correctly", 
   expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
 });
 
-test("desktop search restores Buy/Rent, seller and project links, and property categories", async ({ page }) => {
+test("desktop search restores Buy/Rent, seller link and property categories", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
   const panel = page.getByTestId("hero-search");
@@ -164,7 +164,7 @@ test("desktop search restores Buy/Rent, seller and project links, and property c
   await expect(purposes.getByRole("button", { name: "Buy", exact: true })).toHaveAttribute("aria-pressed", "true");
   await expect(purposes.getByRole("button", { name: "Rent", exact: true })).toHaveAttribute("aria-pressed", "false");
   await expect(panel.getByRole("link", { name: "Sell a property", exact: true })).toHaveAttribute("href", "/list-property");
-  await expect(panel.getByRole("link", { name: /New projects/ })).toHaveAttribute("href", "/projects");
+  await expect(panel.getByRole("link", { name: /New projects/ })).toHaveCount(0);
   await expect(city).toHaveValue("");
   await expect(city.locator("option").first()).toHaveText("All cities");
   await expect(categories.getByRole("button", { name: "All properties", exact: true })).toHaveAttribute("aria-pressed", "true");
