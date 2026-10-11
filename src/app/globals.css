@@ -2563,3 +2563,104 @@ html { scroll-padding-top: calc(var(--site-header-height) + 20px); }
   .home-page .property-search-tabs button[aria-pressed="true"]::after { right: 4px; left: 4px; }
   .home-page .property-search-sell { padding: 0 9px; font-size: .75rem; }
 }
+
+/* Mobile hero search: Buy | Rent | Sell a property as three equal columns on one
+   baseline, instead of the cramped tabs-left / pill-right row. Phone widths only;
+   the desktop hero is unchanged. */
+@media (max-width: 767px) {
+  .home-page .property-search-modes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 8px;
+    min-height: 0;
+    padding: 10px 12px;
+  }
+  .home-page .property-search-tabs { display: contents; }
+  .home-page .property-search-tabs button {
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 4px;
+    font-size: .875rem;
+    text-align: center;
+  }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after {
+    left: 14px;
+    right: 14px;
+    bottom: 2px;
+  }
+  .home-page .property-search-sell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 44px;
+    height: auto;
+    padding: 6px 6px;
+    font-size: .8125rem;
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+/* Mobile hero search: the Buy | Rent | Sell a property row sits on a solid white
+   strip (dark text, green accents). Phone widths only. */
+@media (max-width: 767px) {
+  .home-page .property-search-modes {
+    background: #fff;
+    border-bottom: 1px solid var(--color-soft);
+  }
+  .home-page .property-search-tabs button { color: var(--color-ink-muted); }
+  .home-page .property-search-tabs button[aria-pressed="true"] { color: var(--color-forest-700); }
+  .home-page .property-search-tabs button[aria-pressed="true"]::after { background: #13aa40; }
+  .home-page .property-search-sell {
+    background: #fff;
+    border-color: #13aa40;
+    color: #0b713f;
+  }
+}
+
+/* Hero background slideshow: photos cross-fade every few seconds with a slow zoom.
+   Replaces the single hero photograph. */
+.hero-slideshow { position: absolute; inset: 0; overflow: hidden; }
+.hero-slide {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 62% center;
+  opacity: 0; transform: scale(1.06);
+  transition: opacity 1.2s ease-in-out, transform 3.2s ease-out;
+}
+.hero-slide.is-active { opacity: 1; transform: scale(1); }
+.home-page .hero-slide { object-position: 58% center; }
+@media (max-width: 767px) {
+  .home-page .hero-slide { object-position: center 45%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide { transition: none; transform: none; }
+}
+
+/* Hero slideshow: lighter overlay so the rotating photographs read clearly.
+   A soft left-side gradient keeps the headline legible; the photos stay visible. */
+.home-page .hero-photograph-shade {
+  background:
+    linear-gradient(90deg, rgba(3,18,30,.55) 0%, rgba(3,18,30,.2) 45%, rgba(3,18,30,0) 75%),
+    linear-gradient(180deg, rgba(3,18,30,.12) 0%, rgba(3,18,30,0) 45%, rgba(3,18,30,.5) 100%);
+}
+@media (max-width: 767px) {
+  .home-page .hero-photograph-shade {
+    background:
+      linear-gradient(180deg, rgba(3,18,30,.35) 0%, rgba(3,18,30,.18) 40%, rgba(3,18,30,.7) 100%);
+  }
+}
+
+/* Hero owner card: a little shorter and narrower. Only the box size changes. */
+@media (min-width: 768px) {
+  .home-page .hero-owner-card { max-width: 440px; justify-self: end; width: 100%; padding: 18px 20px; }
+}
+
+/* Hero: search panel and owner box sit a little lower on desktop. Only spacing changes. */
+@media (min-width: 1024px) {
+  .home-page .home-search-wrap { margin-top: 24px; }
+  .home-page .hero-owner-card { margin-top: 24px; }
+}

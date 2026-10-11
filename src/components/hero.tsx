@@ -3,15 +3,9 @@
 import Link from "next/link";
 import { IconArrowRight, IconKey } from "@/components/icons";
 import { useLanguage } from "@/components/language-provider";
-import { ResilientImage } from "@/components/resilient-image";
+import { HeroSlideshow } from "@/components/hero-slideshow";
 import { SearchPanel } from "@/components/search-panel";
 import { SITE } from "@/lib/constants";
-import { heroImage } from "@/lib/images";
-
-const HERO_IMAGE_SOURCES = [
-  { type: "image/jpeg", media: "(max-width: 767px)", srcSet: heroImage.mobileSrcSet, sizes: "100vw" },
-  { type: "image/jpeg", srcSet: heroImage.desktopSrcSet, sizes: "100vw" },
-];
 
 /** A photographic marketplace hero with a dedicated owner callout and search panel. */
 export function Hero() {
@@ -26,22 +20,7 @@ export function Hero() {
   const headline = locale === "en" ? englishHeadline : t("Find Your Dream Property in Pakistan");
   return (
     <section id="home-hero" className="home-hero" aria-labelledby="hero-heading" data-testid="home-hero">
-      <ResilientImage
-        pictureClassName="hero-photograph"
-        pictureSources={HERO_IMAGE_SOURCES}
-        srcSet={heroImage.desktopSrcSet}
-        fallbackSrc="/images/hero-premium.jpg"
-        src={heroImage.desktop}
-        sizes="100vw"
-        width={1376}
-        height={768}
-        alt={heroImage.alt}
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-        className="hero-background-image"
-        data-testid="hero-photograph"
-      />
+      <HeroSlideshow />
       <div className="hero-photograph-shade" aria-hidden="true" />
 
       <div className="ui-container hero-content">
@@ -81,10 +60,6 @@ export function Hero() {
               <li>
                 <span className="hero-owner-check" aria-hidden="true">✓</span>
                 <span>{t("No hidden charges")}</span>
-              </li>
-              <li>
-                <span className="hero-owner-check" aria-hidden="true">✓</span>
-                <span>{t("Reach more buyers and tenants at home and abroad.")}</span>
               </li>
             </ul>
             <div className="hero-owner-actions">
